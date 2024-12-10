@@ -1,0 +1,19 @@
+.y-dropdown {
+  & .dropdown-toggle::after {
+    display: none;
+  }
+
+  & .dropdown-menu {
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+  }
+
+  & .dropdown-item {
+    padding: 1rem;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $border-body;
+    }
+  }
+}

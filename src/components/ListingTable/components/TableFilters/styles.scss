@@ -1,0 +1,15 @@
+.filters-container {
+  &.offcanvas {
+    z-index: 1047;
+    border-right: none;
+    width: 100%;
+    max-width: 500px;
+  }
+  & .offcanvas-body {
+    padding: 24px 24px 24px 16px;
+  }
+}
+
+.filters-backdrop {
+  z-index: 1046;
+}

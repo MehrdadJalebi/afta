@@ -1,0 +1,39 @@
+.y-table {
+  padding: 0;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+  transition: opacity 0.3s;
+
+  & tr {
+    & td:first-child,
+    th:first-child {
+      border-radius: 0 8px 8px 0;
+    }
+    & td:last-child,
+    th:last-child {
+      border-radius: 8px 0 0 8px;
+    }
+  }
+
+  & th {
+    padding: 12px;
+    background-color: $blue-100;
+  }
+
+  & td {
+    padding: 12px;
+    background-color: $gray-300;
+  }
+}
+
+@media (max-width: 767px) {
+  .table-responsive .dropdown-menu {
+    position: absolute;
+  }
+}
+@media (min-width: 768px) {
+  .table-responsive {
+    overflow-x: auto;
+  }
+}

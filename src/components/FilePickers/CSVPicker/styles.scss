@@ -1,0 +1,15 @@
+.csv-picker-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: background-color 0.3s;
+  background-color: $gray-300;
+  padding: 25px;
+  border-radius: 8px;
+  &.rejected {
+    background-color: $red-200;
+  }
+  &.accepted {
+    background-color: $green-300;
+  }
+}

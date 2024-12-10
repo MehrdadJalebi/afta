@@ -1,0 +1,63 @@
+// Bootstrap Overrides
+$font-family-sans-serif:
+  var(--Vazirmatn),
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  "Helvetica Neue";
+
+$input-btn-font-family: $font-family-sans-serif;
+
+$small-font-size: 0.75rem;
+
+$body-bg: #fafafa;
+$body-color: $gray-900;
+$body-secondary-color: $gray-700;
+
+$border-radius: 0.5rem;
+
+// color contrast
+$min-contrast-ratio: 3;
+
+// input
+$input-color: $gray-800;
+$input-border-color: $gray-700;
+$input-focus-border-color: $primary-800;
+$input-placeholder-color: $gray-600;
+$input-focus-box-shadow: 0 0 0 1px $primary-800;
+$input-disabled-bg: $gray-200;
+$input-btn-padding-y: 0.5rem;
+$input-btn-padding-x: 1.25rem;
+$input-btn-focus-color-opacity: 1;
+$input-focus-width: 1px;
+
+// input label
+$form-label-font-size: 0.875rem;
+$form-label-font-weight: 500;
+$form-label-color: $gray-700;
+$form-feedback-font-size: 0.75rem;
+
+// checkbox and switch and radio
+$border-color: $gray-700;
+$form-check-input-border: 2px solid $border-color;
+$form-check-input-width: 1.5em !default;
+$form-check-transition:
+  background-color 0.15s ease-in-out,
+  border-color 0.15s ease-in-out,
+  box-shadow 0.15s ease-in-out;
+$form-switch-width: 2em;
+$form-check-input-focus-box-shadow: 0 0 0 2px $primary-200;
+$form-check-input-focus-border: $gray-500;
+$form-switch-focus-color: rgba(0, 0, 0, 0.25);
+$form-check-radio-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='2.5' fill='#{$blue-600}'/></svg>");
+
+// modal
+$modal-content-border-radius: 12px;
+$modal-header-border-color: $gray-400;
+$modal-backdrop-bg: $primary-800;
+
+// button
+$btn-border-radius: 0.5rem;
+$btn-border-radius-sm: $btn-border-radius;
+$btn-border-radius-lg: $btn-border-radius;

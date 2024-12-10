@@ -1,0 +1,86 @@
+.phone-container {
+  height: 50vh;
+  width: 15vw;
+  min-height: 450px;
+  min-width: 250px;
+  border: 6px solid $gray-600;
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: column;
+
+  .phone-top {
+    background-color: $gray-300;
+    height: 65px;
+    border-radius: 25px 25px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 25px;
+
+    .sender-section {
+      display: flex;
+      justify-content: center;
+      font-size: 0.75rem;
+      height: 20px;
+      width: 100%;
+      border-radius: 15px;
+      background-color: $gray-100;
+    }
+  }
+
+  .phone-body {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    height: 100%;
+    padding: 20px 15px;
+    overflow-y: auto;
+    word-wrap: break-word;
+    word-break: break-word;
+
+    .message-section {
+      padding: 10px;
+      font-size: 0.75rem;
+      background-color: $gray-300;
+      min-height: 150px;
+      height: auto;
+      white-space: pre-line;
+      width: 100%;
+      border-radius: 15px;
+    }
+  }
+
+  .phone-buttom {
+    background-color: $gray-300;
+    height: 65px;
+    border-radius: 0 0 25px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+
+    .toggle-section {
+      display: flex;
+      align-items: center;
+      padding: 0 5px;
+      height: 20px;
+      width: 50%;
+      border-radius: 15px;
+      background-color: $gray-100;
+    }
+
+    .simple-circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: $gray-100;
+
+      &.small {
+        width: 15px;
+        height: 15px;
+        background-color: $gray-300;
+      }
+    }
+  }
+}

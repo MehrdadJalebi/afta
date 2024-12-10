@@ -1,0 +1,124 @@
+.y-date-picker {
+  & .rmdp-day-picker {
+    padding: 0;
+    & > div {
+      width: 326px;
+    }
+  }
+
+  & .rmdp-calendar {
+    padding: 0;
+  }
+
+  & .rmdp-week:nth-child(2) {
+    padding-top: 0.5rem;
+  }
+  & .rmdp-week:last-child {
+    padding-bottom: 0.5rem;
+  }
+  & .rmdp-week:first-child {
+    background-color: $gray-300;
+
+    & .rmdp-week-day {
+      color: $gray-700;
+      flex: 1;
+    }
+  }
+
+  & .rmdp-day {
+    // TODO width of datepicker
+    color: $gray-800;
+    flex: 1;
+    height: 28px;
+    transition:
+      color,
+      background-color 0.2s;
+
+    & span {
+      width: 28px;
+      height: 28px;
+      margin: 0 auto;
+      position: static;
+      transition:
+        color,
+        background-color 0.2s;
+    }
+
+    &:last-child {
+      color: $red-600;
+    }
+
+    &.rmdp-today .sd {
+      color: $primary;
+      background-color: transparent;
+      border: 1px solid $primary;
+    }
+
+    &.rmdp-selected .sd {
+      background-color: $primary;
+    }
+
+    &.rmdp-deactive,
+    &.rmdp-disabled {
+      color: $gray-600;
+
+      &:last-child {
+        color: $red-200;
+      }
+    }
+
+    &.rmdp-range,
+    &.rmdp-range-hover {
+      background-color: #ccf1ef;
+      box-shadow: none;
+
+      &.start,
+      &.end {
+        & span {
+          color: $gray-100;
+          background-color: $primary;
+          border: 1px solid #00948b;
+          top: 0;
+          right: 0;
+        }
+      }
+
+      &.start {
+        background: linear-gradient(to left, transparent 50%, #ccf1ef 50%);
+      }
+
+      &.end {
+        background: linear-gradient(to right, transparent 50%, #ccf1ef 50%);
+      }
+      &.start.end {
+        background: none;
+      }
+    }
+
+    &:not(.rmdp-disabled, .rmdp-day-hidden) span:hover {
+      color: $gray-100;
+      background-color: $primary;
+    }
+  }
+
+  & .side-plugin {
+    padding: 16px 24px;
+    & p {
+      text-align: start;
+      margin-bottom: 24px;
+      cursor: pointer;
+      transition: color 0.2s;
+      &:hover {
+        color: $primary;
+      }
+      &.selected {
+        color: $primary;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.y-date-picker-modal .modal-dialog {
+  width: fit-content;
+}

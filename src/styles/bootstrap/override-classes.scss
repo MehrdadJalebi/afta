@@ -1,0 +1,119 @@
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+  border-color: var(--bs-form-invalid-border-color);
+  padding-right: $input-btn-padding-x;
+  box-shadow: map-get(
+    map-get($form-validation-states, "invalid"),
+    "focus-box-shadow"
+  );
+  background-image: unset !important;
+  background-repeat: unset !important;
+  background-position: unset !important;
+  background-size: unset !important;
+}
+
+.invalid-feedback {
+  font-weight: 500;
+}
+
+.modal-header {
+  border: 0;
+  padding: 20px 20px 0;
+
+  .btn-close {
+    margin: calc(-0.5 * var(--bs-modal-header-padding-y)) auto
+      calc(-0.5 * var(--bs-modal-header-padding-y))
+      calc(-0.5 * var(--bs-modal-header-padding-x));
+  }
+}
+
+.offcanvas-backdrop,
+.modal-backdrop {
+  background-color: rgba(38, 38, 38, 0.5);
+  backdrop-filter: blur(2.5px);
+  &.show {
+    opacity: 1;
+  }
+}
+
+.offcanvas {
+  background-color: $gray-100;
+  z-index: 1045;
+}
+
+.row {
+  --bs-gutter-x: 2rem !important;
+  --bs-gutter-y: 1rem !important;
+}
+
+textarea {
+  resize: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.border-none {
+  border: none !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.mx-n2 {
+  margin-right: -16px;
+  margin-left: -16px;
+}
+
+.Toastify__close-button {
+  margin-top: -7px;
+}
+
+.dropdown-menu {
+  background-color: $gray-100;
+  box-shadow: 0 5px 15px 0 rgba(20, 20, 20, 0.2);
+  border: none;
+}
+
+.tooltip-inner {
+  width: 100%;
+  max-width: 400px;
+}
+
+.hijack {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 10px,
+    $blue-200 0,
+    $blue-200 20px
+  );
+}
+
+hr.divider {
+  border-color: $border-body;
+  opacity: 1;
+  margin: 1.5rem 0;
+}
+
+.w-content {
+  width: fit-content !important;
+}

@@ -1,0 +1,57 @@
+.y-typography {
+  color: $dark;
+
+  &-regular {
+    font-weight: 400;
+  }
+
+  &-medium {
+    font-weight: 500;
+  }
+
+  &-bold {
+    font-weight: 700;
+  }
+
+  $typography-variants: (
+    "headline1": (
+      2rem,
+      3.125rem,
+    ),
+    "headline2": (
+      1.25rem,
+      1.9375rem,
+    ),
+    "headline3": (
+      1.125rem,
+      1.75rem,
+    ),
+    "title": (
+      1.125rem,
+      1.5rem,
+    ),
+    "label": (
+      0.875rem,
+      1.3125rem,
+    ),
+    "caption": (
+      1rem,
+      1.5rem,
+    ),
+    "body": (
+      0.875rem,
+      1.25rem,
+    ),
+    "detail": (
+      0.75rem,
+      1.125rem,
+    ),
+  );
+
+  @each $variant, $values in $typography-variants {
+    &-#{$variant} {
+      font-size: nth($values, 1);
+      line-height: nth($values, 2);
+    }
+  }
+}

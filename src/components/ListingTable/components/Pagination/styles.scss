@@ -1,0 +1,34 @@
+.y-pagination {
+  direction: rtl;
+  display: flex;
+
+  & .page-link {
+    border: none;
+    border-radius: 8px;
+    background-color: transparent;
+    height: 100%;
+    padding: 0.25rem 0.75rem;
+    min-width: 36px;
+    color: $gray-950;
+    text-align: center;
+    transition: background-color 200ms;
+    &:hover {
+      background-color: $primary-100;
+    }
+  }
+
+  & .page-item.active > .page-link {
+    background-color: $primary-100;
+    border: 1px solid $primary-600;
+    color: $primary-600;
+  }
+
+  & .pagination-arrow {
+    & .page-link {
+      color: $primary-600;
+    }
+    &.disabled > .page-link {
+      color: $gray-900;
+    }
+  }
+}

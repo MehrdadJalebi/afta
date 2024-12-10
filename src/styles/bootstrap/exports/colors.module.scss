@@ -1,0 +1,29 @@
+:export {
+  @each $key, $value in $gray-palette {
+    #{to-snake-case(unquote($key))}: $value;
+  }
+  @each $key, $value in $green-palette {
+    #{to-snake-case(unquote($key))}: $value;
+  }
+  @each $key, $value in $red-palette {
+    #{to-snake-case(unquote($key))}: $value;
+  }
+  @each $key, $value in $warning-palette {
+    #{to-snake-case(unquote($key))}: $value;
+  }
+  @each $key, $value in $blue-palette {
+    #{to-snake-case(unquote($key))}: $value;
+  }
+  @each $key, $value in $primary-palette {
+    #{to-snake-case(unquote($key))}: $value;
+  }
+  @each $key, $value in $secondary-palette {
+    #{to-snake-case(unquote($key))}: $value;
+  }
+  @each $key, $value in $border-palette {
+    #{to-snake-case(unquote($key))}: $value;
+  }
+  @each $key, $value in $theme-colors {
+    #{unquote($key)}: $value;
+  }
+}

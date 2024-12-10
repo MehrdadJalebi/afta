@@ -1,0 +1,310 @@
+openapi: 3.0.1
+info:
+  title: Afta
+  version: '1.0'
+paths:
+  "/api/afta/v1/Accounts/otp-request":
+    post:
+      tags:
+      - Accounts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/LoginRequest"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/LoginRequest"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/LoginRequest"
+      responses:
+        '200':
+          description: OK
+  "/api/afta/v1/Accounts/password":
+    patch:
+      tags:
+      - Accounts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/SetPasswordInputRequest"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/SetPasswordInputRequest"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/SetPasswordInputRequest"
+      responses:
+        '200':
+          description: OK
+  "/api/afta/v1/Accounts":
+    get:
+      tags:
+      - Accounts
+      responses:
+        '200':
+          description: OK
+    put:
+      tags:
+      - Accounts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CustomerUpdateRequest"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/CustomerUpdateRequest"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/CustomerUpdateRequest"
+      responses:
+        '200':
+          description: OK
+  "/api/afta/v1/Accounts/active":
+    patch:
+      tags:
+      - Accounts
+      responses:
+        '200':
+          description: OK
+  "/api/afta/v1/Accounts/inactive":
+    patch:
+      tags:
+      - Accounts
+      responses:
+        '200':
+          description: OK
+  "/api/afta/v1/Accounts/sign-out":
+    post:
+      tags:
+      - Accounts
+      responses:
+        '200':
+          description: OK
+  "/api/afta/v1/Accounts/captcha":
+    get:
+      tags:
+      - Accounts
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/CaptchaApiResponse"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CaptchaApiResponse"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/CaptchaApiResponse"
+  "/api/afta/v1/Activity/functions":
+    get:
+      tags:
+      - Activity
+      responses:
+        '200':
+          description: OK
+  "/api/afta/v1/Activity/contracts/{id}":
+    get:
+      tags:
+      - Activity
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: functionName
+        in: query
+        schema:
+          type: string
+      - name: pageIndex
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: pageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+  "/api/afta/v1/Activity/users":
+    get:
+      tags:
+      - Activity
+      parameters:
+      - name: pageIndex
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: functionName
+        in: query
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+  "/api/afta/v1/Contracts":
+    post:
+      tags:
+      - Contracts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ContractRequest"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/ContractRequest"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/ContractRequest"
+      responses:
+        '200':
+          description: OK
+    get:
+      tags:
+      - Contracts
+      responses:
+        '200':
+          description: OK
+  "/api/afta/v1/Contracts/{id}":
+    delete:
+      tags:
+      - Contracts
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+  "/api/afta/v1/Contracts/sign/{id}":
+    patch:
+      tags:
+      - Contracts
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+  "/api/afta/v1/SystemLogs":
+    get:
+      tags:
+      - SystemLogs
+      parameters:
+      - name: pageIndex
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: pageSize
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    CaptchaApiResponse:
+      type: object
+      properties:
+        captchaImgUrl:
+          type: string
+          nullable: true
+        captchaId:
+          type: string
+          nullable: true
+        captchaTextValue:
+          type: string
+          nullable: true
+        captchaTokenValue:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ContractRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CustomerUpdateRequest:
+      type: object
+      properties:
+        firsName:
+          type: string
+          nullable: true
+        lastName:
+          type: string
+          nullable: true
+        nationalCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    LoginRequest:
+      type: object
+      properties:
+        nationalCode:
+          type: string
+          nullable: true
+        cellphone:
+          type: string
+          nullable: true
+        captchaText:
+          type: string
+          nullable: true
+        captchaToken:
+          type: string
+          nullable: true
+        captchaInputText:
+          type: string
+          nullable: true
+      additionalProperties: false
+    SetPasswordInputRequest:
+      type: object
+      properties:
+        password:
+          pattern: "^(?=.*?[A-Z])(?=.*?[0-9]).{8,}$"
+          type: string
+          nullable: true
+        reEnterPassword:
+          pattern: "^(?=.*?[A-Z])(?=.*?[0-9]).{8,}$"
+          type: string
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      description: Put 'Bearer' + 'space key' + Token
+      name: Authorization
+      in: header
+security:
+- Bearer: []

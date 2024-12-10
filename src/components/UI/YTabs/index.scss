@@ -1,0 +1,34 @@
+.y-tabs {
+  &.nav-tabs {
+    border-color: $gray-400;
+  }
+
+  .nav-link {
+    color: $gray-800;
+    background-color: $gray-100;
+    border-bottom: 1px solid $gray-400 !important;
+    position: relative;
+    z-index: 10;
+    margin-bottom: -1px;
+
+    &.active {
+      font-weight: 500;
+      background-color: $gray-100;
+      border-color: $gray-400 !important;
+      border-bottom: 1px solid transparent !important;
+    }
+  }
+
+  .nav-item {
+    margin-bottom: -1px;
+    border-bottom: 1px solid transparent !important;
+  }
+}
+
+.tab-content {
+  .tab-pane {
+    .card {
+      width: 100%;
+    }
+  }
+}

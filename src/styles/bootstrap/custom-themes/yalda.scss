@@ -1,0 +1,16 @@
+$yalda-theme: (
+  "primary-400": #b00020,
+  "primary-700": #b00020,
+);
+
+body[data-custom-theme="yalda"] {
+  .y-btn {
+    position: relative;
+    .yalda-image {
+      position: absolute;
+      right: 0;
+      top: 0;
+      border-top-right-radius: 6px;
+    }
+  }
+}

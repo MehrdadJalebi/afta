@@ -1,0 +1,9 @@
+.chart-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  @include media-breakpoint-up(md) {
+    flex-direction: column;
+  }
+}

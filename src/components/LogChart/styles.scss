@@ -1,0 +1,10 @@
+.chart-container {
+  & .recharts-cartesian-axis-tick-line {
+    display: none;
+  }
+
+  & .range-filter-container {
+    margin-left: 16px;
+    width: 290px;
+  }
+}

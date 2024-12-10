@@ -1,0 +1,135 @@
+.y-stepper-item {
+  display: flex;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  flex-grow: 1;
+  color: $gray-700;
+
+  .y-stepper-item__bullet {
+    color: $gray-700;
+    background-color: $gray-100;
+    border-color: $gray-400;
+    transition: all 0.2s ease;
+  }
+
+  &__subtitle {
+    color: $gray-600;
+    font-size: 0.75rem;
+    font-weight: 400;
+  }
+
+  &__bullet {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px dashed $gray-700;
+    transition: all 0.15s ease;
+  }
+
+  &__title {
+    transition: all 0.15s ease;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+  }
+
+  &:not(.disabled):hover {
+    .y-stepper-item__title {
+      color: $dark;
+    }
+    &:not(.error).y-stepper-item__subtitle {
+      color: $gray-700;
+    }
+    &:not(.error, .selected).y-stepper-item__bullet {
+      color: $dark;
+      background-color: $gray-100;
+      border-color: $dark;
+    }
+  }
+
+  &.selected {
+    cursor: default;
+    color: $dark;
+    .y-stepper-item__bullet {
+      background-color: transparent;
+      color: $primary;
+      font-weight: 700;
+      border-color: $primary;
+      border-style: dashed;
+    }
+    .y-stepper-item__subtitle {
+      color: $gray-700;
+    }
+  }
+
+  &.completed {
+    .y-stepper-item__bullet {
+      color: $gray-100;
+      background-color: $primary;
+      border-color: $primary;
+    }
+    &:hover {
+      .y-stepper-item__bullet {
+        color: $gray-100;
+        background-color: $primary;
+        border-color: $primary;
+      }
+    }
+    .y-stepper-item__subtitle {
+      color: $gray-700;
+    }
+  }
+
+  &.error {
+    .y-stepper-item__bullet {
+      background-color: $danger;
+      border-color: $danger;
+      color: $gray-100;
+    }
+    .y-stepper-item__subtitle {
+      color: $danger;
+    }
+  }
+
+  .y-stepper-item__line {
+    &:after {
+      content: "";
+      flex: 1;
+      margin: 0 0.5rem;
+      height: 1px;
+      border-top: 1px solid $gray-400;
+    }
+
+    &-complete {
+      &:after {
+        border-color: $primary;
+      }
+    }
+  }
+}
+
+.y-stepper_vertical__wrapper {
+  position: relative;
+  min-height: 44px;
+  margin-bottom: 0.75rem;
+}
+
+.y-stepper_vertical__line {
+  position: absolute;
+  right: 0.75rem;
+  height: calc(100% - 1rem);
+  top: 28px;
+  border-right: 1px solid $gray-400;
+
+  &-complete {
+    border-right-color: $primary;
+  }
+}
+
+.y-stepper_mobile__wrapper {
+  background: $gray-100;
+  padding: 1rem 0 0;
+}

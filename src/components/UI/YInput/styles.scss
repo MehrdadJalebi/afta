@@ -1,0 +1,56 @@
+.y-input {
+  width: 100%;
+  transition: opacity 0.3s;
+
+  &.disabled {
+    opacity: 0.5;
+  }
+
+  & .y-input-container {
+    border: 1px solid $border-input;
+    border-radius: 8px;
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    transition: border-color 0.3s;
+    height: 42px;
+
+    &.error {
+      border-color: $red_400;
+    }
+
+    &:focus-within {
+      border-color: $border-input-hover;
+
+      &.error {
+        border-color: $danger;
+      }
+    }
+  }
+
+  & input,
+  & textarea {
+    border: none;
+    padding: 7px 12px;
+    height: 100%;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    font-size: 14px;
+    color: $gray-950;
+    &::placeholder {
+      opacity: 0.5;
+    }
+  }
+
+  & .slot-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  & .feedback-container {
+    margin-top: 8px;
+    height: 1.125rem; // same as detail variant's line height. To prevent layout shift when error
+  }
+}

@@ -1,0 +1,42 @@
+@import "bootstrap/scss/bootstrap";
+@import "./override-classes";
+
+// global styles
+
+body {
+  font-feature-settings: "ss04";
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: none;
+  background: $gray-400;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $gray-700;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $gray-800;
+}
+
+.dir-ltr {
+  direction: ltr;
+}

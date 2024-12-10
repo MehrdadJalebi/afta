@@ -1,0 +1,116 @@
+.y-badge {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.25rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+
+  i {
+    margin-left: 0.25rem;
+  }
+
+  &.y-badge-icon {
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+
+    i {
+      margin: 0;
+    }
+  }
+
+  &.y-badge-dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+  }
+
+  &.y-badge-rounded {
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+  }
+
+  &.y-badge-small {
+    font-size: 0.75rem !important;
+    padding: 4px 8px;
+  }
+
+  $colors: (
+    primary: (
+      text: $primary,
+      dot: $primary,
+      bg: $primary-200,
+      filledText: #fff,
+      filledBg: $primary,
+    ),
+    secondary: (
+      text: $secondary-950,
+      dot: $secondary,
+      bg: $secondary-200,
+      filledText: $dark,
+      filledBg: $secondary,
+    ),
+    warning: (
+      text: $warning,
+      dot: $warning,
+      bg: $warning-200,
+      filledText: #fff,
+      filledBg: $warning,
+    ),
+    success: (
+      text: $success,
+      dot: $success,
+      bg: $green-200,
+      filledText: #fff,
+      filledBg: $success,
+    ),
+    danger: (
+      text: $danger,
+      dot: $danger,
+      bg: $red-200,
+      filledText: #fff,
+      filledBg: $danger,
+    ),
+    info: (
+      text: $info,
+      dot: $info,
+      bg: $blue-200,
+      filledText: #fff,
+      filledBg: $info,
+    ),
+    light: (
+      text: $dark,
+      dot: $primary-200,
+      bg: $primary-200,
+      filledText: #fff,
+      filledBg: $light,
+    ),
+    dark: (
+      text: $gray-800,
+      dot: $gray-600,
+      bg: $gray-300,
+      filledText: #fff,
+      filledBg: $gray-600,
+    ),
+  );
+
+  @each $key, $value in $colors {
+    &.badge-#{$key} {
+      color: map-get($value, text);
+      background-color: map-get($value, bg);
+      font-size: 1rem;
+
+      &.y-badge-dot {
+        background-color: map-get($value, dot);
+      }
+
+      &.y-badge-filled {
+        color: map-get($value, filledText);
+        background-color: map-get($value, filledBg);
+      }
+    }
+  }
+}
