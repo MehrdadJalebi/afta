@@ -56,7 +56,7 @@ const headerContainer = css`
   justify-content: space-between;
   top: 0;
   width: 100%;
-  background-color: ${themeColors.gray_100};
+  background-color: ${themeColors.red_100};
   height: 64px;
   padding: 0.5rem;
   z-index: 1050; // sidebar is 1045

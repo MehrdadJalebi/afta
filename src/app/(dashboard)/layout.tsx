@@ -31,7 +31,7 @@ export default function DashboardLayout({ children }: LayoutProps) {
 }
 
 const mainWrapper = css`
-  background-color: ${themeColors.gray_200};
+  background-color: ${themeColors.gray_100};
 `
 
 const contentContainer = (showSidebar: boolean) => css`

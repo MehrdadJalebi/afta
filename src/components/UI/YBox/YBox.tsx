@@ -40,7 +40,7 @@ export function YBox(props: YBoxProps) {
 const cardCss = css`
   border: 1px solid ${themeColors.border_body};
   background-color: ${themeColors.gray_100};
-  border-radius: 12px;
+  border-radius: 6px;
 `
 
 const titleCss = css`

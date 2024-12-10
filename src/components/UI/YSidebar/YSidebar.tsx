@@ -189,7 +189,7 @@ const offcanvasContainer = css`
   border-left: none !important;
   margin-top: 4rem;
   max-width: 230px;
-  background-color: ${themeColors.gray_100};
+  background-color: ${themeColors.red_100};
 `
 
 const offcanvasBody = css`
