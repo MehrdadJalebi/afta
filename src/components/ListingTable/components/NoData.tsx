@@ -23,7 +23,7 @@ export function NoData({
       body={
         <Row>
           <Col xxl={2} xl={3} md={4} sm={5}>
-            <Image src={imageSource} alt={"no-data"} width={180} height={150} />
+            <Image src={imageSource} alt={"no-data"} width={160} height={160} />
           </Col>
           <Col xxl={10} xl={9} md={8} sm={7}>
             <div className="d-flex flex-column w-100 h-100 justify-content-center">

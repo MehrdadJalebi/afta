@@ -54,7 +54,6 @@ export default function CampaignPage() {
         hasError={isError}
         noDataProps={{
           title: "هنوز کاربری ندارید!",
-          description: "برای شروع لازم است یک کاربر بسازید.",
           imageSource: "/no-data-general.png",
         }}
         isFetching={isFetching}
