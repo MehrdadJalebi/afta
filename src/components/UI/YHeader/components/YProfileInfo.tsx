@@ -68,15 +68,10 @@ export function YProfileInfo() {
           </div>
           <span>0935225522552525</span>
         </div>
-
-        <div css={sectionDivider}>
-          <span className="title">دسترسی‌ها</span>
-        </div>
-
         <div css={dropdownItem} onClick={exitAccount}>
           <div className="d-flex align-items-center">
             <i className="icon-log-out icon-lg" />
-            <span className="me-4">خروج از حساب</span>
+            <span className="me-4">خروج</span>
           </div>
         </div>
       </Dropdown.Menu>
@@ -119,8 +114,8 @@ const userInfo = css`
     width: 40px;
     height: 40px;
     border-radius: 1.25rem;
-    color: ${themeColors.primary_200};
-    background-color: ${themeColors.primary_100};
+    color: ${themeColors.red_200};
+    background-color: ${themeColors.red_100};
   }
 `
 
