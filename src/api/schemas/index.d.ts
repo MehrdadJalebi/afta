@@ -1,7 +1,1 @@
-export { paths as IrisPaths } from "./iris-schema.d.ts"
-export { paths as NajvaAccountsPaths } from "./najva-accounts-schema.d.ts"
-export { paths as SegmentPaths } from "./segment-schema.d.ts"
-export { paths as AccountsPaths } from "./accounts-schema.d.ts"
-export { paths as CrmPaths } from "./crm-schema.d.ts"
-export { paths as FinancialPaths } from "./financial-schema.d.ts"
 export { paths as AftaPaths } from "./afta-schema.d.ts"

@@ -4092,9 +4092,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"najva-panel@workspace:.":
+"afta-panel@workspace:.":
   version: 0.0.0-use.local
-  resolution: "najva-panel@workspace:."
+  resolution: "afta-panel@workspace:."
   dependencies:
     "@emotion/react": "npm:^11.11.4"
     "@faker-js/faker": "npm:^8.4.1"

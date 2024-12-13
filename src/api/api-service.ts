@@ -12,9 +12,8 @@ import type {
 import type {
   AftaPaths,
 } from "./schemas"
-import { serverUrls, DEV_JWT_TOKEN, IS_DEVELOPMENT, DEV_BEARER_TOKEN } from "@/constants"
+import { serverUrls, DEV_BEARER_TOKEN } from "@/constants"
 import { useAccountStore } from "@/store"
-
 const AFTA_BASE_URL = serverUrls.afta
 
 type PathGen<BasePath extends string, Paths> = {
@@ -23,7 +22,7 @@ type PathGen<BasePath extends string, Paths> = {
 type Paths = PathGen<
   "",
     AftaPaths
-> // TODO rewrite with PathGen<BasePath>
+>
 
 const clients = {
   afta: createClient<Paths>({ baseUrl: AFTA_BASE_URL }),
@@ -68,15 +67,10 @@ export async function clientFetch<M extends HttpMethod, P extends PathsOf<M>>(
   try {
     const bearerToken = await getAuthenticationCredentials()
     
-    if (serviceKey === 'afta') {
+    if (bearerToken) {
       options = {
         ...options,
         headers: { ...options.headers, Authorization: `Bearer ${DEV_BEARER_TOKEN}` },
-      } as unknown as RequestData<M, P>
-    } else if (bearerToken) {
-      options = {
-        ...options,
-        headers: { ...options.headers, Authorization: `JWT ${bearerToken}` },
       } as unknown as RequestData<M, P>
     }
 
@@ -90,7 +84,7 @@ export async function clientFetch<M extends HttpMethod, P extends PathsOf<M>>(
 
     if (error) {
       if (response.status === 401) {
-        getJwtTokenApi()
+        //redirectToLogin()
       }
       throw { message: error, response }
     }
@@ -105,15 +99,12 @@ export async function getAuthenticationCredentials() {
   const { bearerToken, setBearerToken } = useAccountStore.getState()
   let currentBearerToken = bearerToken
   if (!currentBearerToken) {
-    currentBearerToken = await getJwtTokenApi()
+    //redirectToLogin()
   }
   return currentBearerToken
 }
 
-async function getJwtTokenApi() {
-  const { setBearerToken } = useAccountStore.getState()
-  return ''
-}
+
 
 export function redirectToLogin() {
   window.location.replace('/login')

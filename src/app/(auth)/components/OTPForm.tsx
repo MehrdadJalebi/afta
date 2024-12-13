@@ -21,6 +21,7 @@ export function OTPForm(props: Props) {
   const { phoneNumber, onReturnToForm } = props;
   const [isRedirecting, setIsRedirecting] = useState(false);
   const router = useRouter();
+  const { timer, resetTimer, formattedTime } = useTimer(120);
 
   const { mutateAsync, isPending } = useMutation(mutateService('afta', 'post', '/api/afta/v1/Accounts/otp-request'));
   const { mutateAsync: fetchAccess, isPending: isFetchAccessPending } = useMutation(
@@ -28,12 +29,13 @@ export function OTPForm(props: Props) {
   );
 
   function handleSendOTP() {
-    mutateAsync({ body: { ceo_mobile_number: phoneNumber } })
-      .then(() => resetTimer())
+    mutateAsync({ body: { phoneNumber: phoneNumber } })
+      .then(() => {} //resetTimer()
+      )
       .catch(({ message }) => toastError(message));
   }
 
-  const methods = useForm<OTPFormModel>({
+  const methods = useForm<any>({
     defaultValues: {
       otp: '',
     },
@@ -69,7 +71,7 @@ export function OTPForm(props: Props) {
   function onSubmit(data: OTPFormModel) {
     fetchAccess({
       body: {
-        otp: data.otp,
+        otp_code: data.otp,
         mobile_number: phoneNumber,
       },
     })
@@ -106,20 +108,17 @@ export function OTPForm(props: Props) {
       <div className="mb-6 text-primary">رمز ورود یکبار مصرف به شماره همراه {phoneNumber} ارسال شده است.</div>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <div className="position-relative">
+          <div className="position-relative mt-2">
             <YInput
               name="otp"
-              label="رمز ورود یک‌بار مصرف"
-              placeholder="رمز ورود یک‌بار مصرف "
-              rules={{ required: 'رمز ورود یک‌بار مصرف الزامی است!' }}
-              isNumber
+              title="رمز ورود یک‌بار مصرف"
               autoFocus
               maxLength={6}
               minLength={6}
               autoComplete="one-time-code"
             />
             {timer >= 0 ? (
-              <span css={timerCountDown}>{formattedTime}</span>
+              <span css={timerCountDown}>00:59</span>
             ) : (
               <span css={resendOTPBtn} onClick={handleSendOTP}>
                 ارسال مجدد کد
@@ -133,7 +132,7 @@ export function OTPForm(props: Props) {
               className="w-100"
               onClick={onReturnToForm}
               disabled={isRedirecting}
-              icon={{ icon: 'icon-chevron-right', placement: 'left' }}
+              icon={{ icon: 'icon-chevron-right', placement: 'right' }}
             >
               بازگشت و تغییر شماره همراه
             </YBtn>
@@ -173,6 +172,7 @@ const resendOTPBtn = css`
 const controllersContainer = css`
   display: flex;
   gap: 0.75rem;
+  margin-top: 10px;
   white-space: nowrap;
   @media (max-width: ${themeVariables.breakpoints.sm}) {
     flex-direction: column-reverse;

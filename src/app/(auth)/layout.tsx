@@ -8,9 +8,6 @@ import { themeVariables } from 'src/styles/bootstrap/variables';
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
     <div css={authLayoutBox}>
-      <div css={authBackgroundContainer}>
-        ورود
-      </div>
       <div css={authFormContainer}>{children}</div>
     </div>
   );
@@ -20,17 +17,6 @@ const authLayoutBox = css`
   display: flex;
   height: 100vh;
   width: 100%;
-`;
-
-const authBackgroundContainer = css`
-  height: 100%;
-  flex: 4;
-  @media (max-width: ${themeVariables.breakpoints.xl}) {
-    flex: 3;
-  }
-  @media (max-width: ${themeVariables.breakpoints.lg}) {
-    display: none;
-  }
 `;
 
 const authFormContainer = css`

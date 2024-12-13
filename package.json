@@ -1,8 +1,8 @@
 {
-  "name": "najva-panel",
+  "name": "afta-panel",
   "version": "0.1.0",
   "private": true,
-  "author": "Najva-Frontend-Team",
+  "author": "afta-Frontend-Team",
   "scripts": {
     "devssl": "next dev --experimental-https",
     "dev": "next dev",

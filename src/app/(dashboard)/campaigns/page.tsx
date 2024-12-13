@@ -46,7 +46,7 @@ export default function CampaignPage() {
         noDataProps={{
           title: "هنوز کاربری ندارید!",
           description: "برای شروع لازم است یک کاربر بسازید.",
-          imageSource: "/no-data-create-campaign.png",
+          imageSource: "/no-data-general.png",
         }}
         isFetching={isFetching}
         slot={

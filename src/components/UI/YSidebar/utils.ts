@@ -3,7 +3,7 @@ import type { SidebarItemProps } from "./YSidebar"
 export const sidebarItems: SidebarItemProps[] = [
   {
     key: "campaigns",
-    title: "کمپین‌ها",
+    title: "کاربران",
     icon: "icon-campaign",
     route: "/campaigns",
     disabled: false,

@@ -102,7 +102,7 @@ export function CSVPicker(props: CSVPickerProps) {
   })
 
   const downloadSample = () => {
-    window.open("https://assets.najva.com/panel/sample_file.xlsx", "_blank")
+    
   }
 
   return (

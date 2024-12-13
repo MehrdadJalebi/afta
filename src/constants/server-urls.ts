@@ -4,7 +4,7 @@ const serverUrls = {
     afta: "http://176.65.243.37:8080",
   },
   production: {
-    base_url: "https://sms-panel.najva.com",
+    base_url: "https://afta-panel.com",
     afta: "http://176.65.243.37:8080",
   },
 } as const

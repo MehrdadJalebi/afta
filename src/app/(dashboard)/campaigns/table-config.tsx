@@ -16,14 +16,7 @@ export interface TableMeta {
 }
 
 const dropdownItems = {
-  copy: { title: "کپی کمپین" },
   edit: { title: "ویرایش" },
-  delete: { title: "حذف دائمی", className: "text-danger" },
-  cancel: { title: "لغو ارسال", className: "text-danger" },
-  details: { title: "جزئیات کمپین" },
-  sentslogs: { title: "مشاهده لاگ ارسال‌ها" },
-  clickslogs: { title: "مشاهده لاگ کلیک‌ها" },
-  continueSending: { title: "از سرگیری ارسال" },
 }
 
 const getDropdownNodes = (keys: (keyof typeof dropdownItems)[]) => {
