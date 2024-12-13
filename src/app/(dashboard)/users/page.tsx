@@ -42,7 +42,7 @@ export default function CampaignPage() {
   return (
     <>
       <YTypography variant={"headline2-bold"} className={"mb-4"}>
-        کاربران
+        لیست کاربران
       </YTypography>
       <ListingTable
         columns={columns}

@@ -33,7 +33,7 @@ export function YSidebar({
   sidebarItems,
   ...props
 }: YSidebarProps) {
-  const { isAdmin, accountID } = useAccountStore()
+  const { isAdmin } = useAccountStore()
   const pathname = usePathname()
   const { mdAndDown } = useDisplay()
   const [activeKey, setActiveKey] = useState<string>()
@@ -167,12 +167,12 @@ const sidebarTitle = (active: boolean) => css`
 
 const sidebarItemContainer = (active: boolean, disabled: boolean) => css`
   transition: background-color 0.1s;
-  background-color: ${active ? themeColors.blue_100 : "transparent"};
+  background-color: ${active ? themeColors.red_200 : "transparent"};
   border-radius: 0.5rem;
   margin: 0.25rem 0;
   text-decoration: none;
   opacity: ${disabled ? 0.6 : 1};
-  color: ${active ? themeColors.primary_600 : themeColors.gray_950};
+  color: ${active ? themeColors.gray_100 : themeColors.gray_950};
 
   & > * {
     color: inherit;
@@ -181,7 +181,7 @@ const sidebarItemContainer = (active: boolean, disabled: boolean) => css`
 
 const hoverEffect = css`
   &:hover {
-    background-color: ${themeColors.blue_100};
+    background-color: ${themeColors.red_200};
   }
 `
 
@@ -193,7 +193,7 @@ const offcanvasContainer = css`
 `
 
 const offcanvasBody = css`
-  border-left: none;
+  border-left: 2px solid ${themeColors.red_200};
   padding: 0.5rem;
 `
 

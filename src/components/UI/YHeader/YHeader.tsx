@@ -15,7 +15,6 @@ interface Props {
 }
 
 export function YHeader({ onToggleSidebar }: Props) {
-
   return (
     <div css={headerContainer}>
       <div className="d-flex align-items-center">
@@ -26,12 +25,7 @@ export function YHeader({ onToggleSidebar }: Props) {
           icon="icon-menu-hamburger"
           onClick={onToggleSidebar}
         />
-        <Image
-          src={"/afta.png"}
-          alt={"afta logo"}
-          width={45}
-          height={45}
-        />
+        <Image src={"/afta.png"} alt={"afta logo"} width={45} height={45} />
         <div css={divider} />
       </div>
       <div className="d-flex align-items-center">
@@ -52,7 +46,7 @@ const headerContainer = css`
   height: 64px;
   padding: 0.5rem;
   z-index: 1050; // sidebar is 1045
-  box-shadow: 0 1px 8px 0 rgba(20, 20, 20, 0.12);
+  border-bottom: 2px solid ${themeColors.red_200};
 `
 
 const divider = css`

@@ -52,7 +52,7 @@ export function YProfileInfo() {
     <Dropdown>
       <Dropdown.Toggle css={dropdownToggle} as={DropdownToggleBtn}>
         <YTypography className="d-flex" tag={"div"}>
-          <i className="icon-user" />
+          اطلاعات کاربری
         </YTypography>
       </Dropdown.Toggle>
 

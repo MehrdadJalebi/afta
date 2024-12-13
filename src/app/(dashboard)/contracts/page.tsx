@@ -42,7 +42,7 @@ export default function CampaignPage() {
   return (
     <>
       <YTypography variant={"headline2-bold"} className={"mb-4"}>
-        کاربران
+        لیست قراردادها
       </YTypography>
       <ListingTable
         columns={columns}
@@ -53,11 +53,10 @@ export default function CampaignPage() {
         isLoading={isLoading}
         hasError={isError}
         noDataProps={{
-          title: "هنوز کاربری ندارید!",
+          title: "هنوز قراردادی ثبت نکرده‌اید!",
           imageSource: "/no-data-general.png",
         }}
         isFetching={isFetching}
-        slot={<div className={"d-flex"}></div>}
       />
     </>
   )
