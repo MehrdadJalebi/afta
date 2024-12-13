@@ -1,36 +1,36 @@
-'use client';
+"use client"
 
-import { css } from '@emotion/react';
-import { useState } from 'react';
+import { css } from "@emotion/react"
+import { useState } from "react"
 
-import { OTPForm } from 'src/app/(auth)/components/OTPForm';
-import { themeColors, themeVariables } from 'src/styles/bootstrap/variables';
+import { OTPForm } from "src/app/(auth)/components/OTPForm"
+import { themeColors, themeVariables } from "src/styles/bootstrap/variables"
 
-import { LoginForm } from './LoginForm';
+import { LoginForm } from "./LoginForm"
 
 export function Login() {
-  const [step, setStep] = useState<'form' | 'otp'>('otp');
-  const [formData, setFormData] = useState<any>({ phoneNumber: '' });
+  const [step, setStep] = useState<"form" | "otp">("form")
+  const [formData, setFormData] = useState<any>({ phoneNumber: "" })
 
   function handleSubmitForm(data: any) {
-    setStep('otp');
-    setFormData(data);
+    setStep("otp")
+    setFormData(data)
   }
 
   return (
     <>
       <div css={formContainer}>
-        {step === 'form' ? (
+        {step === "form" ? (
           <LoginForm onSubmitForm={handleSubmitForm} />
         ) : (
           <OTPForm
             phoneNumber={formData.phoneNumber}
-            onReturnToForm={() => setStep('form')}
+            onReturnToForm={() => setStep("form")}
           />
         )}
       </div>
     </>
-  );
+  )
 }
 
 const aftaLogo = css`
@@ -38,14 +38,14 @@ const aftaLogo = css`
   align-items: center;
 
   &::before {
-    content: ' ';
+    content: " ";
     display: block;
     margin-left: 0.75rem;
     width: 32px;
     height: 2px;
     background-color: ${themeColors.primary};
   }
-`;
+`
 
 const formContainer = css`
   display: flex;
@@ -53,4 +53,4 @@ const formContainer = css`
   align-items: center;
   justify-content: center;
   margin: 2rem 0;
-`;
+`

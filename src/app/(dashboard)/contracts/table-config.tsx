@@ -5,15 +5,10 @@ import { SelectCallback } from "@restart/ui/types"
 import { TableDateTime } from "@/components/Utils"
 import { ActionMenuToggle } from "@/components/UI/YDropdown/custom-toggles"
 import { OverlayTrigger, Tooltip } from "react-bootstrap"
-import {
-  getFixedNumber,
-  numberwithCommas,
-} from "@/utils"
+import { getFixedNumber, numberwithCommas } from "@/utils"
 import { queryService } from "@/api"
 
-export interface TableMeta {
-  
-}
+export interface TableMeta {}
 
 const dropdownItems = {
   edit: { title: "ویرایش" },

@@ -14,21 +14,30 @@ import { useState } from "react"
 import { toastSuccess, toastError } from "src/utils"
 
 export default function CampaignPage() {
-
   const tableStateManager = useTableState(filtersConfig)
 
-  const { data: users, isLoading, isError, refetch, isFetching } = useQuery(
+  const {
+    data: users,
+    isLoading,
+    isError,
+    refetch,
+    isFetching,
+  } = useQuery(
     queryService("afta", "/api/afta/v1/Activity/users", {
-      params: { query: getTableQueryParams(tableStateManager) },
+      params: {
+        query: {
+          functionName: "CreateContract",
+          ...getTableQueryParams(tableStateManager),
+        },
+      },
     }),
   )
 
   const { data: functions } = useQuery(
     queryService("afta", "/api/afta/v1/Activity/functions"),
   )
-  
-  const router = useRouter()
 
+  const router = useRouter()
 
   return (
     <>
@@ -49,11 +58,7 @@ export default function CampaignPage() {
           imageSource: "/no-data-general.png",
         }}
         isFetching={isFetching}
-        slot={
-          <div className={"d-flex"}>
-          
-          </div>
-        }
+        slot={<div className={"d-flex"}></div>}
       />
     </>
   )

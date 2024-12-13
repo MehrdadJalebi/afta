@@ -10,7 +10,7 @@ const nextConfig = {
     prependData: `@import "src/styles/bootstrap/_helpers.scss";`,
   },
   async redirects() {
-    return [{ source: "/", destination: "/campaigns", permanent: true }]
+    return [{ source: "/", destination: "/users", permanent: true }]
   },
 }
 

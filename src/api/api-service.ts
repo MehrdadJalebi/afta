@@ -9,9 +9,7 @@ import type {
   PathsWithMethod as PathsWith,
 } from "openapi-typescript-helpers"
 
-import type {
-  AftaPaths,
-} from "./schemas"
+import type { AftaPaths } from "./schemas"
 import { serverUrls, DEV_BEARER_TOKEN } from "@/constants"
 import { useAccountStore } from "@/store"
 const AFTA_BASE_URL = serverUrls.afta
@@ -19,10 +17,7 @@ const AFTA_BASE_URL = serverUrls.afta
 type PathGen<BasePath extends string, Paths> = {
   [k in keyof Paths & string as `${BasePath}${k}`]: Paths[k]
 }
-type Paths = PathGen<
-  "",
-    AftaPaths
->
+type Paths = PathGen<"", AftaPaths>
 
 const clients = {
   afta: createClient<Paths>({ baseUrl: AFTA_BASE_URL }),
@@ -66,13 +61,16 @@ export async function clientFetch<M extends HttpMethod, P extends PathsOf<M>>(
 ): Promise<HttpResponseData<M, P>> {
   try {
     const bearerToken = await getAuthenticationCredentials()
-    
-    if (bearerToken) {
-      options = {
-        ...options,
-        headers: { ...options.headers, Authorization: `Bearer ${DEV_BEARER_TOKEN}` },
-      } as unknown as RequestData<M, P>
-    }
+
+    //if (bearerToken) {
+    options = {
+      ...options,
+      headers: {
+        ...options.headers,
+        Authorization: `Bearer ${DEV_BEARER_TOKEN}`,
+      },
+    } as unknown as RequestData<M, P>
+    //}
 
     const { data, error, response } = (await (
       clients[serviceKey][method.toUpperCase() as Uppercase<M>] as ClientMethod<
@@ -104,8 +102,6 @@ export async function getAuthenticationCredentials() {
   return currentBearerToken
 }
 
-
-
 export function redirectToLogin() {
-  window.location.replace('/login')
+  window.location.replace("/login")
 }

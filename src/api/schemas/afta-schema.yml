@@ -1,12 +1,12 @@
 openapi: 3.0.1
 info:
   title: Afta
-  version: '1.0'
+  version: "1.0"
 paths:
   "/api/afta/v1/Accounts/otp-request":
     post:
       tags:
-      - Accounts
+        - Accounts
       requestBody:
         content:
           application/json:
@@ -19,12 +19,12 @@ paths:
             schema:
               "$ref": "#/components/schemas/LoginRequest"
       responses:
-        '200':
+        "200":
           description: OK
   "/api/afta/v1/Accounts/password":
     patch:
       tags:
-      - Accounts
+        - Accounts
       requestBody:
         content:
           application/json:
@@ -37,18 +37,18 @@ paths:
             schema:
               "$ref": "#/components/schemas/SetPasswordInputRequest"
       responses:
-        '200':
+        "200":
           description: OK
   "/api/afta/v1/Accounts":
     get:
       tags:
-      - Accounts
+        - Accounts
       responses:
-        '200':
+        "200":
           description: OK
     put:
       tags:
-      - Accounts
+        - Accounts
       requestBody:
         content:
           application/json:
@@ -61,35 +61,71 @@ paths:
             schema:
               "$ref": "#/components/schemas/CustomerUpdateRequest"
       responses:
-        '200':
+        "200":
+          description: OK
+  "/api/afta/v1/Accounts/token-otp":
+    post:
+      tags:
+        - Accounts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/TokenOtpRequest"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/TokenOtpRequest"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/TokenOtpRequest"
+      responses:
+        "200":
+          description: OK
+  "/api/afta/v1/Accounts/token-password":
+    post:
+      tags:
+        - Accounts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/TokenPasswordRequest"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/TokenPasswordRequest"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/TokenPasswordRequest"
+      responses:
+        "200":
           description: OK
   "/api/afta/v1/Accounts/active":
     patch:
       tags:
-      - Accounts
+        - Accounts
       responses:
-        '200':
+        "200":
           description: OK
   "/api/afta/v1/Accounts/inactive":
     patch:
       tags:
-      - Accounts
+        - Accounts
       responses:
-        '200':
+        "200":
           description: OK
   "/api/afta/v1/Accounts/sign-out":
     post:
       tags:
-      - Accounts
+        - Accounts
       responses:
-        '200':
+        "200":
           description: OK
   "/api/afta/v1/Accounts/captcha":
     get:
       tags:
-      - Accounts
+        - Accounts
       responses:
-        '200':
+        "200":
           description: OK
           content:
             text/plain:
@@ -104,64 +140,64 @@ paths:
   "/api/afta/v1/Activity/functions":
     get:
       tags:
-      - Activity
+        - Activity
       responses:
-        '200':
+        "200":
           description: OK
   "/api/afta/v1/Activity/contracts/{id}":
     get:
       tags:
-      - Activity
+        - Activity
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: functionName
-        in: query
-        schema:
-          type: string
-      - name: pageIndex
-        in: query
-        schema:
-          type: integer
-          format: int32
-      - name: pageSize
-        in: query
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: functionName
+          in: query
+          schema:
+            type: string
+        - name: pageIndex
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
       responses:
-        '200':
+        "200":
           description: OK
   "/api/afta/v1/Activity/users":
     get:
       tags:
-      - Activity
+        - Activity
       parameters:
-      - name: pageIndex
-        in: query
-        schema:
-          type: integer
-          format: int32
-      - name: functionName
-        in: query
-        schema:
-          type: string
-      - name: pageSize
-        in: query
-        schema:
-          type: integer
-          format: int32
+        - name: pageIndex
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: functionName
+          in: query
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
       responses:
-        '200':
+        "200":
           description: OK
   "/api/afta/v1/Contracts":
     post:
       tags:
-      - Contracts
+        - Contracts
       requestBody:
         content:
           application/json:
@@ -174,59 +210,67 @@ paths:
             schema:
               "$ref": "#/components/schemas/ContractRequest"
       responses:
-        '200':
+        "200":
           description: OK
+  "/api/afta/v1/Contracts/user/{id}":
     get:
       tags:
-      - Contracts
+        - Contracts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
-        '200':
+        "200":
           description: OK
   "/api/afta/v1/Contracts/{id}":
     delete:
       tags:
-      - Contracts
+        - Contracts
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
-        '200':
+        "200":
           description: OK
   "/api/afta/v1/Contracts/sign/{id}":
     patch:
       tags:
-      - Contracts
+        - Contracts
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
-        '200':
+        "200":
           description: OK
   "/api/afta/v1/SystemLogs":
     get:
       tags:
-      - SystemLogs
+        - SystemLogs
       parameters:
-      - name: pageIndex
-        in: query
-        schema:
-          type: integer
-          format: int32
-      - name: pageSize
-        in: query
-        schema:
-          type: integer
-          format: int32
+        - name: pageIndex
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
       responses:
-        '200':
+        "200":
           description: OK
 components:
   schemas:
@@ -259,7 +303,7 @@ components:
     CustomerUpdateRequest:
       type: object
       properties:
-        firsName:
+        firstName:
           type: string
           nullable: true
         lastName:
@@ -300,6 +344,26 @@ components:
           type: string
           nullable: true
       additionalProperties: false
+    TokenOtpRequest:
+      type: object
+      properties:
+        cellNumber:
+          type: string
+          nullable: true
+        otp:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TokenPasswordRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          nullable: true
+        password:
+          type: string
+          nullable: true
+      additionalProperties: false
   securitySchemes:
     Bearer:
       type: apiKey
@@ -307,4 +371,4 @@ components:
       name: Authorization
       in: header
 security:
-- Bearer: []
+  - Bearer: []

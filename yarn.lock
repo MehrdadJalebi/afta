@@ -1128,6 +1128,62 @@ __metadata:
   languageName: node
   linkType: hard
 
+"afta-panel@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "afta-panel@workspace:."
+  dependencies:
+    "@emotion/react": "npm:^11.11.4"
+    "@faker-js/faker": "npm:^8.4.1"
+    "@hookform/resolvers": "npm:^3.9.0"
+    "@next/third-parties": "npm:^15.0.2"
+    "@tanstack/react-query": "npm:^5.40.0"
+    "@tanstack/react-table": "npm:^8.17.3"
+    "@types/lodash.clonedeep": "npm:^4.5.9"
+    "@types/lodash.debounce": "npm:^4.0.9"
+    "@types/lodash.isequal": "npm:^4.5.8"
+    "@types/lodash.merge": "npm:^4.6.9"
+    "@types/node": "npm:^20"
+    "@types/react": "npm:^18"
+    "@types/react-dom": "npm:^18"
+    "@yekta/yekta-icons": "npm:^1.0.25"
+    bootstrap: "npm:^5.3.3"
+    clsx: "npm:^2.1.1"
+    dayjs: "npm:^1.11.11"
+    eslint: "npm:^8"
+    eslint-config-next: "npm:14.2.3"
+    husky: "npm:>=6"
+    jalaliday: "npm:^2.3.0"
+    js-cookie: "npm:^3.0.5"
+    lint-staged: "npm:>=10"
+    lodash.clonedeep: "npm:^4.5.0"
+    lodash.debounce: "npm:^4.0.8"
+    lodash.isequal: "npm:^4.5.0"
+    lodash.merge: "npm:^4.6.2"
+    next: "npm:14.2.3"
+    openapi-fetch: "npm:^0.10.2"
+    openapi-typescript: "npm:^7.0.1"
+    postcss: "npm:^8"
+    prettier: "npm:^3.3.2"
+    react: "npm:^18"
+    react-bootstrap: "npm:^2.10.2"
+    react-dom: "npm:^18"
+    react-dropzone: "npm:^14.2.3"
+    react-hook-form: "npm:^7.52.0"
+    react-multi-date-picker: "npm:^4.5.2"
+    react-number-format: "npm:^5.4.2"
+    react-select: "npm:^5.8.0"
+    react-toastify: "npm:^10.0.5"
+    react-use: "npm:^17.5.0"
+    recharts: "npm:^2.12.7"
+    sass: "npm:^1.77.4"
+    tailwindcss: "npm:^3.4.1"
+    typescript: "npm:^5"
+    xlsx: "npm:^0.18.5"
+    zod: "npm:^3.23.8"
+    zustand: "npm:^4.5.4"
+  languageName: unknown
+  linkType: soft
+
 "agent-base@npm:^7.0.2, agent-base@npm:^7.1.0, agent-base@npm:^7.1.1":
   version: 7.1.1
   resolution: "agent-base@npm:7.1.1"
@@ -4091,62 +4147,6 @@ __metadata:
   checksum: 10c0/103114e93f87362f0b56ab5b2e7245051ad0276b646e3902c98397d18bb8f4a77f2ea4a2c9d3ad516034ea3a56553b60d3f5f78220001ca4c404bd711bd0af39
   languageName: node
   linkType: hard
-
-"afta-panel@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "afta-panel@workspace:."
-  dependencies:
-    "@emotion/react": "npm:^11.11.4"
-    "@faker-js/faker": "npm:^8.4.1"
-    "@hookform/resolvers": "npm:^3.9.0"
-    "@next/third-parties": "npm:^15.0.2"
-    "@tanstack/react-query": "npm:^5.40.0"
-    "@tanstack/react-table": "npm:^8.17.3"
-    "@types/lodash.clonedeep": "npm:^4.5.9"
-    "@types/lodash.debounce": "npm:^4.0.9"
-    "@types/lodash.isequal": "npm:^4.5.8"
-    "@types/lodash.merge": "npm:^4.6.9"
-    "@types/node": "npm:^20"
-    "@types/react": "npm:^18"
-    "@types/react-dom": "npm:^18"
-    "@yekta/yekta-icons": "npm:^1.0.25"
-    bootstrap: "npm:^5.3.3"
-    clsx: "npm:^2.1.1"
-    dayjs: "npm:^1.11.11"
-    eslint: "npm:^8"
-    eslint-config-next: "npm:14.2.3"
-    husky: "npm:>=6"
-    jalaliday: "npm:^2.3.0"
-    js-cookie: "npm:^3.0.5"
-    lint-staged: "npm:>=10"
-    lodash.clonedeep: "npm:^4.5.0"
-    lodash.debounce: "npm:^4.0.8"
-    lodash.isequal: "npm:^4.5.0"
-    lodash.merge: "npm:^4.6.2"
-    next: "npm:14.2.3"
-    openapi-fetch: "npm:^0.10.2"
-    openapi-typescript: "npm:^7.0.1"
-    postcss: "npm:^8"
-    prettier: "npm:^3.3.2"
-    react: "npm:^18"
-    react-bootstrap: "npm:^2.10.2"
-    react-dom: "npm:^18"
-    react-dropzone: "npm:^14.2.3"
-    react-hook-form: "npm:^7.52.0"
-    react-multi-date-picker: "npm:^4.5.2"
-    react-number-format: "npm:^5.4.2"
-    react-select: "npm:^5.8.0"
-    react-toastify: "npm:^10.0.5"
-    react-use: "npm:^17.5.0"
-    recharts: "npm:^2.12.7"
-    sass: "npm:^1.77.4"
-    tailwindcss: "npm:^3.4.1"
-    typescript: "npm:^5"
-    xlsx: "npm:^0.18.5"
-    zod: "npm:^3.23.8"
-    zustand: "npm:^4.5.4"
-  languageName: unknown
-  linkType: soft
 
 "nano-css@npm:^5.6.1":
   version: 5.6.1
