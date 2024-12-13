@@ -1,29 +1,15 @@
 import { create } from "zustand"
 
 type AccountStoreType = {
-  accountID: string | null
-  jwtToken: string | null
-  isHijacked: boolean
-  /**
-   * We have an assumption in this parameter's usage that it is not null because initializeQuery will fill it.
-   */
-  authorizationStatus: IrisSchema<"AuthenticationStepEnum"> | null
-  setAccountID: (newAccountID: string | null) => void
-  setJwtToken: (newJwtToken: string | null) => void
-  setIsHijacked: (isHijacked: boolean) => void
-  setAuthorizationStatus: (
-    authorizationStatus: IrisSchema<"AuthenticationStepEnum">,
-  ) => void
+  bearerToken: string | null
+  isAdmin: boolean
+  setBearerToken: (newJwtToken: string | null) => void
+  setIsAdmin: (newAdminState: boolean) => void
 }
 
 export const useAccountStore = create<AccountStoreType>((set) => ({
-  accountID: "",
-  jwtToken: "",
-  isHijacked: false,
-  authorizationStatus: null,
-  setAccountID: (newAccountID) => set({ accountID: newAccountID }),
-  setJwtToken: (newJwtToken) => set({ jwtToken: newJwtToken }),
-  setIsHijacked: (newIsHijacked) => set({ isHijacked: newIsHijacked }),
-  setAuthorizationStatus: (newAuthorizationStatus) =>
-    set({ authorizationStatus: newAuthorizationStatus }),
+  bearerToken: "",
+  isAdmin: false,
+  setIsAdmin: (newAdminState) => set({ isAdmin: newAdminState }),
+  setBearerToken: (newJwtToken) => set({ bearerToken: newJwtToken }),
 }))

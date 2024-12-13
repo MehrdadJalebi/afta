@@ -5,7 +5,7 @@ import {
   OptionsOrGroups,
   components,
 } from "react-select"
-import { HijackLabelValue, YSelect, YSelectProps } from "@/components/UI"
+import { AdminLabelValue, YSelect, YSelectProps } from "@/components/UI"
 import {
   clientFetch,
   type PathsOf,
@@ -55,7 +55,7 @@ export interface AsyncSelectProps<
  */
 export function AsyncSelect<
   TData extends PaginatedResponse,
-  Option extends HijackLabelValue = HijackLabelValue,
+  Option extends AdminLabelValue = AdminLabelValue,
   IsMulti extends boolean = false,
   Group extends GroupBase<Option> = GroupBase<Option>,
 >({
@@ -85,7 +85,7 @@ export function AsyncSelect<
           init = merge(init || {}, {
             params: {
               query: {
-                page: (context.pageParam as PageParam).pageNumber,
+                page: (context.pageParam as PageParam).pageIndex,
                 search,
               },
             },
@@ -99,13 +99,13 @@ export function AsyncSelect<
         )
       },
       queryKey: [serviceKey, url, init, method, searchText],
-      initialPageParam: { pageNumber: 1 },
+      initialPageParam: { pageIndex: 1 },
       getNextPageParam: (lastPage) => {
         if (lastPage.next) {
           const nextPageURL = new URL(lastPage.next)
           const nextPageNumber = nextPageURL.searchParams.get("page")
           if (nextPageNumber) {
-            return { pageNumber: Number(nextPageNumber) }
+            return { pageIndex: Number(nextPageNumber) }
           }
         }
         return null

@@ -20,7 +20,7 @@ export function TableTopRow({ stateManager, title, slot }: TableTopRowProps) {
     stateManager!.setSearch(searchValue)
     stateManager!.setPagination((prevPagination) => {
       if (prevPagination) {
-        return { ...prevPagination, pageNumber: 1 }
+        return { ...prevPagination, pageIndex: 1 }
       }
       return prevPagination
     })

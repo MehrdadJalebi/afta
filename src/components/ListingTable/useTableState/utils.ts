@@ -26,8 +26,8 @@ export const getTableQueryParams = <T extends Record<string, FilterParams>>(
   if (state.search && !!config.searchParams) params.search = state.search
 
   if (config.paginationParams) {
-    if (state.pagination?.pageNumber) params.page = state.pagination.pageNumber
-    if (state.pagination?.pageSize) params.page_size = state.pagination.pageSize
+    if (state.pagination?.pageIndex) params.pageIndex = state.pagination.pageIndex
+    if (state.pagination?.pageSize) params.pageSize = state.pagination.pageSize
   }
 
   const filtersConfig = config.filters
@@ -104,7 +104,7 @@ export const getDefaultTableState = <T extends Record<string, FilterParams>>(
   }
   if (paginationParams) {
     state.pagination = {
-      pageNumber: paginationParams.defaultPageNumber,
+      pageIndex: paginationParams.defaultPageNumber,
       pageSize: paginationParams.defaultPageSize,
     }
   }

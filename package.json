@@ -4,7 +4,8 @@
   "private": true,
   "author": "Najva-Frontend-Team",
   "scripts": {
-    "dev": "next dev --experimental-https",
+    "devssl": "next dev --experimental-https",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

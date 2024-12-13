@@ -82,7 +82,7 @@ export type FilterState<T extends Record<string, FilterParams>> = {
 }
 
 export type PaginationState = {
-  pageNumber: number
+  pageIndex: number
   pageSize: number
 }
 

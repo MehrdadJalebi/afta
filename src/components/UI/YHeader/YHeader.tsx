@@ -9,20 +9,12 @@ import { YProfileInfo } from "./components/YProfileInfo"
 import { useDisplay } from "@/hooks"
 import clsx from "clsx"
 import { Spinner } from "react-bootstrap"
-import { useFinanceInfo } from "@/api/useApi"
 
 interface Props {
   onToggleSidebar: () => void
 }
 
 export function YHeader({ onToggleSidebar }: Props) {
-  const router = useRouter()
-  const creditQuery = useFinanceInfo()
-  const balance = creditQuery?.data?.balance || 0
-  const increaseChargeHandler = () => {
-    router.push("/financial/charge")
-  }
-  const { smAndDown } = useDisplay()
 
   return (
     <div css={headerContainer}>

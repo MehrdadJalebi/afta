@@ -14,39 +14,38 @@ import { useState } from "react"
 import { toastSuccess, toastError } from "src/utils"
 
 export default function CampaignPage() {
-  const [selectedRow, setSelectedRow] =
-    useState<IrisSchema<"ReadCampaignExecution">>()
-  const [activeModal, setActiveModal] = useState<
-    "delete" | "cancel" | "continue-sending"
-  >()
 
   const tableStateManager = useTableState(filtersConfig)
 
-  const { data, isLoading, isError, refetch, isFetching } = useQuery(
-    queryService("iris", "/v1/campaign-management/campaign-executions/", {
+  const { data: users, isLoading, isError, refetch, isFetching } = useQuery(
+    queryService("afta", "/api/afta/v1/Activity/users", {
       params: { query: getTableQueryParams(tableStateManager) },
     }),
   )
 
+  const { data: functions } = useQuery(
+    queryService("afta", "/api/afta/v1/Activity/functions"),
+  )
+  
   const router = useRouter()
 
 
   return (
     <>
       <YTypography variant={"headline2-bold"} className={"mb-4"}>
-        کمپین‌ها
+        کاربران
       </YTypography>
       <ListingTable
         columns={columns}
-        count={data?.count}
-        data={data?.results}
+        //count={users?.count}
+        //data={users?.results}
         onRefetch={refetch}
         stateManager={tableStateManager}
         isLoading={isLoading}
         hasError={isError}
         noDataProps={{
-          title: "هنوز کمپینی نساخته‌اید!",
-          description: "برای شروع لازم است یک کمپین بسازید.",
+          title: "هنوز کاربری ندارید!",
+          description: "برای شروع لازم است یک کاربر بسازید.",
           imageSource: "/no-data-create-campaign.png",
         }}
         isFetching={isFetching}

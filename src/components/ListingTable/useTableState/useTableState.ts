@@ -23,7 +23,7 @@ export const useTableState = <T extends Record<string, FilterParams>>(
 
   const resetPageNumber = useCallback((): PaginationState | {} => {
     return params.paginationParams
-      ? { pageNumber: 1, pageSize: state.pagination!.pageSize }
+      ? { pageIndex: 1, pageSize: state.pagination!.pageSize }
       : {}
   }, [params.paginationParams, state.pagination])
 

@@ -20,19 +20,6 @@ export function downloadXlsx(name?: string, csvString?: string) {
 
 const translatesTitles = {
   id: "شناسه",
-  message_id: "شناسه پیامک",
-  campaign_id: "شناسه کمپین",
-  group_id: "شناسه درخواست/کمپین",
-  line: "شماره ارسال‌کننده",
-  sender: "شماره ارسال‌کننده",
-  receptor: "شماره دریافت‌کننده",
-  receiver: "شماره دریافت‌کننده",
-  message: "متن پیامک",
-  text: "متن پیامک",
   date: "تاریخ",
-  cost: "قیمت پیامک (تومان)",
   status: "وضعیت",
-  category: "کانال ارسال",
-  is_preview: "نوع کلیک",
-  phone_number: "شماره مخاطب",
 }

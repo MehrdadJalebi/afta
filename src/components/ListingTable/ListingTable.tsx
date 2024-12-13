@@ -58,7 +58,7 @@ export function ListingTable<TData>({
     state: {
       pagination: filterConfig?.paginationParams
         ? {
-            pageIndex: pagination!.pageNumber - 1,
+            pageIndex: pagination!.pageIndex - 1,
             pageSize: pagination!.pageSize,
           }
         : undefined,
@@ -108,11 +108,11 @@ export function ListingTable<TData>({
         !isNoData && (
           <Pagination
             neighborSize={1}
-            currentPage={pagination!.pageNumber}
+            currentPage={pagination!.pageIndex}
             pageCount={table.getPageCount()}
             onPageChange={(page) =>
               setPagination!((prevState) =>
-                prevState ? { ...prevState, pageNumber: page } : undefined,
+                prevState ? { ...prevState, pageIndex: page } : undefined,
               )
             }
           />

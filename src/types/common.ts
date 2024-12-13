@@ -1,7 +1,7 @@
 import { DateObject } from "react-multi-date-picker"
 import { SubmitHandler } from "react-hook-form"
 
-export type IsHijacked = { isHijacked?: boolean }
+export type IsAdmin = { isAdmin?: boolean }
 export type LabelValue = { label: string; value: string | number }
 export type DateRange = { start: DateObject | null; end: DateObject | null }
 

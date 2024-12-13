@@ -27,7 +27,7 @@ export type Options<
   E = DefaultError,
 > = Omit<Partial<UseQueryOptions<HttpResponseData<M, P>, E>>, "queryKey">
 export type PageParam = {
-  pageNumber: number
+  pageIndex: number
 }
 
 // This makes sure that if the path requires params, the init will be required

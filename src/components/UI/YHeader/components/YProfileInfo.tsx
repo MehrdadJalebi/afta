@@ -6,7 +6,7 @@ import { forwardRef } from "react"
 import { Spinner, Dropdown, type DropdownToggleProps } from "react-bootstrap"
 
 import { YBtn, type YButtonProps, YTypography } from "src/components/UI"
-import { useProfileQuery, useFinancialAccountInfoQuery } from "@/api/useApi"
+import { useProfileQuery } from "@/api/useApi"
 import { themeColors, themeVariables } from "src/styles/bootstrap/variables"
 import { serverUrls } from "@/constants"
 
@@ -43,11 +43,9 @@ export const DropdownToggleBtn = forwardRef<
 
 export function YProfileInfo() {
   const { data: userProfileData } = useProfileQuery()
-  const { data: userFinancialAccountInfoData, isPending: isFinancialLoading } =
-    useFinancialAccountInfoQuery()
 
   function exitAccount() {
-    window.location.replace(`${serverUrls.accounts}/logout/`)
+    window.location.replace(`/logout/`)
   }
 
   return (
@@ -61,14 +59,14 @@ export function YProfileInfo() {
       <Dropdown.Menu css={dropdownMenuContainer}>
         <div css={userInfo}>
           <i className="icon-user" />
-          {`${userProfileData?.first_name} ${userProfileData?.last_name}`}
+          گلابی زیبا
         </div>
         <div css={dropdownItem}>
           <div className="d-flex align-items-center">
             <i className="icon-phone icon-lg" />
             <span className="me-4">تلفن</span>
           </div>
-          <span>{userProfileData?.phone}</span>
+          <span>0935225522552525</span>
         </div>
 
         <div css={sectionDivider}>

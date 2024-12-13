@@ -17,7 +17,7 @@ export interface SidebarItemProps {
   icon?: string
   route?: string
   baseRoute?: string
-  isHijacked?: boolean
+  isAdmin?: boolean
   children?: SidebarItemProps[]
 }
 
@@ -33,7 +33,7 @@ export function YSidebar({
   sidebarItems,
   ...props
 }: YSidebarProps) {
-  const { isHijacked, accountID } = useAccountStore()
+  const { isAdmin, accountID } = useAccountStore()
   const pathname = usePathname()
   const { mdAndDown } = useDisplay()
   const [activeKey, setActiveKey] = useState<string>()
@@ -85,7 +85,7 @@ export function YSidebar({
             activeKey={accordionActiveKey}
           >
             {sidebarItems
-              .filter((item) => !item.isHijacked || isHijacked)
+              .filter((item) => !item.isAdmin || isAdmin)
               .map((item) => {
                 return !item.children ? (
                   <Link
@@ -95,7 +95,7 @@ export function YSidebar({
                     onClick={() => handleSelect(item)}
                   >
                     <div
-                      className={clsx({ hijack: item.isHijacked })}
+                      className={clsx({ hijack: item.isAdmin })}
                       css={[
                         sidebarItemContainer(
                           activeKey === item.key,
@@ -122,7 +122,7 @@ export function YSidebar({
                     </Accordion.Header>
                     <Accordion.Body css={collapsedBody}>
                       {item.children
-                        ?.filter((item) => !item.isHijacked || isHijacked)
+                        ?.filter((item) => !item.isAdmin || isAdmin)
                         .map((child) => (
                           <Link
                             className="d-block text-decoration-none"
@@ -131,7 +131,7 @@ export function YSidebar({
                             onClick={() => handleSelect(child)}
                           >
                             <div
-                              className={clsx({ hijack: child.isHijacked })}
+                              className={clsx({ hijack: child.isAdmin })}
                               css={[
                                 sidebarItemContainer(
                                   activeKey === child.key,

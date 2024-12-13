@@ -10,23 +10,11 @@ import type {
 } from "openapi-typescript-helpers"
 
 import type {
-  IrisPaths,
-  NajvaAccountsPaths,
-  SegmentPaths,
-  AccountsPaths,
-  CrmPaths,
-  FinancialPaths,
   AftaPaths,
 } from "./schemas"
-import { serverUrls, DEV_JWT_TOKEN, IS_DEVELOPMENT } from "@/constants"
+import { serverUrls, DEV_JWT_TOKEN, IS_DEVELOPMENT, DEV_BEARER_TOKEN } from "@/constants"
 import { useAccountStore } from "@/store"
 
-const IRIS_BASE_URL = serverUrls.iris
-const NAJVA_ACCOUNTS_BASE_URL = serverUrls.najva_accounts
-const SEGMENT_BASE_URL = serverUrls.segment
-const ACCOUNTS_BASE_URL = serverUrls.accounts
-const CRM_BASE_URL = serverUrls.crm
-const FINANCIAL_BASE_URL = serverUrls.financial
 const AFTA_BASE_URL = serverUrls.afta
 
 type PathGen<BasePath extends string, Paths> = {
@@ -34,22 +22,10 @@ type PathGen<BasePath extends string, Paths> = {
 }
 type Paths = PathGen<
   "",
-  IrisPaths &
-    NajvaAccountsPaths &
-    SegmentPaths &
-    AccountsPaths &
-    CrmPaths &
-    FinancialPaths &
     AftaPaths
 > // TODO rewrite with PathGen<BasePath>
 
 const clients = {
-  iris: createClient<Paths>({ baseUrl: IRIS_BASE_URL }),
-  najva_accounts: createClient<Paths>({ baseUrl: NAJVA_ACCOUNTS_BASE_URL }),
-  segment: createClient<Paths>({ baseUrl: SEGMENT_BASE_URL }),
-  accounts: createClient<Paths>({ baseUrl: ACCOUNTS_BASE_URL }),
-  crm: createClient<Paths>({ baseUrl: CRM_BASE_URL }),
-  financial: createClient<Paths>({ baseUrl: FINANCIAL_BASE_URL }),
   afta: createClient<Paths>({ baseUrl: AFTA_BASE_URL }),
 } as const
 export type ServiceType = keyof typeof clients
@@ -90,11 +66,17 @@ export async function clientFetch<M extends HttpMethod, P extends PathsOf<M>>(
   ]: ClientFetchParams<M, P>
 ): Promise<HttpResponseData<M, P>> {
   try {
-    const jwtToken = await getAuthenticationCredentials()
-    if (jwtToken) {
+    const bearerToken = await getAuthenticationCredentials()
+    
+    if (serviceKey === 'afta') {
       options = {
         ...options,
-        headers: { ...options.headers, Authorization: `JWT ${jwtToken}` },
+        headers: { ...options.headers, Authorization: `Bearer ${DEV_BEARER_TOKEN}` },
+      } as unknown as RequestData<M, P>
+    } else if (bearerToken) {
+      options = {
+        ...options,
+        headers: { ...options.headers, Authorization: `JWT ${bearerToken}` },
       } as unknown as RequestData<M, P>
     }
 
@@ -120,53 +102,19 @@ export async function clientFetch<M extends HttpMethod, P extends PathsOf<M>>(
 
 //TODO: check this part (and other parts of this file again)
 export async function getAuthenticationCredentials() {
-  const { accountID, jwtToken, setAccountID, setJwtToken } =
-    useAccountStore.getState()
-
-  const params = new URL(document.location.toString()).searchParams
-  const storedAccountID =
-    params.get("account") || localStorage.getItem("accountID")
-  let currentJwtToken = jwtToken
-  if (!accountID && storedAccountID) {
-    setAccountID(storedAccountID)
+  const { bearerToken, setBearerToken } = useAccountStore.getState()
+  let currentBearerToken = bearerToken
+  if (!currentBearerToken) {
+    currentBearerToken = await getJwtTokenApi()
   }
-  if (IS_DEVELOPMENT) {
-    setJwtToken(DEV_JWT_TOKEN)
-    currentJwtToken = DEV_JWT_TOKEN
-  }
-  const isAuthenticated = accountID && jwtToken
-  if (!isAuthenticated && !IS_DEVELOPMENT) {
-    currentJwtToken = await getJwtTokenApi()
-  }
-  return currentJwtToken
+  return currentBearerToken
 }
 
 async function getJwtTokenApi() {
-  const { accountID, setJwtToken } = useAccountStore.getState()
-  try {
-    const response = await fetch(
-      `${NAJVA_ACCOUNTS_BASE_URL}/api/v3/token/access/?account=${accountID}`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-      },
-    )
-    if (!response.ok) {
-      redirectToAccounts()
-      return ""
-    }
-    const data = await response.json()
-    setJwtToken(data.token)
-    return data.token
-  } catch (error) {
-    redirectToAccounts()
-    return ""
-  }
+  const { setBearerToken } = useAccountStore.getState()
+  return ''
 }
 
-export function redirectToAccounts() {
-  window.location.replace(
-    `${serverUrls.accounts}/login/?plt=najva&type=pub&redirect=${document.location.href}`,
-  )
+export function redirectToLogin() {
+  window.location.replace('/login')
 }

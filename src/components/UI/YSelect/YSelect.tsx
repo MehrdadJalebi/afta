@@ -10,14 +10,14 @@ import { YInput, YInputProps, YTypography } from "@/components/UI"
 import { Spinner } from "react-bootstrap"
 import { css } from "@emotion/react"
 import { themeColors } from "@/styles/bootstrap/variables"
-import { LabelValue, IsHijacked } from "@/types/common"
+import { LabelValue, IsAdmin } from "@/types/common"
 import { useAccountStore } from "@/store"
 import clsx from "clsx"
 
-export type HijackLabelValue = LabelValue & IsHijacked
+export type AdminLabelValue = LabelValue & IsAdmin
 
 export interface YSelectProps<
-  Option = HijackLabelValue,
+  Option = AdminLabelValue,
   IsMulti extends boolean = false,
   Group extends GroupBase<Option> = GroupBase<Option>,
 > extends SelectProps<Option, IsMulti, Group> {
@@ -25,12 +25,12 @@ export interface YSelectProps<
 }
 
 export function YSelect<
-  Option extends HijackLabelValue = HijackLabelValue,
+  Option extends AdminLabelValue = AdminLabelValue,
   IsMulti extends boolean = false,
   Group extends GroupBase<Option> = GroupBase<Option>,
 >({ yInputProps, ...selectProps }: YSelectProps<Option, IsMulti, Group>) {
   const id = useId()
-  const isHijacked = useAccountStore((state) => state.isHijacked)
+  const isAdmin = useAccountStore((state) => state.isAdmin)
   return (
     <Select
       isSearchable
@@ -41,7 +41,7 @@ export function YSelect<
       noOptionsMessage={() => "موردی وجود ندارد"}
       {...selectProps}
       options={selectProps.options?.filter(
-        (option) => !(option as HijackLabelValue).isHijacked || isHijacked,
+        (option) => !(option as AdminLabelValue).isAdmin || isAdmin,
       )}
       styles={{
         ...selectProps.styles,
@@ -109,7 +109,7 @@ function CustomControl(props: ControlProps<any, any, any>) {
 }
 
 function CustomOption(props: OptionProps<any, any, any>) {
-  const isHijackOption = (props.data as HijackLabelValue)?.isHijacked
+  const isHijackOption = (props.data as AdminLabelValue)?.isAdmin
   return (
     <div css={optionContainerCss}>
       <components.Option
