@@ -26,7 +26,6 @@ export function YHeader({ onToggleSidebar }: Props) {
           onClick={onToggleSidebar}
         />
         <Image src={"/afta.png"} alt={"afta logo"} width={45} height={45} />
-        <div css={divider} />
       </div>
       <div className="d-flex align-items-center">
         <YProfileInfo />
