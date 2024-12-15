@@ -6,7 +6,7 @@ import { forwardRef } from "react"
 import { Spinner, Dropdown, type DropdownToggleProps } from "react-bootstrap"
 
 import { YBtn, type YButtonProps, YTypography } from "src/components/UI"
-import { useProfileQuery } from "@/api/useApi"
+//import { useProfileQuery } from "@/api/useApi"
 import { themeColors, themeVariables } from "src/styles/bootstrap/variables"
 import { serverUrls } from "@/constants"
 
@@ -42,7 +42,7 @@ export const DropdownToggleBtn = forwardRef<
 })
 
 export function YProfileInfo() {
-  const { data: userProfileData } = useProfileQuery()
+  //const { data: userProfileData } = useProfileQuery()
 
   function exitAccount() {
     window.location.replace(`/logout/`)

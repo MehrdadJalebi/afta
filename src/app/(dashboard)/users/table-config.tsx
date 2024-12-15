@@ -1,6 +1,7 @@
 import { createColumnHelper } from "@tanstack/table-core"
 import { getTableStateConfig } from "@/components/ListingTable"
 import { YDropdown, YTypography } from "@/components/UI"
+import { Form } from "react-bootstrap"
 import { SelectCallback } from "@restart/ui/types"
 import { TableDateTime } from "@/components/Utils"
 import { ActionMenuToggle } from "@/components/UI/YDropdown/custom-toggles"
@@ -8,7 +9,13 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap"
 import { getFixedNumber, numberwithCommas } from "@/utils"
 import { queryService } from "@/api"
 
-export interface TableMeta {}
+export interface TableMetaData {
+  onEditClick: (row: any) => void
+  onDeleteClick: (row: any) => void
+  onActivationClick: (row: any) => void
+  isActiving: boolean
+  isInActiving: boolean
+}
 
 const dropdownItems = {
   edit: { title: "ویرایش" },
@@ -30,41 +37,45 @@ const getDropdownNodes = (keys: (keyof typeof dropdownItems)[]) => {
 
 const columnHelper = createColumnHelper<any>()
 export const columns = [
-  columnHelper.display({
-    id: "type",
-    cell: () => <i className={"icon-message"} />,
+  columnHelper.accessor("id", {
+    id: "id",
+    header: "ID",
   }),
-  columnHelper.accessor("sent", {
-    id: "sent",
-    header: "کل ارسال",
-    cell: ({ row, getValue }) =>
-      row.original.status === "DRAFT" ? "-" : numberwithCommas(getValue() || 0),
-  }),
-  columnHelper.accessor("delivered", {
-    id: "delivered",
-    header: "تحویل شده",
-    cell: ({ row, getValue }) =>
-      row.original.status === "DRAFT" ? "-" : numberwithCommas(getValue() || 0),
-  }),
-  columnHelper.accessor("clicker", {
-    id: "clicker",
-    header: "کلیکر‌ها",
-    cell: ({ row, getValue }) =>
-      row.original.status === "DRAFT" ? "-" : numberwithCommas(getValue() || 0),
+  columnHelper.accessor("cellphone", {
+    id: "cellphone",
+    header: "شماره موبایل",
   }),
   columnHelper.display({
-    id: "ctr",
-    header: "CTR",
-    cell: ({ row }) => {
-      if (row.original.status === "DRAFT") {
-        return "-"
+    id: "fullName",
+    header: "نام و نام خانوادگی",
+    cell: ({ row }) =>
+      row.original.firstName && row.original.lastName
+        ? `${row.original.firstName} ${row.original.lastName}`
+        : "-",
+  }),
+  columnHelper.accessor("nationalCode", {
+    id: "nationalCode",
+    header: "شماره شناسنامه",
+  }),
+  columnHelper.accessor("iActive", {
+    id: "iActive",
+    header: "وضعیت",
+    cell: ({ row, table, getValue }) => {
+      const { onActivationClick, isActiving, isInActiving } = table.options
+        .meta as TableMetaData
+      const webhookActivationHandler = () => {
+        onActivationClick(row.original)
       }
-      if (!row.original.delivered || !row.original.clicker) {
-        return 0
-      }
-      const ctrPercentValue =
-        (row.original.clicker / row.original.delivered) * 100
-      return `${getFixedNumber(ctrPercentValue, 2)} %`
+      return (
+        <Form>
+          <Form.Switch
+            role="button"
+            disabled={isActiving || isInActiving}
+            checked={getValue()}
+            onClick={webhookActivationHandler}
+          />
+        </Form>
+      )
     },
   }),
 ]

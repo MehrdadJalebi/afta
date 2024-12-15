@@ -1,7 +1,7 @@
 "use client"
 
 import { YBtn, YTypography } from "@/components/UI"
-import { columns, filtersConfig, TableMeta } from "./table-config"
+import { columns, filtersConfig } from "./table-config"
 import {
   getTableQueryParams,
   ListingTable,
@@ -22,21 +22,37 @@ export default function CampaignPage() {
     isError,
     refetch,
     isFetching,
-  } = useQuery(
-    queryService("afta", "/api/afta/v1/Activity/users", {
-      params: {
-        query: {
-          functionName: "CreateContract",
-          ...getTableQueryParams(tableStateManager),
-        },
-      },
-    }),
-  )
+  } = useQuery(queryService("afta", "/api/afta/v1/Accounts"))
 
   const { data: functions } = useQuery(
     queryService("afta", "/api/afta/v1/Activity/functions"),
   )
+  const { isPending: isActiving, mutateAsync: activeMutate } = useMutation(
+    mutateService("afta", "patch", "/api/afta/v1/Accounts/active"),
+  )
+  const { isPending: isInActiving, mutateAsync: inactiveMutate } = useMutation(
+    mutateService("afta", "patch", "/api/afta/v1/Accounts/inactive"),
+  )
+  const activationHandler = (row: any) => {
+    toggleActivateUser(row)
+  }
 
+  const toggleActivateUser = async (row: any) => {
+    const activationTypeMessage = row.iActive ? "غیرفعال" : "فعال"
+    const params = { path: { id: row.id.toString() } }
+    try {
+      if (row.iActive) {
+        await inactiveMutate({ params })
+      } else {
+        await activeMutate({ params })
+      }
+      toastSuccess(`کاربر مورد نظر با موفقیت ${activationTypeMessage} شد.`)
+      refetch()
+    } catch (e) {
+      toastError(`خطا در ${activationTypeMessage} شدن کاربر.`)
+      console.log(e)
+    }
+  }
   const router = useRouter()
 
   return (
@@ -46,11 +62,18 @@ export default function CampaignPage() {
       </YTypography>
       <ListingTable
         columns={columns}
-        //count={users?.count}
-        //data={users?.results}
+        count={users?.data.length}
+        data={users?.data}
         onRefetch={refetch}
         stateManager={tableStateManager}
         isLoading={isLoading}
+        meta={
+          {
+            onActivationClick: activationHandler,
+            isActiving,
+            isInActiving,
+          } as TableMetaData
+        }
         hasError={isError}
         noDataProps={{
           title: "هنوز کاربری ندارید!",
