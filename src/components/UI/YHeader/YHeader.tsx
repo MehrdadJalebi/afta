@@ -25,7 +25,7 @@ export function YHeader({ onToggleSidebar }: Props) {
           icon="icon-menu-hamburger"
           onClick={onToggleSidebar}
         />
-        <Image src={"/afta.png"} alt={"afta logo"} width={45} height={45} />
+        <Image src={"/afta.png"} alt={"afta logo"} width={50} height={50} />
       </div>
       <div className="d-flex align-items-center">
         <YProfileInfo />
@@ -42,7 +42,7 @@ const headerContainer = css`
   top: 0;
   width: 100%;
   background-color: ${themeColors.red_100};
-  height: 64px;
+  height: 70px;
   padding: 0.5rem;
   z-index: 1050; // sidebar is 1045
   border-bottom: 2px solid ${themeColors.red_200};

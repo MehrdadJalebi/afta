@@ -1,31 +1,30 @@
 .y-pagination {
-  direction: rtl;
+  direction: ltr;
   display: flex;
 
   & .page-link {
-    border: none;
-    border-radius: 8px;
+    border: 1px solid $red-200;
     background-color: transparent;
     height: 100%;
-    padding: 0.25rem 0.75rem;
-    min-width: 36px;
+    padding: 0.25rem 0.5rem;
+    min-width: 40px;
     color: $gray-950;
     text-align: center;
     transition: background-color 200ms;
     &:hover {
-      background-color: $primary-100;
+      background-color: $red-100;
     }
   }
 
   & .page-item.active > .page-link {
-    background-color: $primary-100;
-    border: 1px solid $primary-600;
-    color: $primary-600;
+    background-color: $red-100;
+    border: 2px solid $red-300;
+    color: $red-400;
   }
 
   & .pagination-arrow {
     & .page-link {
-      color: $primary-600;
+      color: $red-200;
     }
     &.disabled > .page-link {
       color: $gray-900;
