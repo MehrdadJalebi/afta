@@ -10,7 +10,9 @@ import { LoginForm } from "./LoginForm"
 
 export function Login() {
   const [step, setStep] = useState<"form" | "otp">("form")
-  const [formData, setFormData] = useState<any>({ phoneNumber: "" })
+  const [formData, setFormData] = useState<any>({
+    phoneNumber: "",
+  })
 
   function handleSubmitForm(data: any) {
     setStep("otp")

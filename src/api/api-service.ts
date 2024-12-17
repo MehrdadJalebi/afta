@@ -62,15 +62,15 @@ export async function clientFetch<M extends HttpMethod, P extends PathsOf<M>>(
   try {
     const bearerToken = await getAuthenticationCredentials()
 
-    //if (bearerToken) {
-    options = {
-      ...options,
-      headers: {
-        ...options.headers,
-        Authorization: `Bearer ${DEV_BEARER_TOKEN}`,
-      },
-    } as unknown as RequestData<M, P>
-    //}
+    if (bearerToken) {
+      options = {
+        ...options,
+        headers: {
+          ...options.headers,
+          Authorization: `Bearer ${bearerToken}`,
+        },
+      } as unknown as RequestData<M, P>
+    }
 
     const { data, error, response } = (await (
       clients[serviceKey][method.toUpperCase() as Uppercase<M>] as ClientMethod<
@@ -94,7 +94,7 @@ export async function clientFetch<M extends HttpMethod, P extends PathsOf<M>>(
 
 //TODO: check this part (and other parts of this file again)
 export async function getAuthenticationCredentials() {
-  const { bearerToken, setBearerToken } = useAccountStore.getState()
+  const { bearerToken } = useAccountStore.getState()
   let currentBearerToken = bearerToken
   if (!currentBearerToken) {
     //redirectToLogin()
@@ -103,5 +103,7 @@ export async function getAuthenticationCredentials() {
 }
 
 export function redirectToLogin() {
-  window.location.replace("/login")
+  if (window.location.pathname !== "/login") {
+    window.location.replace("/login")
+  }
 }

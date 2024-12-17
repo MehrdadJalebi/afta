@@ -1,3 +1,4 @@
+---
 openapi: 3.0.1
 info:
   title: Afta
@@ -21,6 +22,18 @@ paths:
       responses:
         "200":
           description: OK
+  "/api/afta/v1/Accounts/send-otp":
+    post:
+      tags:
+        - Accounts
+      parameters:
+        - name: phoneNumber
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
   "/api/afta/v1/Accounts/password":
     patch:
       tags:
@@ -39,10 +52,32 @@ paths:
       responses:
         "200":
           description: OK
+  "/api/afta/v1/Accounts/info":
+    get:
+      tags:
+        - Accounts
+      responses:
+        "200":
+          description: OK
   "/api/afta/v1/Accounts":
     get:
       tags:
         - Accounts
+      parameters:
+        - name: pageNumber
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: searchValue
+          in: query
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -99,17 +134,29 @@ paths:
       responses:
         "200":
           description: OK
-  "/api/afta/v1/Accounts/active":
+  "/api/afta/v1/Accounts/active/{id}":
     patch:
       tags:
         - Accounts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
-  "/api/afta/v1/Accounts/inactive":
+  "/api/afta/v1/Accounts/inactive/{id}":
     patch:
       tags:
         - Accounts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK

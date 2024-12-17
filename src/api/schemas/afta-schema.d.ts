@@ -43,6 +43,41 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  "/api/afta/v1/Accounts/send-otp": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post: {
+      parameters: {
+        query?: {
+          phoneNumber?: string
+        }
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+      }
+    }
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   "/api/afta/v1/Accounts/password": {
     parameters: {
       query?: never
@@ -82,7 +117,7 @@ export interface paths {
     }
     trace?: never
   }
-  "/api/afta/v1/Accounts": {
+  "/api/afta/v1/Accounts/info": {
     parameters: {
       query?: never
       header?: never
@@ -92,6 +127,43 @@ export interface paths {
     get: {
       parameters: {
         query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/api/afta/v1/Accounts": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: {
+      parameters: {
+        query?: {
+          pageNumber?: number
+          pageSize?: number
+          searchValue?: string
+        }
         header?: never
         path?: never
         cookie?: never
@@ -216,7 +288,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/api/afta/v1/Accounts/active": {
+  "/api/afta/v1/Accounts/active/{id}": {
     parameters: {
       query?: never
       header?: never
@@ -233,7 +305,9 @@ export interface paths {
       parameters: {
         query?: never
         header?: never
-        path?: never
+        path: {
+          id: string
+        }
         cookie?: never
       }
       requestBody?: never
@@ -249,7 +323,7 @@ export interface paths {
     }
     trace?: never
   }
-  "/api/afta/v1/Accounts/inactive": {
+  "/api/afta/v1/Accounts/inactive/{id}": {
     parameters: {
       query?: never
       header?: never
@@ -266,7 +340,9 @@ export interface paths {
       parameters: {
         query?: never
         header?: never
-        path?: never
+        path: {
+          id: string
+        }
         cookie?: never
       }
       requestBody?: never

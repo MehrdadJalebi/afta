@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { Col, Row, Spinner } from "react-bootstrap"
 import { FormProvider, useForm } from "react-hook-form"
-import Cookies from "js-cookie"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { mutateService, queryService } from "@/api"
 import { YBtn, YNumberInput, YInput } from "@/components/UI"
@@ -15,8 +14,6 @@ import { serverUrls } from "@/constants"
 import { redirectToLogin } from "@/api/api-service"
 import Image from "next/image"
 
-const AFTA_BASE_URL = serverUrls.afta
-
 interface Props {
   onSubmitForm: (data: any) => void
 }
@@ -25,62 +22,43 @@ export function LoginForm({ onSubmitForm }: Props) {
   const { mutateAsync, isPending } = useMutation(
     mutateService("afta", "post", "/api/afta/v1/Accounts/otp-request"),
   )
-  const [phoneNumber, setPhoneNumber] = useState()
 
-  const captchaQuery = useQuery(
-    queryService("afta", "/api/afta/v1/Accounts/captcha"),
-  )
-
-  async function getBearerTokenApi() {
-    const { setBearerToken } = useAccountStore.getState()
-    try {
-      const payload = {
-        client_id: "otp",
-        client_secret: `u_M{'57j!%LI21#`,
-        mobile_number: phoneNumber,
-        otp_code: "",
-        scope: "backoffice",
-        grant_type: "otp",
-      }
-      const response = await fetch(`${AFTA_BASE_URL}/connect/token/`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(payload),
-      })
-      if (!response.ok) {
-        //redirectToLogin()
-        return ""
-      }
-      const data = await response.json()
-      setBearerToken(data.access_token)
-      return data.token
-    } catch (error) {
-      //redirectToLogin()
-      return ""
-    }
-  }
+  const {
+    data: captcha,
+    isFetched: isCaptchaFetched,
+    refetch,
+  } = useQuery(queryService("afta", "/api/afta/v1/Accounts/captcha"))
 
   const methods = useForm<any>({
     defaultValues: {
       phoneNumber: "",
+      nationalCode: "",
+      captchaInputText: "",
     },
     mode: "onChange",
   })
-
+  const { register } = methods
   function submitForm(data: any) {
-    setPhoneNumber(data.phoneNumber)
+    console.log("asdasdasd: ", data)
     mutateAsync({
       body: {
         cellphone: data.phoneNumber,
-        nationalCode: "",
-        captchaInputText: "",
-        captchaText: "",
-        captchaToken: "",
+        nationalCode: data.nationalCode,
+        captchaInputText: data.captchaInputText,
+        captchaText: captcha?.data?.captchaTextValue,
+        captchaToken: captcha?.data?.captchaTokenValue,
       },
     })
       .then(() => onSubmitForm(data))
-      .catch(({ message }) => toastError(message))
+      .catch(({ message: { error } }) => {
+        const errorMessage = error.message
+        if (errorMessage === "Invalid captcha") {
+          toastError("کد وارد شده معتبر نیست.")
+        } else if (errorMessage === "Invalid captcha") {
+          toastError("")
+        }
+        refetch()
+      })
   }
 
   return (
@@ -97,44 +75,44 @@ export function LoginForm({ onSubmitForm }: Props) {
           <Row className="mb-3">
             <Col>
               <YNumberInput
-                name="nationalCode"
                 title="شماره ملی"
                 placeholder="مثال: 09121234567"
-                maxLength={11}
+                maxLength={10}
+                {...register("nationalCode")}
               />
             </Col>
           </Row>
           <Row className="mb-3">
             <Col>
               <YNumberInput
-                name="phoneNumber"
                 title="شماره همراه"
                 placeholder="مثال: 0010145263"
-                maxLength={10}
+                maxLength={11}
+                {...register("phoneNumber")}
               />
             </Col>
           </Row>
           <Row className="mb-3">
             <Col xs={10}>
               <YInput
-                name="phoneNumber"
                 title="کد مقابل را وارد کنید"
                 maxLength={10}
+                {...register("captchaInputText")}
               />
             </Col>
             <Col
               xs={2}
-              className="d-flex justify-content-center align-items-end mb-2 ps-5"
+              className="d-flex justify-content-center align-items-end ps-5"
             >
-              {captchaQuery.isFetched ? (
+              {isCaptchaFetched ? (
                 <Image
-                  src={captchaQuery.data?.captchaImgUrl!}
+                  src={captcha?.data?.captchaImgUrl!}
                   alt={"captcha"}
-                  width={60}
-                  height={20}
+                  width={90}
+                  height={40}
                 />
               ) : (
-                <Spinner variant={"primary"} />
+                <Spinner variant={"primary"} className="mb-2" />
               )}
             </Col>
           </Row>
