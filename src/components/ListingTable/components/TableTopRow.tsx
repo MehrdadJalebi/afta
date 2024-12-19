@@ -13,7 +13,7 @@ export interface TableTopRowProps {
 
 // Better not set both title and stateManager
 export function TableTopRow({ stateManager, title, slot }: TableTopRowProps) {
-  const search = stateManager?.state.search
+  const searchValue = stateManager?.state.searchValue
   const filterConfig = stateManager?.config
 
   const onSearchChange = (searchValue: string) => {
@@ -40,7 +40,7 @@ export function TableTopRow({ stateManager, title, slot }: TableTopRowProps) {
         <div className={"d-flex"}>
           {filterConfig.searchParams && (
             <TableSearch
-              value={search!}
+              value={searchValue!}
               onChange={onSearchChange}
               placeholder={filterConfig.searchParams.placeholder}
             />

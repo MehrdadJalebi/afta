@@ -22,16 +22,17 @@ export default function CampaignPage() {
     isError,
     refetch,
     isFetching,
-  } = useQuery(queryService("afta", "/api/afta/v1/Accounts"))
-
-  const { data: functions } = useQuery(
-    queryService("afta", "/api/afta/v1/Activity/functions"),
+  } = useQuery(
+    queryService("afta", "/api/afta/v1/Accounts", {
+      params: { query: getTableQueryParams(tableStateManager) },
+    }),
   )
+
   const { isPending: isActiving, mutateAsync: activeMutate } = useMutation(
-    mutateService("afta", "patch", "/api/afta/v1/Accounts/active"),
+    mutateService("afta", "patch", "/api/afta/v1/Accounts/active/{id}"),
   )
   const { isPending: isInActiving, mutateAsync: inactiveMutate } = useMutation(
-    mutateService("afta", "patch", "/api/afta/v1/Accounts/inactive"),
+    mutateService("afta", "patch", "/api/afta/v1/Accounts/inactive/{id}"),
   )
   const activationHandler = (row: any) => {
     toggleActivateUser(row)

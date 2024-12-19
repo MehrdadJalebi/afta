@@ -13,7 +13,7 @@ export const getTableStateConfig = <T extends Record<string, FilterParams>>(
 ) => params
 
 /**
- * Generates query params for the filters, search and pagination of the table.
+ * Generates query params for the filters, searchValue and pagination of the table.
  * If you want to omit a filter, set its query to empty string ("")
  * @param stateManager the state manager returned by `useTableState` hook
  */
@@ -23,10 +23,12 @@ export const getTableQueryParams = <T extends Record<string, FilterParams>>(
   const { state, config } = stateManager
   const params: Record<string, any> = {}
 
-  if (state.search && !!config.searchParams) params.search = state.search
+  if (state.searchValue && !!config.searchParams)
+    params.searchValue = state.searchValue
 
   if (config.paginationParams) {
-    if (state.pagination?.pageIndex) params.pageIndex = state.pagination.pageIndex
+    if (state.pagination?.pageIndex)
+      params.pageIndex = state.pagination.pageIndex
     if (state.pagination?.pageSize) params.pageSize = state.pagination.pageSize
   }
 
@@ -100,7 +102,7 @@ export const getDefaultTableState = <T extends Record<string, FilterParams>>(
   const state = { filters: {} } as TableState<T>
   const { searchParams, paginationParams, filters } = params
   if (searchParams?.placeholder) {
-    state.search = ""
+    state.searchValue = ""
   }
   if (paginationParams) {
     state.pagination = {

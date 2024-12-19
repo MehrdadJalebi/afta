@@ -50,7 +50,7 @@ export interface AsyncSelectProps<
 /**
  * This select works by the fact that the `queryService` returns all the necessary data in `queryKey`
  * and also the third item of the queryKey array returned by `queryService` is the query data.
- * So we can override `params.query.search` to make a request containing the search string. So please always ensure
+ * So we can override `params.query.searchValue` to make a request containing the searchValue string. So please always ensure
  * that you are using the `queryService` for `queryOptions`. Otherwise, this component won't work.
  */
 export function AsyncSelect<
@@ -80,13 +80,13 @@ export function AsyncSelect<
       staleTime: 10 * 1000,
       ...(queryOptions as any),
       queryFn: (context) => {
-        let [serviceKey, url, init, method, search] = context.queryKey
+        let [serviceKey, url, init, method, searchValue] = context.queryKey
         if (context.pageParam) {
           init = merge(init || {}, {
             params: {
               query: {
                 page: (context.pageParam as PageParam).pageIndex,
-                search,
+                searchValue,
               },
             },
           })

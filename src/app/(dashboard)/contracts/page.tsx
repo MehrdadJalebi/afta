@@ -12,10 +12,11 @@ import { mutateService, queryService } from "@/api"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { toastSuccess, toastError } from "src/utils"
+import { useProfileQuery } from "@/api/useApi"
 
 export default function CampaignPage() {
   const tableStateManager = useTableState(filtersConfig)
-
+  const { data: userProfileData } = useProfileQuery()
   const {
     data: users,
     isLoading,
@@ -23,18 +24,12 @@ export default function CampaignPage() {
     refetch,
     isFetching,
   } = useQuery(
-    queryService("afta", "/api/afta/v1/Activity/users", {
+    queryService("afta", "/api/afta/v1/Activity/contracts/{id}", {
       params: {
-        query: {
-          functionName: "CreateContract",
-          ...getTableQueryParams(tableStateManager),
-        },
+        path: { id: userProfileData?.data?.id.toString() },
+        ...getTableQueryParams(tableStateManager),
       },
     }),
-  )
-
-  const { data: functions } = useQuery(
-    queryService("afta", "/api/afta/v1/Activity/functions"),
   )
 
   const router = useRouter()

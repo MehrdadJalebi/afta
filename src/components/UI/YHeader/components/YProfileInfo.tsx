@@ -2,13 +2,16 @@ import "./index.scss"
 import { css } from "@emotion/react"
 import clsx from "clsx"
 import Cookies from "js-cookie"
-import { forwardRef } from "react"
+import { forwardRef, useEffect } from "react"
 import { Spinner, Dropdown, type DropdownToggleProps } from "react-bootstrap"
-
+import { useMutation } from "@tanstack/react-query"
+import { mutateService } from "@/api"
 import { YBtn, type YButtonProps, YTypography } from "src/components/UI"
-//import { useProfileQuery } from "@/api/useApi"
+import { useProfileQuery } from "@/api/useApi"
 import { themeColors, themeVariables } from "src/styles/bootstrap/variables"
 import { serverUrls } from "@/constants"
+import { useAccountStore } from "@/store"
+import { redirectToLogin } from "@/api/api-service"
 
 type DropdownTogglePropsWithoutAs = Omit<DropdownToggleProps, "as">
 
@@ -42,31 +45,47 @@ export const DropdownToggleBtn = forwardRef<
 })
 
 export function YProfileInfo() {
-  //const { data: userProfileData } = useProfileQuery()
-
+  const { mutateAsync } = useMutation(
+    mutateService("afta", "post", "/api/afta/v1/Accounts/sign-out"),
+  )
+  const { data: userProfileData, isFetched } = useProfileQuery()
+  const { setBearerToken, setIsAdmin, isAdmin } = useAccountStore.getState()
+  const fullName =
+    userProfileData?.data?.firstName && userProfileData?.data?.lastName
+      ? `${userProfileData?.data?.firstName} ${userProfileData?.data?.lastName}`
+      : ""
+  useEffect(() => {
+    setIsAdmin(userProfileData?.data?.isActive)
+  }, [isFetched, userProfileData])
   function exitAccount() {
-    window.location.replace(`/logout/`)
+    mutateAsync()
+      .then(() => {
+        Cookies.remove("access_token")
+        setBearerToken("")
+        redirectToLogin()
+      })
+      .catch(({ message: { error } }) => {})
   }
 
   return (
     <Dropdown>
       <Dropdown.Toggle css={dropdownToggle} as={DropdownToggleBtn}>
         <YTypography className="d-flex" tag={"div"}>
-          اطلاعات کاربری
+          {isAdmin ? "sss" : "aaa"}
         </YTypography>
       </Dropdown.Toggle>
 
       <Dropdown.Menu css={dropdownMenuContainer}>
         <div css={userInfo}>
           <i className="icon-user" />
-          گلابی زیبا
+          {fullName && <span>{fullName}</span>}
         </div>
         <div css={dropdownItem}>
           <div className="d-flex align-items-center">
             <i className="icon-phone icon-lg" />
             <span className="me-4">تلفن</span>
           </div>
-          <span>0935225522552525</span>
+          <span>{userProfileData?.data.cellphone || ""}</span>
         </div>
         <div css={dropdownItem} onClick={exitAccount}>
           <div className="d-flex align-items-center">

@@ -62,9 +62,9 @@ export const useTableState = <T extends Record<string, FilterParams>>(
       setState((prevState) => ({
         ...prevState,
         ...resetPageNumber(),
-        search:
+        searchValue:
           typeof updater === "function"
-            ? updater(prevState.search || "")
+            ? updater(prevState.searchValue || "")
             : updater,
       }))
     },

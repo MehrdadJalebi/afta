@@ -60,14 +60,14 @@ export async function clientFetch<M extends HttpMethod, P extends PathsOf<M>>(
   ]: ClientFetchParams<M, P>
 ): Promise<HttpResponseData<M, P>> {
   try {
-    const bearerToken = await getAuthenticationCredentials()
-
+    const { bearerToken } = useAccountStore.getState()
+    const isPublicUrl = getIsPublicUrl(url)
     if (bearerToken) {
       options = {
         ...options,
         headers: {
           ...options.headers,
-          Authorization: `Bearer ${bearerToken}`,
+          ...(!isPublicUrl && { Authorization: `Bearer ${bearerToken}` }),
         },
       } as unknown as RequestData<M, P>
     }
@@ -97,9 +97,15 @@ export async function getAuthenticationCredentials() {
   const { bearerToken } = useAccountStore.getState()
   let currentBearerToken = bearerToken
   if (!currentBearerToken) {
-    //redirectToLogin()
+    redirectToLogin()
   }
   return currentBearerToken
+}
+
+export function getIsPublicUrl(url: string) {
+  const publicUrls = ["otp-request"]
+  const splitedUrl = url.split("/")
+  return publicUrls.includes(splitedUrl[splitedUrl.length - 1])
 }
 
 export function redirectToLogin() {

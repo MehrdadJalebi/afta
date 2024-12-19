@@ -1,32 +1,28 @@
 "use client"
 
-import React, {
-  PropsWithChildren,
-  useEffect,
-  type ReactNode,
-
-} from "react"
+import React, { PropsWithChildren, useEffect, type ReactNode } from "react"
 import { useAccountStore } from "@/store"
 import { Spinner } from "react-bootstrap"
-import { useRouter } from "next/navigation"
+import Cookies from "js-cookie"
 
-import {
-  redirectToLogin,
-} from "@/api/api-service"
+import { redirectToLogin } from "@/api/api-service"
 
 export function AuthProviders({ children }: PropsWithChildren): ReactNode {
   const { bearerToken, setBearerToken } = useAccountStore()
 
   useEffect(() => {
-    const localStorageToken = localStorage.getItem("bearerToken") as string
-    if (localStorageToken) {
-      setBearerToken(localStorageToken)
-    } else {
-      //redirectToLogin()
+    if (!bearerToken) {
+      const cookieToken = Cookies.get("accessToken")
+      if (cookieToken) {
+        setBearerToken(cookieToken)
+      } else {
+        redirectToLogin()
+      }
     }
   }, [])
 
-  return !bearerToken ? (
+  return <>{children}</>
+  /*return bearerToken ? (
     <>
       {children}
     </>
@@ -39,5 +35,5 @@ export function AuthProviders({ children }: PropsWithChildren): ReactNode {
         style={{ width: 50, height: 50 }}
       />
     </div>
-  )
+  )*/
 }

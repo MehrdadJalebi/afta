@@ -89,7 +89,7 @@ export type PaginationState = {
 export type TableState<T extends Record<string, FilterParams>> = {
   filters: FilterState<T>
 } & {
-  search?: string
+  searchValue?: string
 } & { pagination?: PaginationState }
 
 export type FilterUpdater<Z extends FilterState<any>> = (
