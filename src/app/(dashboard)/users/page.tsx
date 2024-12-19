@@ -24,7 +24,12 @@ export default function CampaignPage() {
     isFetching,
   } = useQuery(
     queryService("afta", "/api/afta/v1/Accounts", {
-      params: { query: getTableQueryParams(tableStateManager) },
+      params: {
+        query: {
+          ...getTableQueryParams(tableStateManager),
+          pageNumber: 1,
+        },
+      },
     }),
   )
 
@@ -39,10 +44,10 @@ export default function CampaignPage() {
   }
 
   const toggleActivateUser = async (row: any) => {
-    const activationTypeMessage = row.iActive ? "غیرفعال" : "فعال"
+    const activationTypeMessage = row.isActive ? "غیرفعال" : "فعال"
     const params = { path: { id: row.id.toString() } }
     try {
-      if (row.iActive) {
+      if (row.isActive) {
         await inactiveMutate({ params })
       } else {
         await activeMutate({ params })

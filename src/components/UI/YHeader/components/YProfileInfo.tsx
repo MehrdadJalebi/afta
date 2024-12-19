@@ -48,15 +48,12 @@ export function YProfileInfo() {
   const { mutateAsync } = useMutation(
     mutateService("afta", "post", "/api/afta/v1/Accounts/sign-out"),
   )
-  const { data: userProfileData, isFetched } = useProfileQuery()
-  const { setBearerToken, setIsAdmin, isAdmin } = useAccountStore.getState()
+  const { data: userProfileData, isFetching } = useProfileQuery()
+  const { setBearerToken } = useAccountStore.getState()
   const fullName =
     userProfileData?.data?.firstName && userProfileData?.data?.lastName
       ? `${userProfileData?.data?.firstName} ${userProfileData?.data?.lastName}`
       : ""
-  useEffect(() => {
-    setIsAdmin(userProfileData?.data?.isActive)
-  }, [isFetched, userProfileData])
   function exitAccount() {
     mutateAsync()
       .then(() => {
@@ -79,7 +76,9 @@ export function YProfileInfo() {
         <div css={userInfo}>
           <i className="icon-user" />
           {fullName && <span>{fullName} - </span>}
-          <span>{isAdmin ? "کاربر ادمین" : "کاربر عادی"}</span>
+          <span>
+            {userProfileData?.data?.isActive ? "کاربر ادمین" : "کاربر عادی"}
+          </span>
         </div>
         <div css={dropdownItem}>
           <div className="d-flex align-items-center">

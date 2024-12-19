@@ -82,7 +82,7 @@ export async function clientFetch<M extends HttpMethod, P extends PathsOf<M>>(
 
     if (error) {
       if (response.status === 401) {
-        //redirectToLogin()
+        redirectToLogin()
       }
       throw { message: error, response }
     }

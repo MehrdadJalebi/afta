@@ -57,10 +57,10 @@ export const columns = [
     id: "nationalCode",
     header: "شماره شناسنامه",
   }),
-  columnHelper.accessor("iActive", {
-    id: "iActive",
+  columnHelper.accessor("isActive", {
+    id: "isActive",
     header: "وضعیت",
-    cell: ({ row, table, getValue }) => {
+    cell: ({ row, table }) => {
       const { onActivationClick, isActiving, isInActiving } = table.options
         .meta as TableMetaData
       const contractActivationHandler = () => {
@@ -71,7 +71,7 @@ export const columns = [
           <Form.Switch
             role="button"
             disabled={isActiving || isInActiving}
-            checked={getValue()}
+            checked={row.original.isActive}
             onClick={contractActivationHandler}
           />
         </Form>
