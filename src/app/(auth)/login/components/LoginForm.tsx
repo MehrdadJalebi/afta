@@ -39,7 +39,6 @@ export function LoginForm({ onSubmitForm }: Props) {
   })
   const { register } = methods
   function submitForm(data: any) {
-    console.log("asdasdasd: ", data)
     mutateAsync({
       body: {
         cellphone: data.phoneNumber,

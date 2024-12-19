@@ -71,14 +71,15 @@ export function YProfileInfo() {
     <Dropdown>
       <Dropdown.Toggle css={dropdownToggle} as={DropdownToggleBtn}>
         <YTypography className="d-flex" tag={"div"}>
-          {isAdmin ? "sss" : "aaa"}
+          اطلاعات کاربری
         </YTypography>
       </Dropdown.Toggle>
 
       <Dropdown.Menu css={dropdownMenuContainer}>
         <div css={userInfo}>
           <i className="icon-user" />
-          {fullName && <span>{fullName}</span>}
+          {fullName && <span>{fullName} - </span>}
+          <span>{isAdmin ? "کاربر ادمین" : "کاربر عادی"}</span>
         </div>
         <div css={dropdownItem}>
           <div className="d-flex align-items-center">

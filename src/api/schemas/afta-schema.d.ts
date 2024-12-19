@@ -718,7 +718,7 @@ export interface paths {
     trace?: never
   }
 }
-export type webhooks = Record<string, never>
+export type contracts = Record<string, never>
 export interface components {
   schemas: {
     CaptchaApiResponse: {

@@ -63,7 +63,7 @@ export const columns = [
     cell: ({ row, table, getValue }) => {
       const { onActivationClick, isActiving, isInActiving } = table.options
         .meta as TableMetaData
-      const webhookActivationHandler = () => {
+      const contractActivationHandler = () => {
         onActivationClick(row.original)
       }
       return (
@@ -72,7 +72,7 @@ export const columns = [
             role="button"
             disabled={isActiving || isInActiving}
             checked={getValue()}
-            onClick={webhookActivationHandler}
+            onClick={contractActivationHandler}
           />
         </Form>
       )
