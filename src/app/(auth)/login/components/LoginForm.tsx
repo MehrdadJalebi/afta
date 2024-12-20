@@ -75,7 +75,7 @@ export function LoginForm({ onSubmitForm }: Props) {
             <Col>
               <YNumberInput
                 title="شماره ملی"
-                placeholder="مثال: 09121234567"
+                placeholder="مثال: 0010145263"
                 maxLength={10}
                 {...register("nationalCode")}
               />
@@ -85,7 +85,7 @@ export function LoginForm({ onSubmitForm }: Props) {
             <Col>
               <YNumberInput
                 title="شماره همراه"
-                placeholder="مثال: 0010145263"
+                placeholder="مثال: 09121234567"
                 maxLength={11}
                 {...register("phoneNumber")}
               />

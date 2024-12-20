@@ -64,7 +64,7 @@ paths:
       tags:
         - Accounts
       parameters:
-        - name: pageNumber
+        - name: pageIndex
           in: query
           schema:
             type: integer
@@ -364,6 +364,12 @@ components:
       type: object
       properties:
         nationalCode:
+          type: string
+          nullable: true
+        firstName:
+          type: string
+          nullable: true
+        lastName:
           type: string
           nullable: true
         cellphone:

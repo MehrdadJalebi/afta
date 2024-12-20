@@ -125,7 +125,7 @@ $blue-palette: (
 $primary-100: #e6f7ff !default;
 $primary-200: #bae7ff !default;
 $primary-300: #91d5ff !default;
-$primary-400: #69c0ff !default;
+$primary-400: #69c9ff !default;
 $primary-500: #40a9ff !default;
 $primary-600: #1890ff !default;
 $primary-700: #096dd9 !default;
@@ -170,7 +170,7 @@ $secondary-palette: (
 ) !default;
 
 // bootstrap
-$primary: $primary-400 !default;
+$primary: $red-700 !default;
 $secondary: $secondary-400 !default;
 $success: $green-700 !default;
 $info: $blue-700 !default;

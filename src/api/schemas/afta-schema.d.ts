@@ -160,7 +160,7 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          pageNumber?: number
+          pageIndex?: number
           pageSize?: number
           searchValue?: string
         }
@@ -738,6 +738,8 @@ export interface components {
     }
     LoginRequest: {
       nationalCode?: string | null
+      firstName?: string | null
+      lastName?: string | null
       cellphone?: string | null
       captchaText?: string | null
       captchaToken?: string | null
