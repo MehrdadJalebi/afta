@@ -27,10 +27,12 @@ export default function CampaignPage() {
 
   return (
     <>
-      <YTypography variant={"headline1-bold"} className={"mb-4"}>
-        لاگ‌ها
-      </YTypography>
       <ListingTable
+        title={
+          <YTypography variant={"headline2-bold"} className={"mb-4"}>
+            لاگ‌ها
+          </YTypography>
+        }
         columns={columns}
         count={logs?.data?.totalcount}
         data={logs?.data?.logs}

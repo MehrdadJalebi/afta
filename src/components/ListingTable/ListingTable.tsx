@@ -15,7 +15,7 @@ export interface ListingTableProps<TData> {
   data?: TData[]
   count?: number
   stateManager?: UseTableStateReturnType<any>
-  title?: string
+  title?: string | React.ReactNode
   columns: ColumnDef<TData, any>[]
   hasError?: boolean
   isLoading?: boolean

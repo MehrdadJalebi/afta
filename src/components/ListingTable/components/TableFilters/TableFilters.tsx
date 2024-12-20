@@ -52,6 +52,7 @@ export function TableFilters({ stateManager }: TableFiltersProps) {
       <YBtn
         variant="outline-primary"
         onClick={() => setShowSidebar(true)}
+        className="me-4"
         icon={{ placement: "right", icon: "icon-filter" }}
       >
         فیلتر

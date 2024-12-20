@@ -63,10 +63,12 @@ export default function CampaignPage() {
 
   return (
     <>
-      <YTypography variant={"headline1-bold"} className={"mb-4"}>
-        لیست کاربران
-      </YTypography>
       <ListingTable
+        title={
+          <YTypography variant="headline2-bold" className={"mb-4"}>
+            لیست کاربران
+          </YTypography>
+        }
         columns={columns}
         count={users?.data.length}
         data={users?.data}
@@ -86,7 +88,6 @@ export default function CampaignPage() {
           imageSource: "/no-data-general.png",
         }}
         isFetching={isFetching}
-        slot={<div className={"d-flex"}></div>}
       />
     </>
   )

@@ -26,10 +26,12 @@ export default function CreateContractPage() {
 
   return (
     <>
-      <YTypography variant="headline2-bold" className={"mb-4"}>
-        ایجاد قرارداد جدید
-      </YTypography>
       <YBox
+        title={
+          <YTypography variant="headline2-bold" className={"mb-4"}>
+            ایجاد قرارداد جدید
+          </YTypography>
+        }
         body={<ContractForm isSubmitting={isPending} onSubmit={onSubmit} />}
       />
     </>

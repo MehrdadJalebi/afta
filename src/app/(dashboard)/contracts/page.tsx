@@ -47,10 +47,12 @@ export default function CampaignPage() {
 
   return (
     <>
-      <YTypography variant={"headline1-bold"} className={"mb-4"}>
-        لیست قراردادها
-      </YTypography>
       <ListingTable
+        title={
+          <YTypography variant={"headline2-bold"} className={"mb-4"}>
+            لیست قراردادها
+          </YTypography>
+        }
         columns={columns}
         count={contracts?.data?.length}
         data={contracts?.data}
