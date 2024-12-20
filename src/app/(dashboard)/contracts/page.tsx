@@ -7,6 +7,7 @@ import {
   ListingTable,
   useTableState,
 } from "@/components/ListingTable"
+import { SignContractModal, DeleteContractModal } from "./(action-modals)"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { mutateService, queryService } from "@/api"
 import { useRouter } from "next/navigation"
@@ -63,8 +64,23 @@ export default function ContractPage() {
       console.error(e)
     }
   }
-  const router = useRouter()
-
+  const handleSign = async () => {
+    try {
+      await signContractMutation.mutateAsync({
+        params: { path: { id: selectedRow!.contract.id.toString() } },
+      })
+      toastSuccess("قرارداد انتخابی با موفقیت امضا گردید.")
+      refetch()
+      hideModal()
+    } catch (e) {
+      toastError("خطا در امضا قرارداد.")
+      console.error(e)
+    }
+  }
+  const hideModal = () => {
+    setSelectedRow(undefined)
+    setActiveModal(undefined)
+  }
   const createContractBtn = (
     <YBtn
       variant={"primary"}
@@ -103,6 +119,20 @@ export default function ContractPage() {
           slot: createContractBtn,
         }}
         isFetching={isFetching}
+      />
+      <DeleteContractModal
+        isSubmitting={deleteContractMutation.isPending}
+        onSubmit={handleDelete}
+        isShowing={activeModal === "delete"}
+        onHide={hideModal}
+        selectedRow={selectedRow}
+      />
+      <SignContractModal
+        isSubmitting={signContractMutation.isPending}
+        onSubmit={handleSign}
+        isShowing={activeModal === "sign"}
+        onHide={hideModal}
+        selectedRow={selectedRow}
       />
     </>
   )
