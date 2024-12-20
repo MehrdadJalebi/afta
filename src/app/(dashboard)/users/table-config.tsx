@@ -83,11 +83,4 @@ export const columns = [
 export const filtersConfig = getTableStateConfig({
   searchParams: { placeholder: "نام کاربر" },
   paginationParams: { defaultPageNumber: 1, defaultPageSize: 10 },
-  filters: {
-    date: {
-      query: ["send_datetime_after", "send_datetime_before"],
-      type: "range",
-      title: "تاریخ کاربر",
-    },
-  },
 })
