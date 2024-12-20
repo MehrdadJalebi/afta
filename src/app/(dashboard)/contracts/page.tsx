@@ -14,7 +14,7 @@ import { useState } from "react"
 import { toastSuccess, toastError } from "src/utils"
 import { useProfileQuery } from "@/api/useApi"
 
-export default function CampaignPage() {
+export default function ContractPage() {
   const tableStateManager = useTableState(filtersConfig)
   const { data: userProfileData } = useProfileQuery()
   const {
@@ -31,7 +31,38 @@ export default function CampaignPage() {
       },
     }),
   )
+  const [selectedRow, setSelectedRow] = useState<any>()
+  const [activeModal, setActiveModal] = useState<"delete" | "sign">()
+  const signContractMutation = useMutation(
+    mutateService("afta", "patch", "/api/afta/v1/Contracts/sign/{id}"),
+  )
 
+  const deleteContractMutation = useMutation(
+    mutateService("afta", "delete", "/api/afta/v1/Contracts/{id}"),
+  )
+
+  const signActionHandler = (row: any) => {
+    setSelectedRow(row)
+    setActiveModal("sign")
+  }
+
+  const deleteActionHandler = (row: any) => {
+    setSelectedRow(row)
+    setActiveModal("delete")
+  }
+  const handleDelete = async () => {
+    try {
+      await deleteContractMutation.mutateAsync({
+        params: { path: { id: selectedRow!.contract.id.toString() } },
+      })
+      toastSuccess("قرارداد انتخابی با موفقیت حذف گردید.")
+      refetch()
+      hideModal()
+    } catch (e) {
+      toastError("خطا در حذف قرارداد.")
+      console.error(e)
+    }
+  }
   const router = useRouter()
 
   const createContractBtn = (
@@ -58,6 +89,12 @@ export default function CampaignPage() {
         data={contracts?.data}
         onRefetch={refetch}
         stateManager={tableStateManager}
+        meta={
+          {
+            onSignClick: signActionHandler,
+            onDeleteClick: deleteActionHandler,
+          } as TableMeta
+        }
         isLoading={isLoading}
         hasError={isError}
         noDataProps={{
