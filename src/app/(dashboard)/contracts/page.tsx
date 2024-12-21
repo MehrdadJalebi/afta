@@ -7,7 +7,11 @@ import {
   ListingTable,
   useTableState,
 } from "@/components/ListingTable"
-import { SignContractModal, DeleteContractModal } from "./(action-modals)"
+import {
+  SignContractModal,
+  DeleteContractModal,
+  ShowContractModal,
+} from "./(action-modals)"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { mutateService, queryService } from "@/api"
 import { useRouter } from "next/navigation"
@@ -33,7 +37,7 @@ export default function ContractPage() {
     }),
   )
   const [selectedRow, setSelectedRow] = useState<any>()
-  const [activeModal, setActiveModal] = useState<"delete" | "sign">()
+  const [activeModal, setActiveModal] = useState<"delete" | "sign" | "show">()
   const signContractMutation = useMutation(
     mutateService("afta", "patch", "/api/afta/v1/Contracts/sign/{id}"),
   )
@@ -51,6 +55,11 @@ export default function ContractPage() {
     setSelectedRow(row)
     setActiveModal("delete")
   }
+
+  const showActionHandler = (row: any) => {
+    setSelectedRow(row)
+    setActiveModal("show")
+  }
   const handleDelete = async () => {
     try {
       await deleteContractMutation.mutateAsync({
@@ -67,7 +76,7 @@ export default function ContractPage() {
   const handleSign = async () => {
     try {
       await signContractMutation.mutateAsync({
-        params: { path: { id: selectedRow!.contract.id.toString() } },
+        params: { path: { id: selectedRow!.id.toString() } },
       })
       toastSuccess("قرارداد انتخابی با موفقیت امضا گردید.")
       refetch()
@@ -85,10 +94,9 @@ export default function ContractPage() {
     <YBtn
       variant={"primary"}
       icon={{ placement: "right", icon: "icon-add" }}
-      className="mt-4"
       href={"/contracts/new"}
     >
-      ایجاد اولین قرارداد
+      ایجاد قرارداد جدید
     </YBtn>
   )
 
@@ -109,6 +117,7 @@ export default function ContractPage() {
           {
             onSignClick: signActionHandler,
             onDeleteClick: deleteActionHandler,
+            onShowClick: showActionHandler,
           } as TableMeta
         }
         isLoading={isLoading}
@@ -119,6 +128,7 @@ export default function ContractPage() {
           slot: createContractBtn,
         }}
         isFetching={isFetching}
+        slot={createContractBtn}
       />
       <DeleteContractModal
         isSubmitting={deleteContractMutation.isPending}
@@ -131,6 +141,13 @@ export default function ContractPage() {
         isSubmitting={signContractMutation.isPending}
         onSubmit={handleSign}
         isShowing={activeModal === "sign"}
+        onHide={hideModal}
+        selectedRow={selectedRow}
+      />
+      <ShowContractModal
+        isSubmitting={signContractMutation.isPending}
+        onSubmit={hideModal}
+        isShowing={activeModal === "show"}
         onHide={hideModal}
         selectedRow={selectedRow}
       />

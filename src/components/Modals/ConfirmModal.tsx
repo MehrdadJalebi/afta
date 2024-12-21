@@ -11,6 +11,7 @@ export interface ConfirmModalProps {
   showModal: boolean
   onHide: () => void
   isStatic?: boolean
+  isInfoModal?: boolean
 }
 
 export function ConfirmModal({
@@ -19,6 +20,7 @@ export function ConfirmModal({
   actionText,
   isLoading,
   isStatic,
+  isInfoModal,
   ...restProps
 }: ConfirmModalProps) {
   return (
@@ -27,14 +29,16 @@ export function ConfirmModal({
       backdrop={isLoading || isStatic ? "static" : true}
       footer={
         <div>
-          <YBtn
-            variant={"outline-primary"}
-            className={"ms-4"}
-            onClick={restProps.onHide}
-            disabled={isLoading}
-          >
-            بازگشت
-          </YBtn>
+          {!isInfoModal && (
+            <YBtn
+              variant={"outline-primary"}
+              className={"ms-4"}
+              onClick={restProps.onHide}
+              disabled={isLoading}
+            >
+              بازگشت
+            </YBtn>
+          )}
           <YBtn
             variant={actionVariant}
             onClick={onActionClick}

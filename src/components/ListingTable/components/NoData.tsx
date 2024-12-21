@@ -31,7 +31,7 @@ export function NoData({
                 height={160}
                 className="mt-2 mb-4"
               />
-              <YTypography variant={"caption-bold"} className="my-2">
+              <YTypography variant={"caption-bold"} className="mt-2 mb-4">
                 {title}
               </YTypography>
               {description && (

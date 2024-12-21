@@ -1,10 +1,12 @@
 export enum ContractStatus {
   DRAFT = "Draft",
+  SIGN = "Sign",
 }
 
 export function contractStatusTranslation(t: ContractStatus): string {
   const translations = {
     [ContractStatus.DRAFT]: "پیش‌نویس",
+    [ContractStatus.SIGN]: "امضا شده",
   }
   return translations[t]
 }

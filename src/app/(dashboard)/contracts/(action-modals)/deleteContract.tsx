@@ -22,11 +22,11 @@ export function DeleteContractModal({
       actionText={"حذف"}
       onActionClick={onSubmit}
       isLoading={isSubmitting}
-      title={`حذف قرارداد ${selectedRow?.contract.name}`}
+      title={`حذف قرارداد ${selectedRow?.title}`}
       body={
         <>
           <YTypography>
-            آیا از حذف قرارداد {selectedRow?.contract.name} اطمینان دارید؟
+            آیا از حذف قرارداد {selectedRow?.title} اطمینان دارید؟
           </YTypography>
         </>
       }

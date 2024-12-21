@@ -12,10 +12,12 @@ import { queryService } from "@/api"
 export interface TableMeta {
   onSignClick: (row: any) => void
   onDeleteClick: (row: any) => void
+  onShowClick: (row: any) => void
 }
 const dropdownItems = {
   sign: { title: "امضای قرارداد" },
   delete: { title: "حذف قرارداد", className: "text-danger" },
+  show: { title: "نمایش قرارداد" },
 }
 
 const getDropdownNodes = (keys: (keyof typeof dropdownItems)[]) => {
@@ -73,12 +75,15 @@ export const columns = [
   columnHelper.display({
     id: "actions",
     cell: ({ row, table }) => {
-      const { onDeleteClick, onSignClick } = table.options.meta as TableMeta
+      const { onDeleteClick, onSignClick, onShowClick } = table.options
+        .meta as TableMeta
 
       let eventKeys: (keyof typeof dropdownItems)[] = (() => {
         switch (row.original.status) {
           case ContractStatus.DRAFT:
             return ["sign", "delete"]
+          case ContractStatus.SIGN:
+            return ["show"]
           default:
             return []
         }
@@ -89,6 +94,8 @@ export const columns = [
           onDeleteClick(row.original)
         } else if (eventKey === "sign") {
           onSignClick(row.original)
+        } else if (eventKey === "show") {
+          onShowClick(row.original)
         }
       }
 
