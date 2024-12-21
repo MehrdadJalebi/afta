@@ -34,7 +34,14 @@ export function OTPForm(props: Props) {
     )
 
   function handleSendOTP() {
-    mutateAsync({ body: { phoneNumber: phoneNumber } })
+    mutateAsync({
+      body: {},
+      params: {
+        query: {
+          phoneNumber: phoneNumber,
+        },
+      },
+    })
       .then(() => resetTimer())
       .catch(({ message }) => toastError(message))
   }
