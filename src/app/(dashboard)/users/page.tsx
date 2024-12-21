@@ -25,10 +25,7 @@ export default function CampaignPage() {
   } = useQuery(
     queryService("afta", "/api/afta/v1/Accounts", {
       params: {
-        query: {
-          ...getTableQueryParams(tableStateManager),
-          pageNumber: 1,
-        },
+        query: getTableQueryParams(tableStateManager),
       },
     }),
   )

@@ -26,7 +26,7 @@ export function OTPForm(props: Props) {
   const { setBearerToken } = useAccountStore.getState()
 
   const { mutateAsync, isPending } = useMutation(
-    mutateService("afta", "post", "/api/afta/v1/Accounts/otp-request"),
+    mutateService("afta", "post", "/api/afta/v1/Accounts/send-otp"),
   )
   const { mutateAsync: fetchAccess, isPending: isFetchAccessPending } =
     useMutation(
@@ -35,9 +35,7 @@ export function OTPForm(props: Props) {
 
   function handleSendOTP() {
     mutateAsync({ body: { phoneNumber: phoneNumber } })
-      .then(
-        () => {}, //resetTimer()
-      )
+      .then(() => resetTimer())
       .catch(({ message }) => toastError(message))
   }
 
@@ -116,7 +114,7 @@ export function OTPForm(props: Props) {
               {...register("otp")}
             />
             {timer >= 0 ? (
-              <span css={timerCountDown}>00:59</span>
+              <span css={timerCountDown}>{formattedTime}</span>
             ) : (
               <span css={resendOTPBtn} onClick={handleSendOTP}>
                 ارسال مجدد کد
