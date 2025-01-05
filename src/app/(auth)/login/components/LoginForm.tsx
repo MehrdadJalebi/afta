@@ -20,7 +20,7 @@ interface Props {
 
 export function LoginForm({ onSubmitForm }: Props) {
   const { mutateAsync, isPending } = useMutation(
-    mutateService("afta", "post", "/api/afta/v1/Accounts/otp-request"),
+    mutateService("afta", "post", "/api/afta/v1/Accounts/register"),
   )
 
   const {

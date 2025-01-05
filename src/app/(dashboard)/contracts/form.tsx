@@ -1,12 +1,12 @@
-import { YBtn, YInput, YSelect, YTextArea } from "@/components/UI"
+import { YBtn, YInput, YTextArea } from "@/components/UI"
 import { Col, Row } from "react-bootstrap"
 import { z } from "zod"
-import { validations } from "@/utils"
-import { Controller, useForm } from "react-hook-form"
+import { validateNationalCode } from "@/utils"
+import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { FormComponentProps } from "@/types/common"
 import { useRouter } from "next/navigation"
-import { selectSchema } from "@/constants"
+import { requiredStringSchema } from "@/constants"
 
 export interface ContractFormProps
   extends FormComponentProps<z.infer<typeof validationSchema>> {
@@ -48,6 +48,26 @@ export function ContractForm({
         </Col>
       </Row>
       <Row>
+        <Col xs={12} md={6}>
+          <YInput
+            title={"کد ملی طرف اول قرارداد"}
+            feedbackProps={{
+              text: errors.firstUser?.message,
+            }}
+            {...register("firstUser")}
+          />
+        </Col>
+        <Col xs={12} md={6}>
+          <YInput
+            title={"کد ملی طرف دوم قرارداد"}
+            feedbackProps={{
+              text: errors.secondUser?.message,
+            }}
+            {...register("secondUser")}
+          />
+        </Col>
+      </Row>
+      <Row>
         <Col xs={12}>
           <YTextArea
             title={"متن قرارداد"}
@@ -80,8 +100,14 @@ export function ContractForm({
 }
 
 const validationSchema = z.object({
-  title: z.string().min(1, { message: validations.required }),
-  description: z.string().min(1, { message: validations.required }),
+  title: requiredStringSchema(),
+  description: requiredStringSchema(),
+  firstUser: requiredStringSchema().refine(validateNationalCode, {
+    message: "کد ملی معتبر نیست",
+  }),
+  secondUser: requiredStringSchema().refine(validateNationalCode, {
+    message: "کد ملی معتبر نیست",
+  }),
 })
 
 /*

@@ -36,6 +36,8 @@ export default function ContractPage() {
       },
     }),
   )
+  const router = useRouter()
+
   const [selectedRow, setSelectedRow] = useState<any>()
   const [activeModal, setActiveModal] = useState<"delete" | "sign" | "show">()
   const signContractMutation = useMutation(
@@ -60,6 +62,11 @@ export default function ContractPage() {
     setSelectedRow(row)
     setActiveModal("show")
   }
+
+  const showActivityHandler = (row: any) => {
+    router.push(`/contracts/activity/${row.id}`)
+  }
+
   const handleDelete = async () => {
     try {
       await deleteContractMutation.mutateAsync({
@@ -118,6 +125,7 @@ export default function ContractPage() {
             onSignClick: signActionHandler,
             onDeleteClick: deleteActionHandler,
             onShowClick: showActionHandler,
+            onActivityClick: showActivityHandler,
           } as TableMeta
         }
         isLoading={isLoading}

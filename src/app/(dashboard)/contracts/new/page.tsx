@@ -15,7 +15,12 @@ export default function CreateContractPage() {
 
   const onSubmit: ContractFormProps["onSubmit"] = async (data) => {
     try {
-      await mutateAsync({ body: data })
+      const payload = {
+        title: data.title,
+        description: data.description,
+        userIds: [data.firstUser, data.secondUser],
+      }
+      await mutateAsync({ body: payload })
       toastSuccess("قرارداد مورد نظر با موفقیت ایجاد شد.")
       router.push("/contracts")
     } catch (e) {

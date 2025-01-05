@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-  "/api/afta/v1/Accounts/otp-request": {
+  "/api/afta/v1/Accounts/register": {
     parameters: {
       query?: never
       header?: never
@@ -730,6 +730,7 @@ export interface components {
     ContractRequest: {
       title?: string | null
       description?: string | null
+      userIds?: string[] | null
     }
     CustomerUpdateRequest: {
       firstName?: string | null

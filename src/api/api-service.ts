@@ -103,7 +103,7 @@ export async function getAuthenticationCredentials() {
 }
 
 export function getIsPublicUrl(url: string) {
-  const publicUrls = ["otp-request"]
+  const publicUrls = ["register"]
   const splitedUrl = url.split("/")
   return publicUrls.includes(splitedUrl[splitedUrl.length - 1])
 }

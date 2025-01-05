@@ -3,7 +3,7 @@
   "info": { "title": "Afta", "version": "1.0" },
   "paths":
     {
-      "/api/afta/v1/Accounts/otp-request":
+      "/api/afta/v1/Accounts/register":
         {
           "post":
             {
@@ -484,6 +484,12 @@
                 {
                   "title": { "type": "string", "nullable": true },
                   "description": { "type": "string", "nullable": true },
+                  "userIds":
+                    {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "nullable": true,
+                    },
                 },
               "additionalProperties": false,
             },

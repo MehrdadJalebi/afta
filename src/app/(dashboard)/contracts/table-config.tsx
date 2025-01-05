@@ -13,11 +13,13 @@ export interface TableMeta {
   onSignClick: (row: any) => void
   onDeleteClick: (row: any) => void
   onShowClick: (row: any) => void
+  onActivityClick: (row: any) => void
 }
 const dropdownItems = {
   sign: { title: "امضای قرارداد" },
   delete: { title: "حذف قرارداد", className: "text-danger" },
   show: { title: "نمایش قرارداد" },
+  activity: { title: "فعالیت‌ها" },
 }
 
 const getDropdownNodes = (keys: (keyof typeof dropdownItems)[]) => {
@@ -75,15 +77,15 @@ export const columns = [
   columnHelper.display({
     id: "actions",
     cell: ({ row, table }) => {
-      const { onDeleteClick, onSignClick, onShowClick } = table.options
-        .meta as TableMeta
+      const { onDeleteClick, onSignClick, onShowClick, onActivityClick } = table
+        .options.meta as TableMeta
 
       let eventKeys: (keyof typeof dropdownItems)[] = (() => {
         switch (row.original.status) {
           case ContractStatus.DRAFT:
-            return ["sign", "delete"]
+            return ["sign", "delete", "activity"]
           case ContractStatus.SIGN:
-            return ["show"]
+            return ["show", "activity"]
           default:
             return []
         }
@@ -96,6 +98,8 @@ export const columns = [
           onSignClick(row.original)
         } else if (eventKey === "show") {
           onShowClick(row.original)
+        } else if (eventKey === "activity") {
+          onActivityClick(row.original)
         }
       }
 
