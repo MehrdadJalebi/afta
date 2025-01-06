@@ -11,14 +11,15 @@ import { queryService } from "@/api"
 
 export interface TableMetaData {
   onEditClick: (row: any) => void
-  onDeleteClick: (row: any) => void
   onActivationClick: (row: any) => void
+  onActivityClick: (row: any) => void
   isActiving: boolean
   isInActiving: boolean
 }
 
 const dropdownItems = {
   edit: { title: "ویرایش" },
+  activity: { title: "فعالیت‌ها" },
 }
 
 const getDropdownNodes = (keys: (keyof typeof dropdownItems)[]) => {
@@ -75,6 +76,33 @@ export const columns = [
             onClick={contractActivationHandler}
           />
         </Form>
+      )
+    },
+  }),
+  columnHelper.display({
+    id: "actions",
+    cell: ({ row, table }) => {
+      const { onEditClick, onActivityClick } = table.options.meta as TableMeta
+
+      let eventKeys: (keyof typeof dropdownItems)[] = (() => {
+        return ["edit", "activity"]
+      })()
+
+      const selectHandler: SelectCallback = (eventKey) => {
+        if (eventKey === "edit") {
+          onEditClick(row.original)
+        } else if (eventKey === "activity") {
+          onActivityClick(row.original)
+        }
+      }
+
+      return (
+        <YDropdown
+          toggleProps={{ as: ActionMenuToggle }}
+          items={getDropdownNodes(eventKeys)}
+          eventKeys={eventKeys}
+          onSelect={selectHandler}
+        />
       )
     },
   }),

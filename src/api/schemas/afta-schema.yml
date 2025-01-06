@@ -333,13 +333,19 @@
               "responses": { "200": { "description": "OK" } },
             },
         },
-      "/api/afta/v1/Activity/users":
+      "/api/afta/v1/Activity/users/{id}":
         {
           "get":
             {
               "tags": ["Activity"],
               "parameters":
                 [
+                  {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": { "type": "integer", "format": "int32" },
+                  },
                   {
                     "name": "pageIndex",
                     "in": "query",
@@ -385,6 +391,23 @@
                         },
                     },
                 },
+              "responses": { "200": { "description": "OK" } },
+            },
+        },
+      "/api/afta/v1/Contracts/{id}/parties":
+        {
+          "get":
+            {
+              "tags": ["Contracts"],
+              "parameters":
+                [
+                  {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": { "type": "integer", "format": "int32" },
+                  },
+                ],
               "responses": { "200": { "description": "OK" } },
             },
         },

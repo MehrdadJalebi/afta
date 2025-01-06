@@ -1,7 +1,7 @@
 "use client"
 
 import { YBtn, YTypography } from "@/components/UI"
-import { columns, filtersConfig } from "./table-config"
+import { columns, filtersConfig, TableMetaData } from "./table-config"
 import {
   getTableQueryParams,
   ListingTable,
@@ -12,7 +12,7 @@ import { mutateService, queryService } from "@/api"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { toastSuccess, toastError } from "src/utils"
-
+import { EditUserModal } from "./(action-modals)"
 export default function CampaignPage() {
   const tableStateManager = useTableState(filtersConfig)
 
@@ -29,15 +29,36 @@ export default function CampaignPage() {
       },
     }),
   )
+  const router = useRouter()
 
+  const [selectedRow, setSelectedRow] = useState<any>()
+  const [activeModal, setActiveModal] = useState<"edit">()
   const { isPending: isActiving, mutateAsync: activeMutate } = useMutation(
     mutateService("afta", "patch", "/api/afta/v1/Accounts/active/{id}"),
   )
   const { isPending: isInActiving, mutateAsync: inactiveMutate } = useMutation(
     mutateService("afta", "patch", "/api/afta/v1/Accounts/inactive/{id}"),
   )
+  const editUserMutation = useMutation(
+    mutateService("afta", "put", "/api/afta/v1/Accounts"),
+  )
+
   const activationHandler = (row: any) => {
     toggleActivateUser(row)
+  }
+
+  const activityHandler = (row: any) => {
+    router.push(`/users/${row.id}/activity/`)
+  }
+
+  const editHandler = (row: any) => {
+    setSelectedRow(row)
+    setActiveModal("edit")
+  }
+
+  const hideModal = () => {
+    setSelectedRow(undefined)
+    setActiveModal(undefined)
   }
 
   const toggleActivateUser = async (row: any) => {
@@ -56,7 +77,6 @@ export default function CampaignPage() {
       console.log(e)
     }
   }
-  const router = useRouter()
 
   return (
     <>
@@ -67,14 +87,16 @@ export default function CampaignPage() {
           </YTypography>
         }
         columns={columns}
-        count={users?.data.length}
-        data={users?.data}
+        count={users?.data.totalCount}
+        data={users?.data?.items}
         onRefetch={refetch}
         stateManager={tableStateManager}
         isLoading={isLoading}
         meta={
           {
             onActivationClick: activationHandler,
+            onActivityClick: activityHandler,
+            onEditClick: editHandler,
             isActiving,
             isInActiving,
           } as TableMetaData
@@ -85,6 +107,13 @@ export default function CampaignPage() {
           imageSource: "/no-data-general.png",
         }}
         isFetching={isFetching}
+      />
+      <EditUserModal
+        isSubmitting={editUserMutation.isPending}
+        onSubmit={hideModal}
+        isShowing={activeModal === "edit"}
+        onHide={hideModal}
+        selectedRow={selectedRow}
       />
     </>
   )

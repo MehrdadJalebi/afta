@@ -37,7 +37,7 @@ export default function ContractActivityPage() {
   )
   const tableStateManager = useTableState(customizedFiltersConfig)
   const params = useParams()
-  const { id: contractID } = useParams<{
+  const { id: userID } = useParams<{
     id: string
   }>()
 
@@ -48,9 +48,9 @@ export default function ContractActivityPage() {
     refetch,
     isFetching,
   } = useQuery(
-    queryService("afta", "/api/afta/v1/Activity/contracts/{id}", {
+    queryService("afta", "/api/afta/v1/Activity/users/{id}", {
       params: {
-        path: { id: parseInt(contractID!) },
+        path: { id: parseInt(userID!) },
         query: getTableQueryParams(tableStateManager),
       },
     }),
@@ -61,11 +61,11 @@ export default function ContractActivityPage() {
       <ListingTable
         title={
           <YTypography variant={"headline3-bold"} className={"mb-4"}>
-            لیست فعالیت‌های قرارداد {contractID}
+            {`لیست فعالیت‌های کاربر`}
           </YTypography>
         }
         columns={columns}
-        count={activities?.data?.items?.length}
+        count={activities?.data?.totalCount}
         data={activities?.data?.items}
         onRefetch={refetch}
         stateManager={tableStateManager}
