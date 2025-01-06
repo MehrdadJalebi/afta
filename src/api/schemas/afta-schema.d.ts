@@ -622,7 +622,10 @@ export interface paths {
     }
     get: {
       parameters: {
-        query?: never
+        query?: {
+          pageIndex?: number
+          pageSize?: number
+        }
         header?: never
         path: {
           id: number

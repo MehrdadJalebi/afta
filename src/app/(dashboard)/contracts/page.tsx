@@ -32,7 +32,7 @@ export default function ContractPage() {
     queryService("afta", "/api/afta/v1/Contracts/user/{id}", {
       params: {
         path: { id: userProfileData?.data?.id },
-        ...getTableQueryParams(tableStateManager),
+        query: getTableQueryParams(tableStateManager),
       },
     }),
   )
@@ -116,8 +116,8 @@ export default function ContractPage() {
           </YTypography>
         }
         columns={columns}
-        count={contracts?.data?.length}
-        data={contracts?.data}
+        count={contracts?.data?.totalCount}
+        data={contracts?.data?.items}
         onRefetch={refetch}
         stateManager={tableStateManager}
         meta={
