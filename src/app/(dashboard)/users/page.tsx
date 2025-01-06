@@ -56,6 +56,22 @@ export default function CampaignPage() {
     setActiveModal("edit")
   }
 
+  const editUser = async (data: any) => {
+    try {
+      const payload = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        nationalCode: data.nationalCode,
+      }
+      await editUserMutation.mutateAsync({ body: payload })
+      toastSuccess(`کاربر مورد نظر با موفقیت ویرایش شد.`)
+      hideModal()
+      refetch()
+    } catch (e) {
+      toastError(`خطا در ویرایش کاربر.`)
+      console.log(e)
+    }
+  }
   const hideModal = () => {
     setSelectedRow(undefined)
     setActiveModal(undefined)
@@ -110,7 +126,7 @@ export default function CampaignPage() {
       />
       <EditUserModal
         isSubmitting={editUserMutation.isPending}
-        onSubmit={hideModal}
+        onSubmit={editUser}
         isShowing={activeModal === "edit"}
         onHide={hideModal}
         selectedRow={selectedRow}

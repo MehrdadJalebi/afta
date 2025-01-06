@@ -41,7 +41,7 @@ export function EditUserModal({
       actionVariant={"primary"}
       actionText={"ویرایش"}
       onActionClick={handleSubmit(onSubmit)}
-      title={`ویرایش کاربر ${selectedRow?.firstName} ${selectedRow?.lastName}`}
+      title={`ویرایش کاربر ${selectedRow?.firstName || ""} ${selectedRow?.lastName || ""}`}
       body={
         <>
           <Controller
