@@ -79,20 +79,15 @@ export async function clientFetch<M extends HttpMethod, P extends PathsOf<M>>(
         "application/json"
       >
     )(url, options)) as OpenapiResponse<M, P>
-    console.log("response: ", response)
-    alert()
 
     if (error) {
-      console.log("***********inja")
       if (response.status === 401) {
-        console.log("asdasdasdasd")
         redirectToLogin()
       }
       throw { message: error, response }
     }
     return data as HttpResponseData<M, P>
   } catch (error) {
-    console.log("errororor: : ", error)
     throw error
   }
 }
@@ -108,7 +103,7 @@ export async function getAuthenticationCredentials() {
 }
 
 export function getIsPublicUrl(url: string) {
-  const publicUrls = ["register"]
+  const publicUrls = ["register", "login"]
   const splitedUrl = url.split("/")
   return publicUrls.includes(splitedUrl[splitedUrl.length - 1])
 }

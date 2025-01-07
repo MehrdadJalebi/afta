@@ -5,7 +5,7 @@ import { useAccountStore } from "@/store"
 import { Spinner } from "react-bootstrap"
 import Cookies from "js-cookie"
 
-import { redirectToLogin } from "@/api/api-service"
+import { getIsPublicUrl, redirectToLogin } from "@/api/api-service"
 
 export function AuthProviders({ children }: PropsWithChildren): ReactNode {
   const { bearerToken, setBearerToken } = useAccountStore()
@@ -20,8 +20,7 @@ export function AuthProviders({ children }: PropsWithChildren): ReactNode {
       }
     }
   }, [])
-
-  return bearerToken ? (
+  return bearerToken || getIsPublicUrl(window.location.pathname) ? (
     <>{children}</>
   ) : (
     <div className="vh-100 w-100 d-flex align-items-center justify-content-center">

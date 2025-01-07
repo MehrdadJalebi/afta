@@ -1,5 +1,6 @@
 import {
   QueryClient,
+  QueryCache,
   type UseMutationOptions,
   type UseQueryOptions,
   isServer,
@@ -14,7 +15,10 @@ import {
   type RequestData,
   type ServiceType,
   clientFetch,
+  redirectToLogin,
 } from "./api-service"
+import Cookies from "js-cookie"
+import { useAccountStore } from "@/store"
 
 export interface DefaultError {
   message: any
@@ -69,16 +73,28 @@ export function mutateService<M extends HttpMethod, P extends PathsOf<M>>(
       clientFetch(
         ...([serviceKey, method, url, options] as ClientFetchParams<M, P>),
       ),
+    onError(error) {
+      console.log("error: ", error)
+    },
   }
 }
+const { setBearerToken } = useAccountStore.getState()
 
 export const queryClient = new QueryClient({
+  queryCache: new QueryCache({
+    onError: async (error) => {
+      if (error.message === "Failed to fetch") {
+        Cookies.remove("accessToken")
+        setBearerToken("")
+        redirectToLogin()
+      }
+    },
+  }),
   defaultOptions: {
     queries: {
       retry: isServer ? false : 1,
       queryFn: (context) => {
         const [serviceKey, url, init, method] = context.queryKey
-        // TODO: validating the shape of the queryKey
         return clientFetch(
           serviceKey as ServiceType,
           (method as HttpMethod) || "get",
@@ -88,12 +104,6 @@ export const queryClient = new QueryClient({
       },
       refetchOnWindowFocus: false,
       placeholderData: keepPreviousData,
-    },
-    onError: (error) => {
-      console.log("inja error: ", error)
-      if (error.response.status === 401) {
-        console.log("inja error: ", error)
-      }
     },
   },
 })
