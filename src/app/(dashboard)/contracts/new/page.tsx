@@ -18,7 +18,9 @@ export default function CreateContractPage() {
       const payload = {
         title: data.title,
         description: data.description,
-        userIds: [data.firstUser, data.secondUser],
+        ...(data.userIds?.length && {
+          userIds: data.userIds.map((user) => user.nationalCode),
+        }),
       }
       await mutateAsync({ body: payload })
       toastSuccess("قرارداد مورد نظر با موفقیت ایجاد شد.")

@@ -1,11 +1,11 @@
-import { YBtn, YInput, YTextArea } from "@/components/UI"
+import { YBtn, YInput, YTextArea, YTypography } from "@/components/UI"
 import { Col, Row } from "react-bootstrap"
 import { z } from "zod"
-import { validateNationalCode } from "@/utils"
-import { useForm } from "react-hook-form"
+import { useForm, useFieldArray } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { FormComponentProps } from "@/types/common"
 import { useRouter } from "next/navigation"
+import { validateNationalCode } from "@/utils"
 import { requiredStringSchema } from "@/constants"
 
 export interface ContractFormProps
@@ -13,10 +13,23 @@ export interface ContractFormProps
   isUpdate?: boolean
 }
 
+const validationSchema = z.object({
+  title: requiredStringSchema(),
+  description: requiredStringSchema(),
+  userIds: z
+    .array(
+      z.object({
+        nationalCode: z.string().optional().refine(validateNationalCode, {
+          message: "کد ملی معتبر نیست",
+        }),
+      }),
+    )
+    .optional(),
+})
+
 export function ContractForm({
   onSubmit,
   isSubmitting,
-  initialValues,
   isUpdate,
 }: ContractFormProps) {
   const {
@@ -24,16 +37,28 @@ export function ContractForm({
     handleSubmit,
     formState: { errors },
     control,
+    getValues,
   } = useForm<z.infer<typeof validationSchema>>({
     resolver: zodResolver(validationSchema),
-    defaultValues: initialValues,
+    defaultValues: {
+      title: "",
+      description: "",
+      userIds: [],
+    },
+    mode: "onChange",
   })
-  const router = useRouter()
 
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "userIds",
+  })
+
+  const router = useRouter()
   const backToContractListPage = () => {
     router.push("/contracts")
   }
 
+  const appendHandler = () => {}
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Row>
@@ -44,26 +69,6 @@ export function ContractForm({
               text: errors.title?.message,
             }}
             {...register("title")}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col xs={12} md={6}>
-          <YInput
-            title={"کد ملی طرف اول قرارداد"}
-            feedbackProps={{
-              text: errors.firstUser?.message,
-            }}
-            {...register("firstUser")}
-          />
-        </Col>
-        <Col xs={12} md={6}>
-          <YInput
-            title={"کد ملی طرف دوم قرارداد"}
-            feedbackProps={{
-              text: errors.secondUser?.message,
-            }}
-            {...register("secondUser")}
           />
         </Col>
       </Row>
@@ -80,60 +85,57 @@ export function ContractForm({
           />
         </Col>
       </Row>
-      <div className={"float-start"}>
+      <div className="mb-2">
+        <YTypography variant="detail-regular" color="gray_700" className="mb-2">
+          کد ملی طرفین قرارداد
+        </YTypography>
+        {fields.map((field, index) => (
+          <Row key={field.id} className="mb-3">
+            <Col xs={6}>
+              <YInput
+                placeholder={`کد ملی ${index + 1}`}
+                feedbackProps={{
+                  text: errors.userIds?.[index]?.nationalCode?.message,
+                }}
+                {...register(`userIds.${index}.nationalCode`)}
+              />
+            </Col>
+            <Col xs={2} className="d-flex align-items-center">
+              <YBtn
+                variant="danger"
+                type="button"
+                icon={"icon-trash"}
+                className="align-self-start mt-1"
+                onClick={() => remove(index)}
+              ></YBtn>
+            </Col>
+          </Row>
+        ))}
+
         <YBtn
           variant="outline-primary"
-          type={"button"}
-          className={"ms-3"}
+          onClick={() => append({ nationalCode: "" })}
+          className="mt-3"
+        >
+          اضافه کردن کد ملی
+        </YBtn>
+      </div>
+
+      <div className="float-start">
+        <YBtn
+          variant="outline-primary"
+          type="button"
+          className="ms-3"
           onClick={backToContractListPage}
           disabled={isSubmitting}
         >
           بازگشت
         </YBtn>
-        <YBtn type={"submit"} loading={isSubmitting}>
-          {!isUpdate && <i className={"icon-add"} />}
+        <YBtn type="submit" loading={isSubmitting}>
+          {!isUpdate && <i className="icon-add" />}
           {isUpdate ? "ویرایش قرارداد" : "ایجاد قرارداد"}
         </YBtn>
       </div>
     </form>
   )
 }
-
-const validationSchema = z.object({
-  title: requiredStringSchema(),
-  description: requiredStringSchema(),
-  firstUser: requiredStringSchema().refine(validateNationalCode, {
-    message: "کد ملی معتبر نیست",
-  }),
-  secondUser: requiredStringSchema().refine(validateNationalCode, {
-    message: "کد ملی معتبر نیست",
-  }),
-})
-
-/*
-import { useFunctionQuery } from "@/api/useApi"
-
-  const { data: functions } = useFunctionQuery()
-  const functionsOptions = functions?.data.map((item: string) => {
-    return { label: item, value: item}
-  })
-
-
-<Col xs={12} md={6}>
-          <Controller
-            control={control}
-            name={"type"}
-            render={({ field: { ref: _, ...field }, fieldState }) => (
-              <YSelect
-                {...field}
-                options={functionsOptions}
-                isDisabled={field.disabled}
-                yInputProps={{
-                  title: "نوع قرارداد",
-                  feedbackProps: { text: fieldState.error?.message },
-                }}
-              />
-            )}
-          />
-        </Col>
-*/
