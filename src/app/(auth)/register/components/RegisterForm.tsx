@@ -9,19 +9,22 @@ import {
   validateNationalCode,
   toastError,
 } from "@/utils"
-import { useAccountStore } from "@/store"
-import { serverUrls } from "@/constants"
-import { redirectToLogin } from "@/api/api-service"
 import Image from "next/image"
 
 interface Props {
   onSubmitForm: (data: any) => void
 }
 
-export function LoginForm({ onSubmitForm }: Props) {
+export function RegisterForm({ onSubmitForm }: Props) {
   const { mutateAsync, isPending } = useMutation(
-    mutateService("afta", "post", "/api/afta/v1/Accounts/send-otp"),
+    mutateService("afta", "post", "/api/afta/v1/Accounts/register"),
   )
+
+  const {
+    data: captcha,
+    isFetched: isCaptchaFetched,
+    refetch,
+  } = useQuery(queryService("afta", "/api/afta/v1/Accounts/captcha"))
 
   const methods = useForm<any>({
     defaultValues: {
@@ -34,17 +37,23 @@ export function LoginForm({ onSubmitForm }: Props) {
   const { register } = methods
   function submitForm(data: any) {
     mutateAsync({
-      body: {},
-      params: {
-        query: {
-          phoneNumber: data?.phoneNumber,
-        },
+      body: {
+        cellphone: data.phoneNumber,
+        nationalCode: data.nationalCode,
+        captchaInputText: data.captchaInputText,
+        captchaText: captcha?.data?.captchaTextValue,
+        captchaToken: captcha?.data?.captchaTokenValue,
       },
     })
       .then(() => onSubmitForm(data))
       .catch(({ message: { error } }) => {
         const errorMessage = error.message
-        toastError("")
+        if (errorMessage === "Invalid captcha") {
+          toastError("کد وارد شده معتبر نیست.")
+        } else if (errorMessage === "Invalid captcha") {
+          toastError("")
+        }
+        refetch()
       })
   }
 
@@ -53,11 +62,21 @@ export function LoginForm({ onSubmitForm }: Props) {
       <div className="text-primary mb-3">
         {<h6 className="fw-bold">به افتا خوش آمدید.</h6>}
         <div className="fs-7 mt-2">
-          برای ورود به افتا، شماره همراه خود را وارد کنید.
+          برای ثبت‌نام در افتا، مشخصات خود را وارد کنید.
         </div>
       </div>
       <FormProvider {...methods}>
         <form className="mt-6" onSubmit={methods.handleSubmit(submitForm)}>
+          <Row className="mb-3">
+            <Col>
+              <YNumberInput
+                title="شماره ملی"
+                placeholder="مثال: 0010145263"
+                maxLength={10}
+                {...register("nationalCode")}
+              />
+            </Col>
+          </Row>
           <Row className="mb-3">
             <Col>
               <YNumberInput
@@ -66,6 +85,30 @@ export function LoginForm({ onSubmitForm }: Props) {
                 maxLength={11}
                 {...register("phoneNumber")}
               />
+            </Col>
+          </Row>
+          <Row className="mb-3">
+            <Col xs={10}>
+              <YInput
+                title="کد مقابل را وارد کنید"
+                maxLength={10}
+                {...register("captchaInputText")}
+              />
+            </Col>
+            <Col
+              xs={2}
+              className="d-flex justify-content-center align-items-end ps-5"
+            >
+              {isCaptchaFetched ? (
+                <Image
+                  src={captcha?.data?.captchaImgUrl!}
+                  alt={"captcha"}
+                  width={90}
+                  height={40}
+                />
+              ) : (
+                <Spinner variant={"primary"} className="mb-2" />
+              )}
             </Col>
           </Row>
           <YBtn
