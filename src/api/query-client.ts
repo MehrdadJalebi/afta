@@ -89,5 +89,11 @@ export const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
       placeholderData: keepPreviousData,
     },
+    onError: (error) => {
+      console.log("inja error: ", error)
+      if (error.response.status === 401) {
+        console.log("inja error: ", error)
+      }
+    },
   },
 })

@@ -79,15 +79,20 @@ export async function clientFetch<M extends HttpMethod, P extends PathsOf<M>>(
         "application/json"
       >
     )(url, options)) as OpenapiResponse<M, P>
+    console.log("response: ", response)
+    alert()
 
     if (error) {
+      console.log("***********inja")
       if (response.status === 401) {
+        console.log("asdasdasdasd")
         redirectToLogin()
       }
       throw { message: error, response }
     }
     return data as HttpResponseData<M, P>
   } catch (error) {
+    console.log("errororor: : ", error)
     throw error
   }
 }

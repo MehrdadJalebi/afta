@@ -21,11 +21,8 @@ export function AuthProviders({ children }: PropsWithChildren): ReactNode {
     }
   }, [])
 
-  return <>{children}</>
-  /*return bearerToken ? (
-    <>
-      {children}
-    </>
+  return bearerToken ? (
+    <>{children}</>
   ) : (
     <div className="vh-100 w-100 d-flex align-items-center justify-content-center">
       <Spinner
@@ -35,5 +32,5 @@ export function AuthProviders({ children }: PropsWithChildren): ReactNode {
         style={{ width: 50, height: 50 }}
       />
     </div>
-  )*/
+  )
 }
