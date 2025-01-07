@@ -3,7 +3,7 @@ import { Col, Row, Spinner } from "react-bootstrap"
 import { FormProvider, useForm } from "react-hook-form"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { mutateService, queryService } from "@/api"
-import { YBtn, YNumberInput, YInput } from "@/components/UI"
+import { YBtn, YNumberInput, YInput, YTypography } from "@/components/UI"
 import {
   phoneNumberValidation,
   validateNationalCode,
@@ -134,6 +134,14 @@ export function RegisterForm({ onSubmitForm }: Props) {
           >
             دریافت رمز یک‌بار مصرف
           </YBtn>
+          <div className="fs-7 mt-4 mx-auto d-flex justify-content-center align-items-center">
+            <YTypography variant="label-regular" color="primary">
+              قبلا ثبت‌نام کرده‌اید؟
+            </YTypography>
+            <YBtn variant={"outline-primary"} className="me-2" href={"/login"}>
+              وارد شوید
+            </YBtn>
+          </div>
         </form>
       </FormProvider>
     </div>
