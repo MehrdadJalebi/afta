@@ -30,6 +30,8 @@ export function RegisterForm({ onSubmitForm }: Props) {
     defaultValues: {
       phoneNumber: "",
       nationalCode: "",
+      firstName: "",
+      lastName: "",
       captchaInputText: "",
     },
     mode: "onChange",
@@ -40,6 +42,8 @@ export function RegisterForm({ onSubmitForm }: Props) {
       body: {
         cellphone: data.phoneNumber,
         nationalCode: data.nationalCode,
+        firstName: data.firstName,
+        lastName: data.lastName,
         captchaInputText: data.captchaInputText,
         captchaText: captcha?.data?.captchaTextValue,
         captchaToken: captcha?.data?.captchaTokenValue,
@@ -67,6 +71,16 @@ export function RegisterForm({ onSubmitForm }: Props) {
       </div>
       <FormProvider {...methods}>
         <form className="mt-6" onSubmit={methods.handleSubmit(submitForm)}>
+          <Row className="mb-3">
+            <Col>
+              <YNumberInput title="نام" {...register("firstName")} />
+            </Col>
+          </Row>
+          <Row className="mb-3">
+            <Col>
+              <YNumberInput title="نام خانوادگی" {...register("lastName")} />
+            </Col>
+          </Row>
           <Row className="mb-3">
             <Col>
               <YNumberInput
