@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Col, Row, Spinner } from "react-bootstrap"
 import { FormProvider, useForm } from "react-hook-form"
+import Cookies from "js-cookie"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { mutateService, queryService } from "@/api"
 import { YBtn, YNumberInput, YInput, YTypography } from "@/components/UI"
@@ -9,39 +10,44 @@ import {
   validateNationalCode,
   toastError,
 } from "@/utils"
+import { useRouter } from "next/navigation"
+
 import { useAccountStore } from "@/store"
 import { serverUrls } from "@/constants"
 import { redirectToLogin } from "@/api/api-service"
+
 import Image from "next/image"
 
-interface Props {
-  onSubmitForm: (data: any) => void
-}
-
-export function LoginForm({ onSubmitForm }: Props) {
+export function LoginPasswordForm() {
   const { mutateAsync, isPending } = useMutation(
-    mutateService("afta", "post", "/api/afta/v1/Accounts/send-otp"),
+    mutateService("afta", "post", "/api/afta/v1/Accounts/token-password"),
   )
+  const router = useRouter()
 
+  const [isRedirecting, setIsRedirecting] = useState(false)
   const methods = useForm<any>({
     defaultValues: {
-      phoneNumber: "",
-      nationalCode: "",
-      captchaInputText: "",
+      username: "",
+      password: "",
     },
     mode: "onChange",
   })
   const { register } = methods
+  const { setBearerToken } = useAccountStore.getState()
+
   function submitForm(data: any) {
     mutateAsync({
-      body: {},
-      params: {
-        query: {
-          phoneNumber: data?.phoneNumber,
-        },
+      body: {
+        username: data?.username,
+        password: data?.password,
       },
     })
-      .then(() => onSubmitForm(data))
+      .then(() => {
+        Cookies.set("accessToken", data.access_token)
+        setBearerToken(data.access_token)
+        setIsRedirecting(true)
+        router.push("/contracts")
+      })
       .catch(({ message: { error } }) => {
         const errorMessage = error.message
         toastError("")
@@ -53,7 +59,7 @@ export function LoginForm({ onSubmitForm }: Props) {
       <div className="text-primary mb-3">
         {<h6 className="fw-bold">به افتا خوش آمدید.</h6>}
         <div className="fs-7 mt-2">
-          برای ورود به افتا، شماره همراه خود را وارد کنید.
+          برای ورود به افتا، شماره همراه و کلمه عبور خود را وارد کنید.
         </div>
       </div>
       <FormProvider {...methods}>
@@ -64,33 +70,37 @@ export function LoginForm({ onSubmitForm }: Props) {
                 title="شماره همراه"
                 placeholder="مثال: 09121234567"
                 maxLength={11}
-                {...register("phoneNumber")}
+                {...register("username")}
+              />
+            </Col>
+          </Row>
+          <Row className="mb-3">
+            <Col>
+              <YInput
+                title="کلمه عبور"
+                type="password"
+                {...register("password")}
               />
             </Col>
           </Row>
           <YBtn
-            data-testid="send-otp-btn"
             loading={isPending}
             variant="primary"
             type="submit"
             className="w-100 mt-3"
           >
-            دریافت رمز یک‌بار مصرف
+            ورود به پنل کاربری
           </YBtn>
           <div className="fs-7 mt-4 mx-auto d-flex justify-content-center align-items-center">
-            <YBtn
-              variant={"outline-primary"}
-              className="me-2"
-              href={"/login-password"}
-            >
-              ورود با کلمه عبور
-            </YBtn>
             <YBtn
               variant={"outline-primary"}
               className="me-2"
               href={"/register"}
             >
               ثبت‌نام
+            </YBtn>
+            <YBtn variant={"outline-primary"} className="me-2" href={"/login"}>
+              ورود با رمز یکبار مصرف
             </YBtn>
           </div>
         </form>
