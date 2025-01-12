@@ -76,6 +76,7 @@ export const columns = [
   }),
   columnHelper.display({
     id: "actions",
+    header: "عملیات",
     cell: ({ row, table }) => {
       const { onDeleteClick, onSignClick, onShowClick, onActivityClick } = table
         .options.meta as TableMeta

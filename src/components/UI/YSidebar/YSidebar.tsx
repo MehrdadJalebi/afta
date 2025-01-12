@@ -7,7 +7,7 @@ import { Accordion, Nav, Offcanvas, type OffcanvasProps } from "react-bootstrap"
 import { useDisplay } from "src/hooks"
 import { themeColors } from "src/styles/bootstrap/variables"
 import { YTypography, YBtn } from "@/components/UI"
-import { useAccountStore } from "@/store"
+import { useProfileQuery } from "@/api/useApi"
 import clsx from "clsx"
 
 export interface SidebarItemProps {
@@ -33,7 +33,7 @@ export function YSidebar({
   sidebarItems,
   ...props
 }: YSidebarProps) {
-  const { isAdmin } = useAccountStore()
+  const { data: userProfileData } = useProfileQuery()
   const pathname = usePathname()
   const { mdAndDown } = useDisplay()
   const [activeKey, setActiveKey] = useState<string>()
@@ -85,7 +85,10 @@ export function YSidebar({
             activeKey={accordionActiveKey}
           >
             {sidebarItems
-              .filter((item) => !item.isAdmin || isAdmin)
+              .filter(
+                (item) =>
+                  !item.isAdmin || userProfileData?.data?.role === "Admin",
+              )
               .map((item) => {
                 return !item.children ? (
                   <Link
@@ -95,7 +98,6 @@ export function YSidebar({
                     onClick={() => handleSelect(item)}
                   >
                     <div
-                      className={clsx({ hijack: item.isAdmin })}
                       css={[
                         sidebarItemContainer(
                           activeKey === item.key,

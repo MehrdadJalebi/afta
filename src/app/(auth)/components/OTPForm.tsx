@@ -92,7 +92,7 @@ export function OTPForm(props: Props) {
         setBearerToken(data.access_token)
         setIsRedirecting(true)
 
-        router.push("/users")
+        router.push("/contracts")
       })
       .catch(() => {
         methods.setError("otp", {

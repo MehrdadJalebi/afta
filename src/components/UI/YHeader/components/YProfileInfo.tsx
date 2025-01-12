@@ -2,7 +2,7 @@ import "./index.scss"
 import { css } from "@emotion/react"
 import clsx from "clsx"
 import Cookies from "js-cookie"
-import { forwardRef, useState } from "react"
+import { forwardRef, useEffect, useState } from "react"
 import { Dropdown, type DropdownToggleProps } from "react-bootstrap"
 import { useMutation } from "@tanstack/react-query"
 import { mutateService } from "@/api"
@@ -53,14 +53,18 @@ export function YProfileInfo() {
     mutateService("afta", "put", "/api/afta/v1/Accounts"),
   )
 
+  const { setBearerToken, setIsAdmin } = useAccountStore.getState()
   const [activeModal, setActiveModal] = useState<"edit">()
-  const { data: userProfileData, refetch } = useProfileQuery()
-  const { setBearerToken } = useAccountStore.getState()
+  const { data: userProfileData, refetch, isFetching } = useProfileQuery()
+
   const fullName =
     userProfileData?.data?.firstName && userProfileData?.data?.lastName
       ? `${userProfileData?.data?.firstName} ${userProfileData?.data?.lastName}`
       : ""
 
+  useEffect(() => {
+    setIsAdmin(userProfileData?.data?.role === "Admin")
+  }, [useProfileQuery, isFetching])
   function exitAccount() {
     mutateAsync()
       .then(() => {
@@ -104,7 +108,9 @@ export function YProfileInfo() {
             <i className="icon-user" />
             {fullName && <span>{fullName} - </span>}
             <span>
-              {userProfileData?.data?.isActive ? "کاربر ادمین" : "کاربر عادی"}
+              {userProfileData?.data?.role === "Admin"
+                ? "کاربر ادمین"
+                : "کاربر عادی"}
             </span>
           </div>
           <div css={dropdownItem}>

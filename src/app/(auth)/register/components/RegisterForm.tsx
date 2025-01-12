@@ -73,12 +73,12 @@ export function RegisterForm({ onSubmitForm }: Props) {
         <form className="mt-6" onSubmit={methods.handleSubmit(submitForm)}>
           <Row className="mb-3">
             <Col>
-              <YNumberInput title="نام" {...register("firstName")} />
+              <YInput title="نام" {...register("firstName")} />
             </Col>
           </Row>
           <Row className="mb-3">
             <Col>
-              <YNumberInput title="نام خانوادگی" {...register("lastName")} />
+              <YInput title="نام خانوادگی" {...register("lastName")} />
             </Col>
           </Row>
           <Row className="mb-3">

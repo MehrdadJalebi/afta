@@ -7,6 +7,7 @@ export const sidebarItems: SidebarItemProps[] = [
     icon: "icon-users",
     route: "/users",
     disabled: false,
+    isAdmin: true,
   },
   {
     key: "contracts",
@@ -21,5 +22,6 @@ export const sidebarItems: SidebarItemProps[] = [
     icon: "icon-list",
     route: "/logs",
     disabled: false,
+    isAdmin: true,
   },
 ]

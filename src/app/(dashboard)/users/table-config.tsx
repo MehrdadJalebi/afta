@@ -79,8 +79,9 @@ export const columns = [
   }),
   columnHelper.display({
     id: "actions",
+    header: "عملیات",
     cell: ({ row, table }) => {
-      const { onEditClick, onActivityClick } = table.options.meta as TableMeta
+      const { onActivityClick } = table.options.meta as TableMetaData
 
       let eventKeys: (keyof typeof dropdownItems)[] = (() => {
         return ["activity"]
