@@ -10,9 +10,7 @@ import {
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { mutateService, queryService } from "@/api"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
 import { toastSuccess, toastError } from "src/utils"
-import { EditUserModal } from "./(action-modals)"
 export default function CampaignPage() {
   const tableStateManager = useTableState(filtersConfig)
 
@@ -31,16 +29,11 @@ export default function CampaignPage() {
   )
   const router = useRouter()
 
-  const [selectedRow, setSelectedRow] = useState<any>()
-  const [activeModal, setActiveModal] = useState<"edit">()
   const { isPending: isActiving, mutateAsync: activeMutate } = useMutation(
     mutateService("afta", "patch", "/api/afta/v1/Accounts/active/{id}"),
   )
   const { isPending: isInActiving, mutateAsync: inactiveMutate } = useMutation(
     mutateService("afta", "patch", "/api/afta/v1/Accounts/inactive/{id}"),
-  )
-  const editUserMutation = useMutation(
-    mutateService("afta", "put", "/api/afta/v1/Accounts"),
   )
 
   const activationHandler = (row: any) => {
@@ -49,32 +42,6 @@ export default function CampaignPage() {
 
   const activityHandler = (row: any) => {
     router.push(`/users/${row.id}/activity/`)
-  }
-
-  const editHandler = (row: any) => {
-    setSelectedRow(row)
-    setActiveModal("edit")
-  }
-
-  const editUser = async (data: any) => {
-    try {
-      const payload = {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        nationalCode: data.nationalCode,
-      }
-      await editUserMutation.mutateAsync({ body: payload })
-      toastSuccess(`کاربر مورد نظر با موفقیت ویرایش شد.`)
-      hideModal()
-      refetch()
-    } catch (e) {
-      toastError(`خطا در ویرایش کاربر.`)
-      console.log(e)
-    }
-  }
-  const hideModal = () => {
-    setSelectedRow(undefined)
-    setActiveModal(undefined)
   }
 
   const toggleActivateUser = async (row: any) => {
@@ -112,7 +79,6 @@ export default function CampaignPage() {
           {
             onActivationClick: activationHandler,
             onActivityClick: activityHandler,
-            onEditClick: editHandler,
             isActiving,
             isInActiving,
           } as TableMetaData
@@ -123,13 +89,6 @@ export default function CampaignPage() {
           imageSource: "/no-data-general.png",
         }}
         isFetching={isFetching}
-      />
-      <EditUserModal
-        isSubmitting={editUserMutation.isPending}
-        onSubmit={editUser}
-        isShowing={activeModal === "edit"}
-        onHide={hideModal}
-        selectedRow={selectedRow}
       />
     </>
   )

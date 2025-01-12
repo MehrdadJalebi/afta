@@ -10,7 +10,6 @@ import { getFixedNumber, numberwithCommas } from "@/utils"
 import { queryService } from "@/api"
 
 export interface TableMetaData {
-  onEditClick: (row: any) => void
   onActivationClick: (row: any) => void
   onActivityClick: (row: any) => void
   isActiving: boolean
@@ -18,7 +17,6 @@ export interface TableMetaData {
 }
 
 const dropdownItems = {
-  edit: { title: "ویرایش" },
   activity: { title: "فعالیت‌ها" },
 }
 
@@ -85,13 +83,11 @@ export const columns = [
       const { onEditClick, onActivityClick } = table.options.meta as TableMeta
 
       let eventKeys: (keyof typeof dropdownItems)[] = (() => {
-        return ["edit", "activity"]
+        return ["activity"]
       })()
 
       const selectHandler: SelectCallback = (eventKey) => {
-        if (eventKey === "edit") {
-          onEditClick(row.original)
-        } else if (eventKey === "activity") {
+        if (eventKey === "activity") {
           onActivityClick(row.original)
         }
       }
