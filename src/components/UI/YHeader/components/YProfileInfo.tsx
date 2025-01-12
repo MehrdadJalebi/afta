@@ -12,6 +12,7 @@ import { themeColors, themeVariables } from "src/styles/bootstrap/variables"
 import { useAccountStore } from "@/store"
 import { redirectToLogin } from "@/api/api-service"
 import { EditUserModal } from "@/app/(dashboard)/users/(action-modals)"
+import { EditPasswordModal } from "@/components/UI/YHeader/components/(action-modals)"
 import { toastSuccess, toastError } from "src/utils"
 
 type DropdownTogglePropsWithoutAs = Omit<DropdownToggleProps, "as">
@@ -53,8 +54,12 @@ export function YProfileInfo() {
     mutateService("afta", "put", "/api/afta/v1/Accounts"),
   )
 
+  const editPasswordMutation = useMutation(
+    mutateService("afta", "patch", "/api/afta/v1/Accounts/password"),
+  )
+
   const { setBearerToken, setIsAdmin } = useAccountStore.getState()
-  const [activeModal, setActiveModal] = useState<"edit">()
+  const [activeModal, setActiveModal] = useState<"edit" | "password">()
   const { data: userProfileData, refetch, isFetching } = useProfileQuery()
 
   const fullName =
@@ -65,7 +70,7 @@ export function YProfileInfo() {
   useEffect(() => {
     setIsAdmin(userProfileData?.data?.role === "Admin")
   }, [useProfileQuery, isFetching])
-  function exitAccount() {
+  function exitAccountHandler() {
     mutateAsync()
       .then(() => {
         Cookies.remove("access_token")
@@ -75,10 +80,11 @@ export function YProfileInfo() {
       .catch(({ message: { error } }) => {})
   }
 
-  const editAccount = () => setActiveModal("edit")
+  const editAccountHandler = () => setActiveModal("edit")
+  const editPasswordHandler = () => setActiveModal("password")
   const hideModal = () => setActiveModal(undefined)
 
-  const editUser = async (data: any) => {
+  const editAccount = async (data: any) => {
     try {
       hideModal()
       const payload = {
@@ -87,10 +93,37 @@ export function YProfileInfo() {
         nationalCode: data.nationalCode,
       }
       await editUserMutation.mutateAsync({ body: payload })
-      toastSuccess(`کاربر مورد نظر با موفقیت ویرایش شد.`)
+      toastSuccess(`اطلاعات کاربری با موفقیت ویرایش شد.`)
       refetch()
     } catch (e) {
-      toastError(`خطا در ویرایش کاربر.`)
+      toastError(`خطا در ویرایش اطلاعات کاربری.`)
+      console.log(e)
+    }
+  }
+
+  const editPassword = async (data: any) => {
+    try {
+      const payload = {
+        password: data.password,
+        reEnterPassword: data.reEnterPassword,
+      }
+      editPasswordMutation
+        .mutateAsync({ body: payload })
+        .then(() => {
+          hideModal()
+          toastSuccess(`کلمه عبور با موفقیت ویرایش شد.`)
+          refetch()
+        })
+        .catch(({ message: { error } }) => {
+          const errorMessage = error.message
+          if (errorMessage) {
+            toastError(errorMessage)
+          } else {
+            toastError(`خطا در ویرایش کلمه عبور.`)
+          }
+        })
+    } catch (e) {
+      toastError(`خطا در ویرایش کلمه عبور.`)
       console.log(e)
     }
   }
@@ -120,13 +153,19 @@ export function YProfileInfo() {
             </div>
             <span>{userProfileData?.data.cellphone || ""}</span>
           </div>
-          <div css={dropdownItem} onClick={editAccount}>
+          <div css={dropdownItem} onClick={editAccountHandler}>
             <div className="d-flex align-items-center">
               <i className="icon-edit icon-lg" />
               <span className="me-4">ویرایش اطلاعات کاربری</span>
             </div>
           </div>
-          <div css={dropdownItem} onClick={exitAccount}>
+          <div css={dropdownItem} onClick={editPasswordHandler}>
+            <div className="d-flex align-items-center">
+              <i className="icon-padlock icon-lg" />
+              <span className="me-4">ویرایش کلمه عبور</span>
+            </div>
+          </div>
+          <div css={dropdownItem} onClick={exitAccountHandler}>
             <div className="d-flex align-items-center">
               <i className="icon-log-out icon-lg" />
               <span className="me-4">خروج</span>
@@ -134,9 +173,15 @@ export function YProfileInfo() {
           </div>
         </Dropdown.Menu>
       </Dropdown>
+      <EditPasswordModal
+        isSubmitting={editPasswordMutation.isPending}
+        onSubmit={editPassword}
+        isShowing={activeModal === "password"}
+        onHide={hideModal}
+      />
       <EditUserModal
         isSubmitting={editUserMutation.isPending}
-        onSubmit={editUser}
+        onSubmit={editAccount}
         isShowing={activeModal === "edit"}
         onHide={hideModal}
         selectedRow={{

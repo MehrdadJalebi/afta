@@ -54,8 +54,8 @@ export function RegisterForm({ onSubmitForm }: Props) {
         const errorMessage = error.message
         if (errorMessage === "Invalid captcha") {
           toastError("کد وارد شده معتبر نیست.")
-        } else if (errorMessage === "Invalid captcha") {
-          toastError("")
+        } else {
+          toastError("خطا در ثبت‌نام")
         }
         refetch()
       })
