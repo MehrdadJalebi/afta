@@ -60,6 +60,7 @@ $red-700: #b00020 !default;
 $red-800: #bf001a !default;
 $red-900: #7a0016 !default;
 $red-950: #660013 !default;
+$red-custom: #801323 !default;
 $red-palette: (
   red-100: $red-100,
   red-200: $red-200,
@@ -71,6 +72,7 @@ $red-palette: (
   red-800: $red-800,
   red-900: $red-900,
   red-950: $red-950,
+  red-custom: $red-custom,
 ) !default;
 
 // Warning palette
@@ -170,7 +172,7 @@ $secondary-palette: (
 ) !default;
 
 // bootstrap
-$primary: $red-700 !default;
+$primary: $red-custom !default;
 $secondary: $secondary-400 !default;
 $success: $green-700 !default;
 $info: $blue-700 !default;
