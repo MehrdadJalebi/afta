@@ -1,5 +1,5 @@
 {
-  "_comment": "CAVEAT: changing this file need to be approved by SRE team",
+  "_comment": "CAVEAT: changing this file effects on deploy",
   "lang": "NODEJS",
   "envVariable": "NODE_ENV"
 }

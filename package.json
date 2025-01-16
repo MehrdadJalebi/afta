@@ -2,7 +2,7 @@
   "name": "afta-panel",
   "version": "0.1.0",
   "private": true,
-  "author": "afta-Frontend-Team",
+  "author": "mehrdad jalebi",
   "scripts": {
     "devssl": "next dev --experimental-https",
     "dev": "next dev",
