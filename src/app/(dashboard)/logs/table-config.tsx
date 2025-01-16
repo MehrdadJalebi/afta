@@ -1,7 +1,8 @@
 import { createColumnHelper } from "@tanstack/table-core"
 import { getTableStateConfig } from "@/components/ListingTable"
 import { TableDateTime } from "@/components/Utils"
-import { truncatedElement } from "@/utils"
+import { truncatedElement, getLevelColor } from "@/utils"
+import { YTypography } from "@/components/UI"
 
 const columnHelper = createColumnHelper<any>()
 export const columns = [
@@ -12,6 +13,10 @@ export const columns = [
   columnHelper.accessor("level", {
     id: "level",
     header: "Level",
+    cell: ({ getValue }) => {
+      let levelColor = getLevelColor(getValue())
+      return <YTypography color={levelColor}>{getValue()}</YTypography>
+    },
   }),
   columnHelper.accessor("message", {
     id: "message",

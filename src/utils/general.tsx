@@ -24,3 +24,22 @@ export function truncatedElement(str: string | null | undefined) {
 export function getFixedNumber(number: number, decimal: number) {
   return Number.isInteger(number) ? number : number.toFixed(decimal)
 }
+
+export function getLevelColor(level: string) {
+  let levelColor = ""
+  switch (level) {
+    case "Information":
+      levelColor = "blue_600"
+      break
+    case "Warning":
+      levelColor = "warning_700"
+      break
+    case "Error":
+      levelColor = "red_600"
+      break
+    default:
+      levelColor = "gray_900"
+      break
+  }
+  return levelColor
+}

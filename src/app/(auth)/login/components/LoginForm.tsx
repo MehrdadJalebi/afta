@@ -44,7 +44,7 @@ export function LoginForm({ onSubmitForm }: Props) {
       .then(() => onSubmitForm(data))
       .catch(({ message: { error } }) => {
         const errorMessage = error.message
-        toastError("")
+        toastError("خطا در ورود")
       })
   }
 
