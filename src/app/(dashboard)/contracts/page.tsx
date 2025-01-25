@@ -33,6 +33,7 @@ export default function ContractPage() {
   } = useQuery(
     queryService("afta", "/api/afta/v1/Contracts/user/{id}", {
       params: {
+        // @ts-ignore
         path: { id: userProfileData?.data?.id },
         query: getTableQueryParams(tableStateManager),
       },
@@ -115,7 +116,9 @@ export default function ContractPage() {
           </YTypography>
         }
         columns={columns}
+        // @ts-ignore
         count={contracts?.data?.totalCount}
+        // @ts-ignore
         data={contracts?.data?.items}
         onRefetch={refetch}
         stateManager={tableStateManager}

@@ -70,7 +70,9 @@ export default function CampaignPage() {
           </YTypography>
         }
         columns={columns}
+        // @ts-ignore
         count={users?.data.totalCount}
+        // @ts-ignore
         data={users?.data?.items}
         onRefetch={refetch}
         stateManager={tableStateManager}

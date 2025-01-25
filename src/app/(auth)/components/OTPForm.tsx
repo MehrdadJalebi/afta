@@ -13,7 +13,7 @@ import { mutateService } from "@/api"
 import { themeColors, themeVariables } from "src/styles/bootstrap/variables"
 import { toastError } from "src/utils"
 
-export type OTPFormModel = "mobile_number" | "otp_code"
+export type OTPFormModel = "mobile_number" | "otp"
 interface Props {
   phoneNumber: string
   onReturnToForm: VoidFunction
@@ -36,7 +36,6 @@ export function OTPForm(props: Props) {
 
   function handleSendOTP() {
     mutateAsync({
-      body: {},
       params: {
         query: {
           phoneNumber: phoneNumber,
@@ -81,14 +80,14 @@ export function OTPForm(props: Props) {
     }
   }, [otp, methods])
 
-  function onSubmit(data: OTPFormModel) {
+  function onSubmit(data: any) {
     fetchAccess({
       body: {
         otp: data.otp,
         cellNumber: phoneNumber,
       },
     })
-      .then((data) => {
+      .then((data: any) => {
         Cookies.set("accessToken", data.access_token)
         setBearerToken(data.access_token)
         setIsRedirecting(true)

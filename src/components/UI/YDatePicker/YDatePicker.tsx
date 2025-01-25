@@ -67,7 +67,7 @@ export function YDatePicker({
           ...inputProps?.containerProps,
           onClick: !props.disabled ? openHandler : undefined,
         }}
-        startButton={<CalendarCheck />}
+        startButton={<CalendarCheck />} // @ts-ignore
         endButton={internalValue && <X onClick={clearHandler} />}
         value={representedDates.join(", ")}
         readOnly

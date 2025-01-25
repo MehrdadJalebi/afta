@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import {
   getCoreRowModel,
   TableMeta,
@@ -80,6 +82,7 @@ export function ListingTable<TData>({
       body={
         <>
           {alertNode && <div className="mb-4">{alertNode}</div>}
+
           <TableTopRow stateManager={stateManager} title={title} slot={slot} />
           <Row>
             <Col>

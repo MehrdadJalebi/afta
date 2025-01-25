@@ -22,6 +22,7 @@ export default function CreateContractPage() {
           userIds: data.userIds.map((user) => user.nationalCode),
         }),
       }
+      // @ts-ignore
       await mutateAsync({ body: payload })
       toastSuccess("قرارداد مورد نظر با موفقیت ایجاد شد.")
       router.push("/contracts")

@@ -65,7 +65,6 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },
-  "packageManager": "yarn@4.2.2",
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   }

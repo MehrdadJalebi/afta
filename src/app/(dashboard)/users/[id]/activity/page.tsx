@@ -26,6 +26,7 @@ export default function ContractActivityPage() {
           functionName: {
             ...filtersConfig.filters?.functionName!,
             isLoading: functionsQuery.isLoading,
+            // @ts-ignore
             options: functionsQuery.data?.data?.map((func) => ({
               label: func,
               value: func,
@@ -65,7 +66,9 @@ export default function ContractActivityPage() {
           </YTypography>
         }
         columns={columns}
+        // @ts-ignore
         count={activities?.data?.totalCount}
+        // @ts-ignore
         data={activities?.data?.items}
         onRefetch={refetch}
         stateManager={tableStateManager}

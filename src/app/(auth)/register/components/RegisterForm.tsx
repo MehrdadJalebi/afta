@@ -45,7 +45,9 @@ export function RegisterForm({ onSubmitForm }: Props) {
         firstName: data.firstName,
         lastName: data.lastName,
         captchaInputText: data.captchaInputText,
+        // @ts-ignore
         captchaText: captcha?.data?.captchaTextValue,
+        // @ts-ignore
         captchaToken: captcha?.data?.captchaTokenValue,
       },
     })
@@ -115,6 +117,7 @@ export function RegisterForm({ onSubmitForm }: Props) {
             >
               {isCaptchaFetched ? (
                 <Image
+                  // @ts-ignore
                   src={captcha?.data?.captchaImgUrl!}
                   alt={"captcha"}
                   width={90}

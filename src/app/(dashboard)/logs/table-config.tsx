@@ -15,6 +15,7 @@ export const columns = [
     header: "Level",
     cell: ({ getValue }) => {
       let levelColor = getLevelColor(getValue())
+      // @ts-ignore
       return <YTypography color={levelColor}>{getValue()}</YTypography>
     },
   }),

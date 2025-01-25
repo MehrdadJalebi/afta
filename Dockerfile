@@ -13,15 +13,14 @@ RUN yarn build
 
 # Final image
 FROM node:20 AS production
-USER app:app
 WORKDIR /app
 
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/project.json ./project.json
-COPY --from=builder /app/.yarn ./.yarn
+COPY --from=build /app/.next ./.next
+COPY --from=build /app/public ./public
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/package.json ./package.json
+COPY --from=build /app/project.json ./project.json
+COPY --from=build /app/.yarn ./.yarn
 
 EXPOSE 3000
 

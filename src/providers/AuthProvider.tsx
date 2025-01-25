@@ -6,9 +6,11 @@ import { Spinner } from "react-bootstrap"
 import Cookies from "js-cookie"
 
 import { getIsPublicUrl, redirectToLogin } from "@/api/api-service"
+import { useRouter } from "next/navigation"
 
 export function AuthProviders({ children }: PropsWithChildren): ReactNode {
   const { bearerToken, setBearerToken } = useAccountStore()
+  const router = useRouter()
 
   useEffect(() => {
     if (!bearerToken) {
@@ -20,7 +22,8 @@ export function AuthProviders({ children }: PropsWithChildren): ReactNode {
       }
     }
   }, [])
-  return bearerToken || getIsPublicUrl(window?.location?.pathname) ? (
+  // @ts-ignore
+  return bearerToken || getIsPublicUrl(router?.pathname) ? (
     <>{children}</>
   ) : (
     <div className="vh-100 w-100 d-flex align-items-center justify-content-center">

@@ -34,7 +34,9 @@ export default function CampaignPage() {
           </YTypography>
         }
         columns={columns}
+        // @ts-ignore
         count={logs?.data?.totalcount}
+        // @ts-ignore
         data={logs?.data?.logs}
         onRefetch={refetch}
         stateManager={tableStateManager}

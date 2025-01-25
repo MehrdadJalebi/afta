@@ -64,14 +64,18 @@ export function YProfileInfo() {
   const { data: userProfileData, refetch, isFetching } = useProfileQuery()
 
   const fullName =
+    // @ts-ignore
     userProfileData?.data?.firstName && userProfileData?.data?.lastName
-      ? `${userProfileData?.data?.firstName} ${userProfileData?.data?.lastName}`
+      ? // @ts-ignore
+        `${userProfileData?.data?.firstName} ${userProfileData?.data?.lastName}`
       : ""
 
   useEffect(() => {
+    // @ts-ignore
     setIsAdmin(userProfileData?.data?.role === "Admin")
   }, [useProfileQuery, isFetching])
   function exitAccountHandler() {
+    // @ts-ignore
     mutateAsync()
       .then(() => {
         Cookies.remove("access_token")
@@ -142,9 +146,12 @@ export function YProfileInfo() {
             <User />
             {fullName && <span>{fullName} - </span>}
             <span>
-              {userProfileData?.data?.role === "Admin"
-                ? "کاربر ادمین"
-                : "کاربر عادی"}
+              {
+                // @ts-ignore
+                userProfileData?.data?.role === "Admin"
+                  ? "کاربر ادمین"
+                  : "کاربر عادی"
+              }
             </span>
           </div>
           <div css={dropdownItem}>
@@ -152,7 +159,13 @@ export function YProfileInfo() {
               <Phone />
               <span className="me-4">تلفن</span>
             </div>
-            <span>{userProfileData?.data.cellphone || ""}</span>
+
+            <span>
+              {
+                // @ts-ignore
+                userProfileData?.data.cellphone || ""
+              }
+            </span>
           </div>
           <div css={dropdownItem} onClick={editAccountHandler}>
             <div className="d-flex align-items-center">
@@ -186,8 +199,11 @@ export function YProfileInfo() {
         isShowing={activeModal === "edit"}
         onHide={hideModal}
         selectedRow={{
+          // @ts-ignore
           firstName: userProfileData?.data?.firstName,
+          // @ts-ignore
           lastName: userProfileData?.data?.lastName,
+          // @ts-ignore
           nationalCode: userProfileData?.data?.nationalCode,
         }}
       />

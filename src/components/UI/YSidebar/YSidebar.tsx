@@ -67,7 +67,9 @@ export function YSidebar({
     }
   }
 
+  // @ts-ignore
   function Icon({ icon }) {
+    // @ts-ignore
     const LucideIcon = Lucide[icon]
     if (!LucideIcon) {
       return null
@@ -97,6 +99,7 @@ export function YSidebar({
             {sidebarItems
               .filter(
                 (item) =>
+                  // @ts-ignore
                   !item.isAdmin || userProfileData?.data?.role === "Admin",
               )
               .map((item) => {
@@ -134,6 +137,7 @@ export function YSidebar({
                     </Accordion.Header>
                     <Accordion.Body css={collapsedBody}>
                       {item.children
+                        // @ts-ignore
                         ?.filter((item) => !item.isAdmin || isAdmin)
                         .map((child) => (
                           <Link

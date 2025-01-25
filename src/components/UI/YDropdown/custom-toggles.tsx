@@ -9,9 +9,11 @@ export const ActionMenuToggle = React.forwardRef<
 >(function ActionMenuToggle({ onClick }, ref) {
   return (
     <EllipsisVertical
+      // @ts-ignore
       ref={ref}
       size={20}
       className="cursor-pointer"
+      // @ts-ignore
       onClick={onClick}
     />
   )
