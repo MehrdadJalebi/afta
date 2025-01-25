@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect, forwardRef } from "react"
 import { Row, Col, Form, FormControl } from "react-bootstrap"
 import { clsx } from "clsx"
+import { X } from "lucide-react"
 import { YTypography } from "@/components/UI"
 
 import "./styles.scss"
@@ -72,10 +73,7 @@ export const YChipsInput = forwardRef<HTMLInputElement, YChipsInputProps>(
                   onDoubleClick={() => editChip(index)}
                 >
                   {chip}
-                  <i
-                    className={"icon-close cursor-pointer text-danger"}
-                    onClick={() => removeChip(index)}
-                  />
+                  <X onClick={() => removeChip(index)} />
                 </div>
               </Col>
             ))}

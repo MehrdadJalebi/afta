@@ -1,4 +1,5 @@
 import { YTypography } from "@/components/UI"
+import { X } from "lucide-react"
 
 export interface HeaderPluginProps {
   onClose?: () => void
@@ -16,7 +17,7 @@ export function HeaderPlugin({ onClose, representedDates }: HeaderPluginProps) {
           </YTypography>
         ))}
       </div>
-      <i className={"icon-close"} onClick={onClose} />
+      <X onClick={onClose} />
     </div>
   )
 }

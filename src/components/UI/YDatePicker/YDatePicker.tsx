@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react"
 import { Calendar } from "react-multi-date-picker"
 import "./styles.scss"
+import { CalendarCheck, X } from "lucide-react"
+
 import { Calendars, DatePickerValue, YDatePickerProps } from "./types"
 import { calendarConfig, localeConfig } from "./config"
 import clsx from "clsx"
@@ -65,12 +67,8 @@ export function YDatePicker({
           ...inputProps?.containerProps,
           onClick: !props.disabled ? openHandler : undefined,
         }}
-        startButton={<i className={"icon-calendar p-2"} />}
-        endButton={
-          internalValue && (
-            <i className={"icon-close p-2"} onClick={clearHandler} />
-          )
-        }
+        startButton={<CalendarCheck />}
+        endButton={internalValue && <X onClick={clearHandler} />}
         value={representedDates.join(", ")}
         readOnly
       />

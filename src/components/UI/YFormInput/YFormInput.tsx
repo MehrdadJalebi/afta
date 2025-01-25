@@ -1,4 +1,5 @@
 import { css } from "@emotion/react"
+import { TriangleAlert } from "lucide-react"
 import type { ChangeEvent } from "react"
 import { Form, FormControlProps } from "react-bootstrap"
 import {
@@ -70,7 +71,7 @@ export const YFormInput = <TFieldValues extends FieldValues>({
       />
       {fieldState.invalid && fieldState.isTouched && (
         <Form.Control.Feedback type="invalid">
-          <i className="icon-exclamation-triangle ms-1" />
+          <TriangleAlert className="ms-1" />
           {fieldState.error?.message}
         </Form.Control.Feedback>
       )}

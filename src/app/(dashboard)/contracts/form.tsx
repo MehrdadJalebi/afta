@@ -1,4 +1,5 @@
 import { YBtn, YInput, YTextArea, YTypography } from "@/components/UI"
+import { Plus, Trash } from "lucide-react"
 import { Col, Row } from "react-bootstrap"
 import { z } from "zod"
 import { useForm, useFieldArray } from "react-hook-form"
@@ -7,6 +8,7 @@ import { FormComponentProps } from "@/types/common"
 import { useRouter } from "next/navigation"
 import { validateNationalCode } from "@/utils"
 import { requiredStringSchema } from "@/constants"
+import { themeColors } from "@/styles/bootstrap/variables"
 
 export interface ContractFormProps
   extends FormComponentProps<z.infer<typeof validationSchema>> {
@@ -104,10 +106,11 @@ export function ContractForm({
               <YBtn
                 variant="danger"
                 type="button"
-                icon={"icon-trash"}
-                className="align-self-start mt-1"
+                className="align-self-start"
                 onClick={() => remove(index)}
-              ></YBtn>
+              >
+                <Trash color="white" size={20} />
+              </YBtn>
             </Col>
           </Row>
         ))}
@@ -132,7 +135,7 @@ export function ContractForm({
           بازگشت
         </YBtn>
         <YBtn type="submit" loading={isSubmitting}>
-          {!isUpdate && <i className="icon-add" />}
+          {!isUpdate && <Plus color="white" size={20} className="ms-1" />}
           {isUpdate ? "ویرایش قرارداد" : "ایجاد قرارداد"}
         </YBtn>
       </div>

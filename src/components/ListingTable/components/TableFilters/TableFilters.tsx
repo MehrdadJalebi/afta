@@ -1,5 +1,6 @@
 import { UseTableStateReturnType } from "../../useTableState/types"
 import { YBtn, YTypography } from "@/components/UI"
+import { Filter, X } from "lucide-react"
 import { useEffect, useState } from "react"
 import Offcanvas from "react-bootstrap/Offcanvas"
 import "./styles.scss"
@@ -53,8 +54,8 @@ export function TableFilters({ stateManager }: TableFiltersProps) {
         variant="outline-primary"
         onClick={() => setShowSidebar(true)}
         className="me-4"
-        icon={{ placement: "right", icon: "icon-filter" }}
       >
+        <Filter />
         فیلتر
       </YBtn>
       <Offcanvas
@@ -70,17 +71,14 @@ export function TableFilters({ stateManager }: TableFiltersProps) {
           css={bottomDivider}
         >
           <div>
-            <i className="icon-filter text-primary ms-2 fs-4" />
+            <Filter />
             <YTypography variant="title-bold" tag="span">
               فیلترها
             </YTypography>
           </div>
-          <YBtn
-            icon={"icon-close"}
-            variant={"link-gray"}
-            onClick={onClose}
-            className={"fs-4"}
-          />
+          <YBtn variant={"link-gray"} onClick={onClose} className={"fs-4"}>
+            <X />
+          </YBtn>
         </div>
         <Offcanvas.Body>
           <Form>

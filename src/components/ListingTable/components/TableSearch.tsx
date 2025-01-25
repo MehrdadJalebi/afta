@@ -1,6 +1,7 @@
 import { YBtn, YInput } from "@/components/UI"
 import React, { useEffect, useRef } from "react"
 import { css } from "@emotion/react"
+import { Search } from "lucide-react"
 
 export interface TableSearchProps {
   value: string
@@ -36,9 +37,10 @@ export function TableSearch({
       endButton={
         <YBtn
           css={buttonCss}
-          icon={"icon-search"}
           onClick={() => onChange(inputRef.current?.value || "")}
-        />
+        >
+          <Search />
+        </YBtn>
       }
     />
   )

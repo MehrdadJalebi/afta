@@ -8,6 +8,7 @@ import { useDisplay } from "src/hooks"
 import { YStepperItem } from "./YStepperItem"
 import { type Step, StepState } from "./types"
 import { computeState } from "@/components/UI/YStepper/utils"
+import { CircleAlert } from "lucide-react"
 
 interface StepperHeaderProps {
   value: number
@@ -45,9 +46,7 @@ export function YStepperHeader({
             <div className="ms-6 text-muted">
               مرحله {value + 1} از {steps.length}
             </div>
-            {steps[value].state === StepState.Error && (
-              <i className="icon-exclamation text-danger ms-2" />
-            )}
+            {steps[value].state === StepState.Error && <CircleAlert />}
             <b
               className={clsx({
                 "text-danger": steps[value].state === StepState.Error,

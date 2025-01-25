@@ -9,6 +9,7 @@ import { themeColors } from "src/styles/bootstrap/variables"
 import { YBtn } from "../YBtn"
 import "./styles.scss"
 import { YTypography } from "@/components/UI"
+import { CircleAlert, SortAsc, SortDesc } from "lucide-react"
 
 export interface YTableProps<TData> {
   table: Table<TData>
@@ -37,11 +38,11 @@ export function YTable<TData>({
     const sortStatus = header.column.getIsSorted()
     switch (sortStatus) {
       case "desc":
-        return <i className="icon-sort-down" />
+        return <SortDesc />
       case "asc":
-        return <i className="icon-sort-up" />
+        return <SortAsc />
       default:
-        return <i className="icon-sort" />
+        return <SortDesc />
     }
   }
 
@@ -106,7 +107,7 @@ export function YTable<TData>({
         <div className="h-100 w-100 my-3 d-flex align-items-center justify-content-center">
           <Alert css={errorAlertContainer} variant="danger">
             <span>
-              <i className="icon-exclamation-circle ms-2" />
+              <CircleAlert />
               دریافت اطلاعات با خطا مواجه شد!
             </span>
             <YBtn size="sm" variant="danger" onClick={() => onRefetch?.()}>

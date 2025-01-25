@@ -1,5 +1,6 @@
 import { clsx } from "clsx"
 import Link from "next/link"
+import { LoaderCircle } from "lucide-react"
 import { Children, forwardRef } from "react"
 import Button, { ButtonProps } from "react-bootstrap/Button"
 import Image from "next/image"
@@ -53,7 +54,7 @@ export const YBtn = forwardRef<HTMLButtonElement, YButtonProps>(function YBtn(
       {iconName && iconPlacement === "left" && <i className={iconClasses} />}
       {loading && (
         <div className="y-btn-loading-icon">
-          <span className="icon-loading rotate" />
+          <LoaderCircle />
         </div>
       )}
     </Button>

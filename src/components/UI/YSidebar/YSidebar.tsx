@@ -1,7 +1,8 @@
 import { css } from "@emotion/react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useEffect, useState } from "react"
+import * as Lucide from "lucide-react"
+import { ReactNode, useEffect, useState } from "react"
 import { Accordion, Nav, Offcanvas, type OffcanvasProps } from "react-bootstrap"
 
 import { useDisplay } from "src/hooks"
@@ -66,6 +67,15 @@ export function YSidebar({
     }
   }
 
+  function Icon({ icon }) {
+    const LucideIcon = Lucide[icon]
+    if (!LucideIcon) {
+      return null
+    }
+
+    return <LucideIcon className="ms-2" />
+  }
+
   return (
     <Offcanvas
       placement="end"
@@ -107,7 +117,7 @@ export function YSidebar({
                         hoverEffect,
                       ]}
                     >
-                      <i className={`fs-4 mx-2 ${item.icon}`} />
+                      <Icon icon={item.icon} />
                       <YTypography tag={"span"}>{item.title}</YTypography>
                     </div>
                   </Link>
@@ -119,7 +129,7 @@ export function YSidebar({
                     css={collapsedItem}
                   >
                     <Accordion.Header css={collapsedBtn}>
-                      <i className={`fs-4 mx-2 ${item.icon} text-dark`} />
+                      <Icon icon={item.icon} />
                       <YTypography tag={"span"}>{item.title}</YTypography>
                     </Accordion.Header>
                     <Accordion.Body css={collapsedBody}>

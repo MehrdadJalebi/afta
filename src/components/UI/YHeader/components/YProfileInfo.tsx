@@ -14,6 +14,7 @@ import { redirectToLogin } from "@/api/api-service"
 import { EditUserModal } from "@/app/(dashboard)/users/(action-modals)"
 import { EditPasswordModal } from "@/components/UI/YHeader/components/(action-modals)"
 import { toastSuccess, toastError } from "src/utils"
+import { Edit, Lock, LogOut, Phone, User } from "lucide-react"
 
 type DropdownTogglePropsWithoutAs = Omit<DropdownToggleProps, "as">
 
@@ -138,7 +139,7 @@ export function YProfileInfo() {
 
         <Dropdown.Menu css={dropdownMenuContainer}>
           <div css={userInfo}>
-            <i className="icon-user" />
+            <User />
             {fullName && <span>{fullName} - </span>}
             <span>
               {userProfileData?.data?.role === "Admin"
@@ -148,26 +149,26 @@ export function YProfileInfo() {
           </div>
           <div css={dropdownItem}>
             <div className="d-flex align-items-center">
-              <i className="icon-phone icon-lg" />
+              <Phone />
               <span className="me-4">تلفن</span>
             </div>
             <span>{userProfileData?.data.cellphone || ""}</span>
           </div>
           <div css={dropdownItem} onClick={editAccountHandler}>
             <div className="d-flex align-items-center">
-              <i className="icon-edit icon-lg" />
+              <Edit />
               <span className="me-4">ویرایش اطلاعات کاربری</span>
             </div>
           </div>
           <div css={dropdownItem} onClick={editPasswordHandler}>
             <div className="d-flex align-items-center">
-              <i className="icon-padlock icon-lg" />
+              <Lock />
               <span className="me-4">ویرایش کلمه عبور</span>
             </div>
           </div>
           <div css={dropdownItem} onClick={exitAccountHandler}>
             <div className="d-flex align-items-center">
-              <i className="icon-log-out icon-lg" />
+              <LogOut />
               <span className="me-4">خروج</span>
             </div>
           </div>

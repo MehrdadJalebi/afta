@@ -9,6 +9,7 @@ import { YProfileInfo } from "./components/YProfileInfo"
 import { useDisplay } from "@/hooks"
 import clsx from "clsx"
 import { Spinner } from "react-bootstrap"
+import { Menu } from "lucide-react"
 
 interface Props {
   onToggleSidebar: () => void
@@ -22,9 +23,11 @@ export function YHeader({ onToggleSidebar }: Props) {
           size="lg"
           className="ms-2"
           variant="link-dark"
-          icon="icon-menu-hamburger"
           onClick={onToggleSidebar}
-        />
+        >
+          <Menu />
+        </YBtn>
+
         <Image src={"/afta.png"} alt={"afta logo"} width={50} height={50} />
       </div>
       <div className="d-flex align-items-center">

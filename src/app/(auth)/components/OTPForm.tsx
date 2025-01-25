@@ -1,6 +1,7 @@
 import { css } from "@emotion/react"
 import { useMutation } from "@tanstack/react-query"
 import Cookies from "js-cookie"
+import { ChevronRight } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { FormProvider, useForm, useWatch } from "react-hook-form"
@@ -135,8 +136,12 @@ export function OTPForm(props: Props) {
               className="w-100"
               onClick={onReturnToForm}
               disabled={isRedirecting}
-              icon={{ icon: "icon-chevron-right", placement: "right" }}
             >
+              <ChevronRight
+                color={themeColors.red_custom}
+                size={20}
+                className="ms-1"
+              />
               بازگشت و تغییر شماره همراه
             </YBtn>
             <YBtn

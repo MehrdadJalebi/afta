@@ -1,6 +1,8 @@
 "use client"
 
 import { YBtn, YTypography } from "@/components/UI"
+import { Plus } from "lucide-react"
+
 import { columns, filtersConfig, TableMeta } from "./table-config"
 import {
   getTableQueryParams,
@@ -98,11 +100,8 @@ export default function ContractPage() {
     setActiveModal(undefined)
   }
   const createContractBtn = (
-    <YBtn
-      variant={"primary"}
-      icon={{ placement: "right", icon: "icon-add" }}
-      href={"/contracts/new"}
-    >
+    <YBtn variant={"primary"} href={"/contracts/new"}>
+      <Plus color="white" size={20} className="ms-1" />
       ایجاد قرارداد جدید
     </YBtn>
   )

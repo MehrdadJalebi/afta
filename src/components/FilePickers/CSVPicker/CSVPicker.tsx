@@ -101,9 +101,7 @@ export function CSVPicker(props: CSVPickerProps) {
     accepted: isDragAccept,
   })
 
-  const downloadSample = () => {
-    
-  }
+  const downloadSample = () => {}
 
   return (
     <div {...getRootProps()} className={containerClassName}>
@@ -133,10 +131,6 @@ export function CSVPicker(props: CSVPickerProps) {
         دانلود فایل نمونه
       </YTypography>
       <YBtn
-        icon={{
-          icon: isProcessing ? "icon-loading rotate" : "icon-upload",
-          placement: "right",
-        }}
         onClick={open}
         className={"mb-3"}
         disabled={isProcessing || props.disabled}

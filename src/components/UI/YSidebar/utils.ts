@@ -4,7 +4,7 @@ export const sidebarItems: SidebarItemProps[] = [
   {
     key: "users",
     title: "لیست کاربران",
-    icon: "icon-users",
+    icon: "Users",
     route: "/users",
     disabled: false,
     isAdmin: true,
@@ -12,14 +12,14 @@ export const sidebarItems: SidebarItemProps[] = [
   {
     key: "contracts",
     title: "قراردادها",
-    icon: "icon-report",
+    icon: "Signature",
     route: "/contracts",
     disabled: false,
   },
   {
     key: "logs",
     title: "لاگ‌ها",
-    icon: "icon-list",
+    icon: "Logs",
     route: "/logs",
     disabled: false,
     isAdmin: true,

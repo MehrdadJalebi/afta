@@ -12,6 +12,7 @@ type ColorRadiant =
   | "800"
   | "900"
   | "950"
+  | "custom"
 type ColorVairant =
   | "gray"
   | "green"
