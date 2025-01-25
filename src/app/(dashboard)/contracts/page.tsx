@@ -21,7 +21,7 @@ import { useState } from "react"
 import { toastSuccess, toastError } from "src/utils"
 import { useProfileQuery } from "@/api/useApi"
 
-export default function ContractPage() {
+export default function ContractsPage() {
   const tableStateManager = useTableState(filtersConfig)
   const { data: userProfileData } = useProfileQuery()
   const {

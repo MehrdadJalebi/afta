@@ -10,7 +10,7 @@ import {
 import { useQuery } from "@tanstack/react-query"
 import { queryService } from "@/api"
 
-export default function CampaignPage() {
+export default function LogPage() {
   const tableStateManager = useTableState(filtersConfig)
 
   const {

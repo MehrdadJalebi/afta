@@ -7,6 +7,6 @@ export const metadata: Metadata = {
   description: "افتا",
 }
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return <Register />
 }

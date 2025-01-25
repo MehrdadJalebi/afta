@@ -15,7 +15,7 @@ import { useQuery } from "@tanstack/react-query"
 import { queryService } from "@/api"
 import { useParams } from "next/navigation"
 
-export default function ContractActivityPage() {
+export default function UsersActivityPage() {
   const functionsQuery = useFunctionQuery()
   const customizedFiltersConfig = useMemo(
     () =>
