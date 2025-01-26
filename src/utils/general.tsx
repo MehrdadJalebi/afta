@@ -43,3 +43,8 @@ export function getLevelColor(level: string) {
   }
   return levelColor
 }
+
+export function getIsPublicRoute(route: string) {
+  const publicRoutes = ["/register", "/login", "/login-password"]
+  return publicRoutes.includes(route)
+}

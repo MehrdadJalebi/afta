@@ -61,7 +61,7 @@ export async function clientFetch<M extends HttpMethod, P extends PathsOf<M>>(
 ): Promise<HttpResponseData<M, P>> {
   try {
     const { bearerToken } = useAccountStore.getState()
-    const isPublicUrl = getIsPublicUrl(url)
+    const isPublicUrl = getIsPublicApi(url)
     if (bearerToken) {
       options = {
         ...options,
@@ -102,10 +102,12 @@ export async function getAuthenticationCredentials() {
   return currentBearerToken
 }
 
-export function getIsPublicUrl(url: string) {
-  const publicUrls = ["register", "login"]
-  const splitedUrl = url.split("/")
-  return publicUrls.includes(splitedUrl[splitedUrl.length - 1])
+export function getIsPublicApi(url: string) {
+  const publicUrls = [
+    "/api/afta/v1/Accounts/register",
+    "/api/afta/v1/Accounts/login",
+  ]
+  return publicUrls.includes(url)
 }
 
 export function redirectToLogin() {

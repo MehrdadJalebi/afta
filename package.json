@@ -6,7 +6,7 @@
   "scripts": {
     "devssl": "next dev --experimental-https",
     "dev": "next dev",
-    "build": "next build",
+    "build": "yarn generate-openapi && next build",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "husky install",
