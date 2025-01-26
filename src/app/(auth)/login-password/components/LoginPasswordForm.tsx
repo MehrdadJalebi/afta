@@ -57,9 +57,9 @@ export function LoginPasswordForm() {
   return (
     <div className="w-100">
       <div className="text-primary mb-3">
-        {<h6 className="fw-bold">به افتا خوش آمدید.</h6>}
+        {<h6 className="fw-bold">به امضانو خوش آمدید.</h6>}
         <div className="fs-7 mt-2">
-          برای ورود به افتا، شماره همراه و کلمه عبور خود را وارد کنید.
+          برای ورود به امضانو، شماره همراه و کلمه عبور خود را وارد کنید.
         </div>
       </div>
       <FormProvider {...methods}>

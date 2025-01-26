@@ -4,7 +4,7 @@ import { LoginPassword } from "./components/LoginPassword"
 
 export const metadata: Metadata = {
   title: "ورود",
-  description: "افتا",
+  description: "امضانو",
 }
 
 export default function LoginPasswordPage() {

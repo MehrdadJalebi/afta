@@ -1,12 +1,12 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next"
 
-import { Login } from './components/Login';
+import { Login } from "./components/Login"
 
 export const metadata: Metadata = {
-  title: 'ورود',
-  description: 'افتا',
-};
+  title: "ورود",
+  description: "امضانو",
+}
 
 export default function LoginPage() {
-  return <Login />;
+  return <Login />
 }

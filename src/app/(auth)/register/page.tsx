@@ -4,7 +4,7 @@ import { Register } from "./components/Register"
 
 export const metadata: Metadata = {
   title: "ثبت نام",
-  description: "افتا",
+  description: "امضانو",
 }
 
 export default function RegisterPage() {

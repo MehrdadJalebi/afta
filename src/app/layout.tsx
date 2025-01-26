@@ -10,8 +10,8 @@ import { Suspense } from "react"
 import { CUSTOM_THEME } from "@/constants"
 
 export const metadata: Metadata = {
-  title: "افتا",
-  description: "پنل افتا",
+  title: "امضانو",
+  description: "پنل امضانو",
 }
 
 export default function RootLayout({ children }: LayoutProps) {
