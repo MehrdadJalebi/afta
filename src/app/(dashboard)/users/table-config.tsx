@@ -11,9 +11,12 @@ import { queryService } from "@/api"
 
 export interface TableMetaData {
   onActivationClick: (row: any) => void
+  onSetAdminClick: (row: any) => void
   onActivityClick: (row: any) => void
   isActiving: boolean
   isInActiving: boolean
+  isSettingAdmin: boolean
+  isRemovingAdmin: boolean
 }
 
 const dropdownItems = {
@@ -62,7 +65,7 @@ export const columns = [
     cell: ({ row, table }) => {
       const { onActivationClick, isActiving, isInActiving } = table.options
         .meta as TableMetaData
-      const contractActivationHandler = () => {
+      const userActivationHandler = () => {
         onActivationClick(row.original)
       }
       return (
@@ -71,7 +74,28 @@ export const columns = [
             role="button"
             disabled={isActiving || isInActiving}
             checked={row.original.isActive}
-            onClick={contractActivationHandler}
+            onClick={userActivationHandler}
+          />
+        </Form>
+      )
+    },
+  }),
+  columnHelper.accessor("role", {
+    id: "isAdmin",
+    header: "دسترسی ادمین",
+    cell: ({ row, table }) => {
+      const { onSetAdminClick, isSettingAdmin, isRemovingAdmin } = table.options
+        .meta as TableMetaData
+      const userRoleHandler = () => {
+        onSetAdminClick(row.original)
+      }
+      return (
+        <Form>
+          <Form.Switch
+            role="button"
+            disabled={isRemovingAdmin || isSettingAdmin}
+            checked={row.original.role === "Admin"}
+            onClick={userRoleHandler}
           />
         </Form>
       )

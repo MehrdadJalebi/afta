@@ -36,8 +36,21 @@ export default function CampaignPage() {
     mutateService("afta", "patch", "/api/afta/v1/Accounts/inactive/{id}"),
   )
 
+  const { isPending: isSettingAdmin, mutateAsync: setAdminMutate } =
+    useMutation(
+      mutateService("afta", "post", "/api/afta/v1/Accounts/set-admin/{id}"),
+    )
+  const { isPending: isRemovingAdmin, mutateAsync: removeAdminMutate } =
+    useMutation(
+      mutateService("afta", "post", "/api/afta/v1/Accounts/remove-admin/{id}"),
+    )
+
   const activationHandler = (row: any) => {
     toggleActivateUser(row)
+  }
+
+  const userRoleHandler = (row: any) => {
+    toggleUserRole(row)
   }
 
   const activityHandler = (row: any) => {
@@ -57,6 +70,25 @@ export default function CampaignPage() {
       refetch()
     } catch (e) {
       toastError(`خطا در ${activationTypeMessage} شدن کاربر.`)
+      console.log(e)
+    }
+  }
+
+  const toggleUserRole = async (row: any) => {
+    const adminRoleMessage = row.isActive ? "غیرفعال" : "فعال"
+    const params = { path: { id: row.id.toString() } }
+    try {
+      if (row.role === "Admin") {
+        await removeAdminMutate({ params })
+      } else {
+        await setAdminMutate({ params })
+      }
+      toastSuccess(
+        `دسترسی ادمین کاربر مورد نظر با موفقیت ${adminRoleMessage} شد.`,
+      )
+      refetch()
+    } catch (e) {
+      toastError(`خطا در ${adminRoleMessage} شدن دسترسی ادمین کاربر.`)
       console.log(e)
     }
   }
@@ -81,8 +113,11 @@ export default function CampaignPage() {
           {
             onActivationClick: activationHandler,
             onActivityClick: activityHandler,
+            onSetAdminClick: userRoleHandler,
             isActiving,
             isInActiving,
+            isSettingAdmin,
+            isRemovingAdmin,
           } as TableMetaData
         }
         hasError={isError}
