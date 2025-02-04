@@ -51,9 +51,16 @@ export const columns = [
     header: "متن قرارداد",
     cell: ({ row }) => truncatedElement(row.original.description),
   }),
+  columnHelper.accessor("sign", {
+    id: "userSignStatus",
+    header: "وضعیت امضا",
+    cell: ({ row }) =>
+      //@ts-ignore
+      contractStatusTranslation(row.original.sign.singed ? "Sign" : "Draft"),
+  }),
   columnHelper.accessor("status", {
     id: "status",
-    header: "وضعیت",
+    header: "وضعیت قرارداد",
     cell: ({ row }) =>
       contractStatusTranslation(row.original.status as ContractStatus),
   }),
@@ -61,6 +68,18 @@ export const columns = [
     id: "draftDateTime",
     header: "تاریخ پیش‌نویس",
     cell: ({ row }) => <TableDateTime value={row.original.draftDateTime} />,
+  }),
+  columnHelper.accessor("sign", {
+    id: "userSignDateTime",
+    header: "تاریخ امضای کاربر",
+    cell: ({ row }) => {
+      const value = row.original.sign.singDate
+      return value ? (
+        <TableDateTime value={value} />
+      ) : (
+        <span className="me-5">-</span>
+      )
+    },
   }),
   columnHelper.accessor("signDateTime", {
     id: "signDateTime",

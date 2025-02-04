@@ -18,8 +18,8 @@ export default function CreateContractPage() {
       const payload = {
         title: data.title,
         description: data.description,
-        ...(data.userIds?.length && {
-          userIds: data.userIds.map((user) => user.nationalCode),
+        ...(data.nationalCodes?.length && {
+          nationalCodes: data.nationalCodes.map((user) => user.nationalCode),
         }),
       }
       // @ts-ignore

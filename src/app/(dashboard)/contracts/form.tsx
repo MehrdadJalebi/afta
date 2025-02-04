@@ -18,7 +18,7 @@ export interface ContractFormProps
 const validationSchema = z.object({
   title: requiredStringSchema(),
   description: requiredStringSchema(),
-  userIds: z
+  nationalCodes: z
     .array(
       z.object({
         nationalCode: z.string().optional().refine(validateNationalCode, {
@@ -45,14 +45,14 @@ export function ContractForm({
     defaultValues: {
       title: "",
       description: "",
-      userIds: [],
+      nationalCodes: [],
     },
     mode: "onChange",
   })
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "userIds",
+    name: "nationalCodes",
   })
 
   const router = useRouter()
@@ -97,9 +97,9 @@ export function ContractForm({
               <YInput
                 placeholder={`کد ملی ${index + 1}`}
                 feedbackProps={{
-                  text: errors.userIds?.[index]?.nationalCode?.message,
+                  text: errors.nationalCodes?.[index]?.nationalCode?.message,
                 }}
-                {...register(`userIds.${index}.nationalCode`)}
+                {...register(`nationalCodes.${index}.nationalCode`)}
               />
             </Col>
             <Col xs={2} className="d-flex align-items-center">
