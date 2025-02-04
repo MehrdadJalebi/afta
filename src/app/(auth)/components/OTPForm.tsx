@@ -1,15 +1,17 @@
 import { css } from "@emotion/react"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import Cookies from "js-cookie"
+import { Col, Row, Spinner } from "react-bootstrap"
 import { ChevronRight } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { FormProvider, useForm, useWatch } from "react-hook-form"
 import { useAccountStore } from "@/store"
+import Image from "next/image"
 
 import { YBtn, YInput } from "src/components/UI"
 import { useTimer } from "@/hooks"
-import { mutateService } from "@/api"
+import { mutateService, queryService } from "@/api"
 import { themeColors, themeVariables } from "src/styles/bootstrap/variables"
 import { toastError } from "src/utils"
 
@@ -34,12 +36,16 @@ export function OTPForm(props: Props) {
       mutateService("afta", "post", "/api/afta/v1/Accounts/token-otp"),
     )
 
+  const {
+    data: captcha,
+    isFetched: isCaptchaFetched,
+    refetch,
+  } = useQuery(queryService("afta", "/api/afta/v1/Accounts/captcha"))
+
   function handleSendOTP() {
     mutateAsync({
-      params: {
-        query: {
-          phoneNumber: phoneNumber,
-        },
+      body: {
+        phoneNumber: phoneNumber,
       },
     })
       .then(() => resetTimer())
@@ -49,6 +55,7 @@ export function OTPForm(props: Props) {
   const methods = useForm<any>({
     defaultValues: {
       otp: "",
+      captchaInputText: "",
     },
     mode: "onChange",
   })
@@ -57,6 +64,11 @@ export function OTPForm(props: Props) {
   const otp = useWatch({
     control: methods.control,
     name: "otp",
+  })
+
+  const captchaInputText = useWatch({
+    control: methods.control,
+    name: "captchaInputText",
   })
 
   useEffect(() => {
@@ -74,17 +86,22 @@ export function OTPForm(props: Props) {
     }
   }, [methods])
 
-  useEffect(() => {
-    if (otp?.length === 6 && timer >= 0) {
+  /*useEffect(() => {
+    if (otp?.length === 6 && timer >= 0 ) {
       methods.handleSubmit(onSubmit)()
     }
-  }, [otp, methods])
+  }, [otp, methods]) */
 
   function onSubmit(data: any) {
     fetchAccess({
       body: {
         otp: data.otp,
         cellNumber: phoneNumber,
+        captchaInputText: data.captchaInputText,
+        // @ts-ignore
+        captchaText: captcha?.data?.captchaTextValue,
+        // @ts-ignore
+        captchaToken: captcha?.data?.captchaTokenValue,
       },
     })
       .then((data: any) => {
@@ -99,10 +116,12 @@ export function OTPForm(props: Props) {
           type: "manual",
           message: "رمز وارد شده اشتباه است!",
         })
+        refetch()
       })
   }
 
-  const isFormDisabled = isPending || otp?.length !== 6 || timer < 0
+  const isFormDisabled =
+    isPending || otp?.length !== 6 || timer < 0 || !captchaInputText
 
   return (
     <div className="w-100" data-testid="otp-form">
@@ -128,7 +147,31 @@ export function OTPForm(props: Props) {
               </span>
             )}
           </div>
-
+          <Row className="mb-3 mt-2">
+            <Col xs={10}>
+              <YInput
+                title="کد مقابل را وارد کنید"
+                maxLength={10}
+                {...register("captchaInputText")}
+              />
+            </Col>
+            <Col
+              xs={2}
+              className="d-flex justify-content-center align-items-end ps-5"
+            >
+              {isCaptchaFetched ? (
+                <Image
+                  // @ts-ignore
+                  src={captcha?.data?.captchaImgUrl!}
+                  alt={"captcha"}
+                  width={90}
+                  height={40}
+                />
+              ) : (
+                <Spinner variant={"primary"} className="mb-2" />
+              )}
+            </Col>
+          </Row>
           <div css={controllersContainer}>
             <YBtn
               variant="outline-primary"

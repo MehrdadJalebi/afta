@@ -20,19 +20,12 @@ export function RegisterForm({ onSubmitForm }: Props) {
     mutateService("afta", "post", "/api/afta/v1/Accounts/register"),
   )
 
-  const {
-    data: captcha,
-    isFetched: isCaptchaFetched,
-    refetch,
-  } = useQuery(queryService("afta", "/api/afta/v1/Accounts/captcha"))
-
   const methods = useForm<any>({
     defaultValues: {
       phoneNumber: "",
       nationalCode: "",
       firstName: "",
       lastName: "",
-      captchaInputText: "",
     },
     mode: "onChange",
   })
@@ -44,11 +37,6 @@ export function RegisterForm({ onSubmitForm }: Props) {
         nationalCode: data.nationalCode,
         firstName: data.firstName,
         lastName: data.lastName,
-        captchaInputText: data.captchaInputText,
-        // @ts-ignore
-        captchaText: captcha?.data?.captchaTextValue,
-        // @ts-ignore
-        captchaToken: captcha?.data?.captchaTokenValue,
       },
     })
       .then(() => onSubmitForm(data))
@@ -59,7 +47,6 @@ export function RegisterForm({ onSubmitForm }: Props) {
         } else {
           toastError("خطا در ثبت‌نام")
         }
-        refetch()
       })
   }
 
@@ -101,31 +88,6 @@ export function RegisterForm({ onSubmitForm }: Props) {
                 maxLength={11}
                 {...register("phoneNumber")}
               />
-            </Col>
-          </Row>
-          <Row className="mb-3">
-            <Col xs={10}>
-              <YInput
-                title="کد مقابل را وارد کنید"
-                maxLength={10}
-                {...register("captchaInputText")}
-              />
-            </Col>
-            <Col
-              xs={2}
-              className="d-flex justify-content-center align-items-end ps-5"
-            >
-              {isCaptchaFetched ? (
-                <Image
-                  // @ts-ignore
-                  src={captcha?.data?.captchaImgUrl!}
-                  alt={"captcha"}
-                  width={90}
-                  height={40}
-                />
-              ) : (
-                <Spinner variant={"primary"} className="mb-2" />
-              )}
             </Col>
           </Row>
           <YBtn

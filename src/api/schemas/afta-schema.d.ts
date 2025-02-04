@@ -22,9 +22,9 @@ export interface paths {
       }
       requestBody?: {
         content: {
-          "application/json": components["schemas"]["LoginRequest"]
-          "text/json": components["schemas"]["LoginRequest"]
-          "application/*+json": components["schemas"]["LoginRequest"]
+          "application/json": components["schemas"]["RegisterRequest"]
+          "text/json": components["schemas"]["RegisterRequest"]
+          "application/*+json": components["schemas"]["RegisterRequest"]
         }
       }
       responses: {
@@ -54,14 +54,18 @@ export interface paths {
     put?: never
     post: {
       parameters: {
-        query?: {
-          phoneNumber?: string
-        }
+        query?: never
         header?: never
         path?: never
         cookie?: never
       }
-      requestBody?: never
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["SendOtpRequest"]
+          "text/json": components["schemas"]["SendOtpRequest"]
+          "application/*+json": components["schemas"]["SendOtpRequest"]
+        }
+      }
       responses: {
         /** @description OK */
         200: {
@@ -204,6 +208,76 @@ export interface paths {
       }
     }
     post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/api/afta/v1/Accounts/set-admin/{id}": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          id: number
+        }
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+      }
+    }
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  "/api/afta/v1/Accounts/remove-admin/{id}": {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          id: number
+        }
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+      }
+    }
     delete?: never
     options?: never
     head?: never
@@ -623,6 +697,7 @@ export interface paths {
     get: {
       parameters: {
         query?: {
+          searchValue?: string
           pageIndex?: number
           pageSize?: number
         }
@@ -770,21 +845,21 @@ export interface components {
     ContractRequest: {
       title?: string | null
       description?: string | null
-      userIds?: string[] | null
+      nationalCodes?: string[] | null
     }
     CustomerUpdateRequest: {
       firstName?: string | null
       lastName?: string | null
       nationalCode?: string | null
     }
-    LoginRequest: {
+    RegisterRequest: {
       nationalCode?: string | null
       firstName?: string | null
       lastName?: string | null
       cellphone?: string | null
-      captchaText?: string | null
-      captchaToken?: string | null
-      captchaInputText?: string | null
+    }
+    SendOtpRequest: {
+      phoneNumber?: string | null
     }
     SetPasswordInputRequest: {
       password?: string | null
@@ -793,10 +868,16 @@ export interface components {
     TokenOtpRequest: {
       cellNumber?: string | null
       otp?: string | null
+      captchaText?: string | null
+      captchaToken?: string | null
+      captchaInputText?: string | null
     }
     TokenPasswordRequest: {
       username?: string | null
       password?: string | null
+      captchaText?: string | null
+      captchaToken?: string | null
+      captchaInputText?: string | null
     }
   }
   responses: never

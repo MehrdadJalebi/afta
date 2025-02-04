@@ -22,6 +22,12 @@ export function LoginPasswordForm() {
   const { mutateAsync, isPending } = useMutation(
     mutateService("afta", "post", "/api/afta/v1/Accounts/token-password"),
   )
+  const {
+    data: captcha,
+    isFetched: isCaptchaFetched,
+    refetch,
+  } = useQuery(queryService("afta", "/api/afta/v1/Accounts/captcha"))
+
   const router = useRouter()
 
   const [isRedirecting, setIsRedirecting] = useState(false)
@@ -29,6 +35,7 @@ export function LoginPasswordForm() {
     defaultValues: {
       username: "",
       password: "",
+      captchaInputText: "",
     },
     mode: "onChange",
   })
@@ -40,9 +47,14 @@ export function LoginPasswordForm() {
       body: {
         username: data?.username,
         password: data?.password,
+        captchaInputText: data?.captchaInputText,
+        // @ts-ignore
+        captchaText: captcha?.data?.captchaTextValue,
+        // @ts-ignore
+        captchaToken: captcha?.data?.captchaTokenValue,
       },
     })
-      .then(() => {
+      .then((data: any) => {
         Cookies.set("accessToken", data.access_token)
         setBearerToken(data.access_token)
         setIsRedirecting(true)
@@ -51,6 +63,7 @@ export function LoginPasswordForm() {
       .catch(({ message: { error } }) => {
         const errorMessage = error.message
         toastError("")
+        refetch()
       })
   }
 
@@ -67,9 +80,9 @@ export function LoginPasswordForm() {
           <Row className="mb-3">
             <Col>
               <YNumberInput
-                title="شماره همراه"
-                placeholder="مثال: 09121234567"
-                maxLength={11}
+                title="شماره ملی"
+                placeholder="مثال: 0010145263"
+                maxLength={10}
                 {...register("username")}
               />
             </Col>
@@ -81,6 +94,31 @@ export function LoginPasswordForm() {
                 type="password"
                 {...register("password")}
               />
+            </Col>
+          </Row>
+          <Row className="mb-3">
+            <Col xs={10}>
+              <YInput
+                title="کد مقابل را وارد کنید"
+                maxLength={10}
+                {...register("captchaInputText")}
+              />
+            </Col>
+            <Col
+              xs={2}
+              className="d-flex justify-content-center align-items-end ps-5"
+            >
+              {isCaptchaFetched ? (
+                <Image
+                  // @ts-ignore
+                  src={captcha?.data?.captchaImgUrl!}
+                  alt={"captcha"}
+                  width={90}
+                  height={40}
+                />
+              ) : (
+                <Spinner variant={"primary"} className="mb-2" />
+              )}
             </Col>
           </Row>
           <YBtn

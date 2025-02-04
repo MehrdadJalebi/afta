@@ -34,10 +34,8 @@ export function LoginForm({ onSubmitForm }: Props) {
   const { register } = methods
   function submitForm(data: any) {
     mutateAsync({
-      params: {
-        query: {
-          phoneNumber: data?.phoneNumber,
-        },
+      body: {
+        phoneNumber: data?.phoneNumber,
       },
     })
       .then(() => onSubmitForm(data))

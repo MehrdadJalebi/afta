@@ -15,17 +15,17 @@
                       "application/json":
                         {
                           "schema":
-                            { "$ref": "#/components/schemas/LoginRequest" },
+                            { "$ref": "#/components/schemas/RegisterRequest" },
                         },
                       "text/json":
                         {
                           "schema":
-                            { "$ref": "#/components/schemas/LoginRequest" },
+                            { "$ref": "#/components/schemas/RegisterRequest" },
                         },
                       "application/*+json":
                         {
                           "schema":
-                            { "$ref": "#/components/schemas/LoginRequest" },
+                            { "$ref": "#/components/schemas/RegisterRequest" },
                         },
                     },
                 },
@@ -37,14 +37,27 @@
           "post":
             {
               "tags": ["Accounts"],
-              "parameters":
-                [
-                  {
-                    "name": "phoneNumber",
-                    "in": "query",
-                    "schema": { "type": "string" },
-                  },
-                ],
+              "requestBody":
+                {
+                  "content":
+                    {
+                      "application/json":
+                        {
+                          "schema":
+                            { "$ref": "#/components/schemas/SendOtpRequest" },
+                        },
+                      "text/json":
+                        {
+                          "schema":
+                            { "$ref": "#/components/schemas/SendOtpRequest" },
+                        },
+                      "application/*+json":
+                        {
+                          "schema":
+                            { "$ref": "#/components/schemas/SendOtpRequest" },
+                        },
+                    },
+                },
               "responses": { "200": { "description": "OK" } },
             },
         },
@@ -146,6 +159,40 @@
                         },
                     },
                 },
+              "responses": { "200": { "description": "OK" } },
+            },
+        },
+      "/api/afta/v1/Accounts/set-admin/{id}":
+        {
+          "post":
+            {
+              "tags": ["Accounts"],
+              "parameters":
+                [
+                  {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": { "type": "integer", "format": "int32" },
+                  },
+                ],
+              "responses": { "200": { "description": "OK" } },
+            },
+        },
+      "/api/afta/v1/Accounts/remove-admin/{id}":
+        {
+          "post":
+            {
+              "tags": ["Accounts"],
+              "parameters":
+                [
+                  {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": { "type": "integer", "format": "int32" },
+                  },
+                ],
               "responses": { "200": { "description": "OK" } },
             },
         },
@@ -425,6 +472,11 @@
                     "schema": { "type": "integer", "format": "int32" },
                   },
                   {
+                    "name": "searchValue",
+                    "in": "query",
+                    "schema": { "type": "string" },
+                  },
+                  {
                     "name": "pageIndex",
                     "in": "query",
                     "schema": { "type": "integer", "format": "int32" },
@@ -517,7 +569,7 @@
                 {
                   "title": { "type": "string", "nullable": true },
                   "description": { "type": "string", "nullable": true },
-                  "userIds":
+                  "nationalCodes":
                     {
                       "type": "array",
                       "items": { "type": "string" },
@@ -537,7 +589,7 @@
                 },
               "additionalProperties": false,
             },
-          "LoginRequest":
+          "RegisterRequest":
             {
               "type": "object",
               "properties":
@@ -546,10 +598,14 @@
                   "firstName": { "type": "string", "nullable": true },
                   "lastName": { "type": "string", "nullable": true },
                   "cellphone": { "type": "string", "nullable": true },
-                  "captchaText": { "type": "string", "nullable": true },
-                  "captchaToken": { "type": "string", "nullable": true },
-                  "captchaInputText": { "type": "string", "nullable": true },
                 },
+              "additionalProperties": false,
+            },
+          "SendOtpRequest":
+            {
+              "type": "object",
+              "properties":
+                { "phoneNumber": { "type": "string", "nullable": true } },
               "additionalProperties": false,
             },
           "SetPasswordInputRequest":
@@ -557,18 +613,8 @@
               "type": "object",
               "properties":
                 {
-                  "password":
-                    {
-                      "pattern": "^(?=.*?[A-Z])(?=.*?[0-9]).{8,}$",
-                      "type": "string",
-                      "nullable": true,
-                    },
-                  "reEnterPassword":
-                    {
-                      "pattern": "^(?=.*?[A-Z])(?=.*?[0-9]).{8,}$",
-                      "type": "string",
-                      "nullable": true,
-                    },
+                  "password": { "type": "string", "nullable": true },
+                  "reEnterPassword": { "type": "string", "nullable": true },
                 },
               "additionalProperties": false,
             },
@@ -579,6 +625,9 @@
                 {
                   "cellNumber": { "type": "string", "nullable": true },
                   "otp": { "type": "string", "nullable": true },
+                  "captchaText": { "type": "string", "nullable": true },
+                  "captchaToken": { "type": "string", "nullable": true },
+                  "captchaInputText": { "type": "string", "nullable": true },
                 },
               "additionalProperties": false,
             },
@@ -589,6 +638,9 @@
                 {
                   "username": { "type": "string", "nullable": true },
                   "password": { "type": "string", "nullable": true },
+                  "captchaText": { "type": "string", "nullable": true },
+                  "captchaToken": { "type": "string", "nullable": true },
+                  "captchaInputText": { "type": "string", "nullable": true },
                 },
               "additionalProperties": false,
             },
