@@ -100,13 +100,22 @@ export default function ContractsPage() {
     setSelectedRow(undefined)
     setActiveModal(undefined)
   }
-  const createContractBtn = (
-    <YBtn variant={"primary"} href={"/contracts/new"}>
-      <Plus color="white" size={20} className="ms-1" />
-      ایجاد قرارداد جدید
-    </YBtn>
-  )
+  // @ts-ignore
+  const createContractBtn =
+    userProfileData?.data?.role === "Admin" ? (
+      <YBtn variant={"primary"} href={"/contracts/new"}>
+        <Plus color="white" size={20} className="ms-1" />
+        ایجاد قرارداد جدید
+      </YBtn>
+    ) : (
+      <></>
+    )
 
+  //@ts-ignore
+  const customizedColumns =
+    userProfileData?.data?.role === "Admin"
+      ? columns
+      : columns.filter((col) => col.id !== "actions")
   return (
     <>
       <ListingTable
@@ -115,7 +124,7 @@ export default function ContractsPage() {
             لیست قراردادها
           </YTypography>
         }
-        columns={columns}
+        columns={customizedColumns}
         // @ts-ignore
         count={contracts?.data?.totalCount}
         // @ts-ignore
