@@ -100,8 +100,8 @@ export default function ContractsPage() {
     setSelectedRow(undefined)
     setActiveModal(undefined)
   }
-  // @ts-ignore
   const createContractBtn =
+    // @ts-ignore
     userProfileData?.data?.role === "Admin" ? (
       <YBtn variant={"primary"} href={"/contracts/new"}>
         <Plus color="white" size={20} className="ms-1" />
@@ -111,8 +111,8 @@ export default function ContractsPage() {
       <></>
     )
 
-  //@ts-ignore
   const customizedColumns =
+    //@ts-ignore
     userProfileData?.data?.role === "Admin"
       ? columns
       : columns.filter((col) => col.id !== "actions")

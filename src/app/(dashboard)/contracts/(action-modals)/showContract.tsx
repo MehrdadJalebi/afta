@@ -39,7 +39,7 @@ export function ShowContractModal({
   )
   //@ts-ignore
   const contractParties = parties?.data
-    ?.map((part) => part.customerName)
+    ?.map((part: any) => part.customerName)
     .join(" - ")
     .slice(0, -1)
 
