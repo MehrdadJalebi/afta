@@ -14,6 +14,7 @@ export interface TableMeta {
   onDeleteClick: (row: any) => void
   onShowClick: (row: any) => void
   onActivityClick: (row: any) => void
+  isAdmin: boolean
 }
 const dropdownItems = {
   sign: { title: "امضای قرارداد" },
@@ -97,16 +98,22 @@ export const columns = [
     id: "actions",
     header: "عملیات",
     cell: ({ row, table }) => {
-      const { onDeleteClick, onSignClick, onShowClick, onActivityClick } = table
-        .options.meta as TableMeta
+      const {
+        onDeleteClick,
+        onSignClick,
+        onShowClick,
+        onActivityClick,
+        isAdmin,
+      } = table.options.meta as TableMeta
 
-      let eventKeys: (keyof typeof dropdownItems)[] = (() => {
-        if (row.original?.sign?.singed) {
-          return ["show", "activity"]
-        } else {
-          return ["sign", "show", "delete", "activity"]
-        }
-      })()
+      let eventKeys: (keyof typeof dropdownItems)[] = ["show"]
+
+      if (!isAdmin) {
+        if (!row.original?.sign?.singed) eventKeys.push("sign")
+      } else {
+        if (row.original?.sign?.singed) eventKeys.push("activity")
+        else eventKeys.push("sign", "delete", "activity")
+      }
 
       const selectHandler: SelectCallback = (eventKey) => {
         if (eventKey === "delete") {

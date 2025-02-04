@@ -111,11 +111,6 @@ export default function ContractsPage() {
       <></>
     )
 
-  const customizedColumns =
-    //@ts-ignore
-    userProfileData?.data?.role === "Admin"
-      ? columns
-      : columns.filter((col) => col.id !== "actions")
   return (
     <>
       <ListingTable
@@ -124,7 +119,7 @@ export default function ContractsPage() {
             لیست قراردادها
           </YTypography>
         }
-        columns={customizedColumns}
+        columns={columns}
         // @ts-ignore
         count={contracts?.data?.totalCount}
         // @ts-ignore
@@ -137,6 +132,8 @@ export default function ContractsPage() {
             onDeleteClick: deleteActionHandler,
             onShowClick: showActionHandler,
             onActivityClick: showActivityHandler,
+            //@ts-ignore
+            isAdmin: userProfileData?.data?.role === "Admin",
           } as TableMeta
         }
         isLoading={isLoading}
