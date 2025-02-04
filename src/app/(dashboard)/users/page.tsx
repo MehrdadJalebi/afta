@@ -75,7 +75,7 @@ export default function CampaignPage() {
   }
 
   const toggleUserRole = async (row: any) => {
-    const adminRoleMessage = row.isActive ? "غیرفعال" : "فعال"
+    const adminRoleMessage = row.role === "Admin" ? "غیرفعال" : "فعال"
     const params = { path: { id: row.id.toString() } }
     try {
       if (row.role === "Admin") {
