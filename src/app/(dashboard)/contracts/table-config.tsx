@@ -56,7 +56,7 @@ export const columns = [
     header: "وضعیت امضا",
     cell: ({ row }) =>
       //@ts-ignore
-      contractStatusTranslation(row.original.sign.singed ? "Sign" : "Draft"),
+      contractStatusTranslation(row.original?.sign?.singed ? "Sign" : "Draft"),
   }),
   columnHelper.accessor("status", {
     id: "status",
@@ -73,7 +73,7 @@ export const columns = [
     id: "userSignDateTime",
     header: "تاریخ امضای کاربر",
     cell: ({ row }) => {
-      const value = row.original.sign.singDate
+      const value = row.original?.sign?.singDate
       return value ? (
         <TableDateTime value={value} />
       ) : (
@@ -101,13 +101,10 @@ export const columns = [
         .options.meta as TableMeta
 
       let eventKeys: (keyof typeof dropdownItems)[] = (() => {
-        switch (row.original.status) {
-          case ContractStatus.DRAFT:
-            return ["sign", "delete", "activity"]
-          case ContractStatus.SIGN:
-            return ["show", "activity"]
-          default:
-            return []
+        if (row.original?.sign?.singed) {
+          return ["show", "activity"]
+        } else {
+          return ["sign", "show", "delete", "activity"]
         }
       })()
 

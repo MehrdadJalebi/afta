@@ -1,5 +1,8 @@
+import { queryService } from "@/api"
 import { ConfirmModal } from "@/components/Modals"
 import { YTypography } from "@/components/UI"
+import { useQuery } from "@tanstack/react-query"
+import { useEffect, useState } from "react"
 
 export interface ShowContractModalProps {
   isSubmitting: boolean
@@ -16,6 +19,30 @@ export function ShowContractModal({
   isSubmitting,
   onSubmit,
 }: ShowContractModalProps) {
+  const [shouldFetch, setShouldFetch] = useState(false)
+
+  useEffect(() => {
+    setShouldFetch(isShowing)
+  }, [isShowing])
+
+  const { data: parties, isFetched } = useQuery(
+    queryService(
+      "afta",
+      "/api/afta/v1/Contracts/{id}/parties",
+      {
+        params: {
+          path: { id: parseInt(selectedRow?.id) },
+        },
+      },
+      { enabled: shouldFetch && !!selectedRow?.id },
+    ),
+  )
+  //@ts-ignore
+  const contractParties = parties?.data
+    ?.map((part) => part.customerName)
+    .join(" - ")
+    .slice(0, -1)
+
   return (
     <ConfirmModal
       actionVariant={"danger"}
@@ -37,6 +64,12 @@ export function ShowContractModal({
           </YTypography>
           <YTypography variant="label-regular" className="mb-3">
             {selectedRow?.description}
+          </YTypography>
+          <YTypography variant="label-bold" className="mb-1">
+            طرفین قرارداد:
+          </YTypography>
+          <YTypography variant="label-regular" className="mb-3">
+            {isFetched ? contractParties : "-"}
           </YTypography>
         </>
       }
