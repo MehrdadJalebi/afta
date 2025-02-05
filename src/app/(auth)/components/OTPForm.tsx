@@ -166,6 +166,7 @@ export function OTPForm(props: Props) {
                   alt={"captcha"}
                   width={90}
                   height={40}
+                  unoptimized={true}
                 />
               ) : (
                 <Spinner variant={"primary"} className="mb-2" />

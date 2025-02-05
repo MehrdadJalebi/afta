@@ -115,6 +115,7 @@ export function LoginPasswordForm() {
                   alt={"captcha"}
                   width={90}
                   height={40}
+                  unoptimized={true}
                 />
               ) : (
                 <Spinner variant={"primary"} className="mb-2" />
