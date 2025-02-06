@@ -38,10 +38,9 @@ export function ShowContractModal({
     ),
   )
   //@ts-ignore
-  const contractParties = parties?.data
-    ?.map((part: any) => part.customerName)
-    .join(" - ")
-    .slice(0, -1)
+  const contractParties = parties?.data?.map(
+    (part: any) => `${part.customerName} - ${part.nationalCode}`,
+  )
 
   return (
     <ConfirmModal
@@ -65,12 +64,18 @@ export function ShowContractModal({
           <YTypography variant="label-regular" className="mb-3">
             {selectedRow?.description}
           </YTypography>
-          <YTypography variant="label-bold" className="mb-1">
+          <YTypography variant="label-bold" className="mb-2">
             طرفین قرارداد:
           </YTypography>
-          <YTypography variant="label-regular" className="mb-3">
-            {isFetched ? contractParties : "-"}
-          </YTypography>
+          {isFetched
+            ? contractParties.map((part: string) => {
+                return (
+                  <YTypography variant="label-regular" className="mb-1">
+                    {part}
+                  </YTypography>
+                )
+              })
+            : "-"}
         </>
       }
       showModal={isShowing}

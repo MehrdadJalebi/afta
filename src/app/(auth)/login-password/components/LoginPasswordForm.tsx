@@ -2,21 +2,27 @@ import { useState } from "react"
 import { Col, Row, Spinner } from "react-bootstrap"
 import { FormProvider, useForm } from "react-hook-form"
 import Cookies from "js-cookie"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { mutateService, queryService } from "@/api"
 import { YBtn, YNumberInput, YInput, YTypography } from "@/components/UI"
-import {
-  phoneNumberValidation,
-  validateNationalCode,
-  toastError,
-} from "@/utils"
+import { validateNationalCode, toastError } from "@/utils"
 import { useRouter } from "next/navigation"
 
 import { useAccountStore } from "@/store"
-import { serverUrls } from "@/constants"
+import { requiredStringSchema, serverUrls } from "@/constants"
 import { redirectToLogin } from "@/api/api-service"
 
 import Image from "next/image"
+
+const validationSchema = z.object({
+  username: z.string().refine(validateNationalCode, {
+    message: "کد ملی معتبر نیست",
+  }),
+  password: requiredStringSchema(),
+  captchaInputText: requiredStringSchema(),
+})
 
 export function LoginPasswordForm() {
   const { mutateAsync, isPending } = useMutation(
@@ -31,7 +37,8 @@ export function LoginPasswordForm() {
   const router = useRouter()
 
   const [isRedirecting, setIsRedirecting] = useState(false)
-  const methods = useForm<any>({
+  const methods = useForm<z.infer<typeof validationSchema>>({
+    resolver: zodResolver(validationSchema),
     defaultValues: {
       username: "",
       password: "",
@@ -39,7 +46,11 @@ export function LoginPasswordForm() {
     },
     mode: "onChange",
   })
-  const { register } = methods
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = methods
   const { setBearerToken } = useAccountStore.getState()
 
   function submitForm(data: any) {
@@ -62,7 +73,11 @@ export function LoginPasswordForm() {
       })
       .catch(({ message: { error } }) => {
         const errorMessage = error.message
-        toastError("")
+        if (errorMessage) {
+          toastError(errorMessage)
+        } else {
+          toastError("خطا در ورود")
+        }
         refetch()
       })
   }
@@ -76,37 +91,47 @@ export function LoginPasswordForm() {
         </div>
       </div>
       <FormProvider {...methods}>
-        <form className="mt-6" onSubmit={methods.handleSubmit(submitForm)}>
-          <Row className="mb-3">
+        <form className="mt-6" onSubmit={handleSubmit(submitForm)}>
+          <Row>
             <Col>
               <YNumberInput
                 title="شماره ملی"
                 placeholder="مثال: 0010145263"
                 maxLength={10}
+                feedbackProps={{
+                  text: errors.username?.message,
+                }}
                 {...register("username")}
               />
             </Col>
           </Row>
-          <Row className="mb-3">
+          <Row>
             <Col>
               <YInput
                 title="کلمه عبور"
                 type="password"
+                feedbackProps={{
+                  text: errors.password?.message,
+                }}
                 {...register("password")}
               />
             </Col>
           </Row>
-          <Row className="mb-3">
-            <Col xs={10}>
+          <Row>
+            <Col sm={9} xs={8}>
               <YInput
                 title="کد مقابل را وارد کنید"
                 maxLength={10}
+                feedbackProps={{
+                  text: errors.captchaInputText?.message,
+                }}
                 {...register("captchaInputText")}
               />
             </Col>
             <Col
-              xs={2}
-              className="d-flex justify-content-center align-items-end ps-5"
+              sm={3}
+              xs={4}
+              className="d-flex justify-content-center align-items-center ps-5"
             >
               {isCaptchaFetched ? (
                 <Image
@@ -115,10 +140,11 @@ export function LoginPasswordForm() {
                   alt={"captcha"}
                   width={90}
                   height={40}
+                  className="mt-1"
                   unoptimized={true}
                 />
               ) : (
-                <Spinner variant={"primary"} className="mb-2" />
+                <Spinner variant={"primary"} />
               )}
             </Col>
           </Row>

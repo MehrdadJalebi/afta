@@ -4,34 +4,39 @@ import { FormProvider, useForm } from "react-hook-form"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { mutateService, queryService } from "@/api"
 import { YBtn, YNumberInput, YInput, YTypography } from "@/components/UI"
-import {
-  phoneNumberValidation,
-  validateNationalCode,
-  toastError,
-} from "@/utils"
+import { phoneNumberValidation, toastError } from "@/utils"
 import { useAccountStore } from "@/store"
 import { serverUrls } from "@/constants"
 import { redirectToLogin } from "@/api/api-service"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
 import Image from "next/image"
 
 interface Props {
   onSubmitForm: (data: any) => void
 }
 
+const validationSchema = z.object({
+  phoneNumber: phoneNumberValidation,
+})
+
 export function LoginForm({ onSubmitForm }: Props) {
   const { mutateAsync, isPending } = useMutation(
     mutateService("afta", "post", "/api/afta/v1/Accounts/send-otp"),
   )
 
-  const methods = useForm<any>({
+  const methods = useForm<z.infer<typeof validationSchema>>({
+    resolver: zodResolver(validationSchema),
     defaultValues: {
       phoneNumber: "",
-      nationalCode: "",
-      captchaInputText: "",
     },
-    mode: "onChange",
+    mode: "onTouched",
   })
-  const { register } = methods
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = methods
   function submitForm(data: any) {
     mutateAsync({
       body: {
@@ -41,7 +46,11 @@ export function LoginForm({ onSubmitForm }: Props) {
       .then(() => onSubmitForm(data))
       .catch(({ message: { error } }) => {
         const errorMessage = error.message
-        toastError("خطا در ورود")
+        if (errorMessage) {
+          toastError(errorMessage)
+        } else {
+          toastError("خطا در ورود")
+        }
       })
   }
 
@@ -54,13 +63,16 @@ export function LoginForm({ onSubmitForm }: Props) {
         </div>
       </div>
       <FormProvider {...methods}>
-        <form className="mt-6" onSubmit={methods.handleSubmit(submitForm)}>
-          <Row className="mb-3">
+        <form className="mt-6" onSubmit={handleSubmit(submitForm)}>
+          <Row>
             <Col>
               <YNumberInput
                 title="شماره همراه"
                 placeholder="مثال: 09121234567"
                 maxLength={11}
+                feedbackProps={{
+                  text: errors.phoneNumber?.message,
+                }}
                 {...register("phoneNumber")}
               />
             </Col>

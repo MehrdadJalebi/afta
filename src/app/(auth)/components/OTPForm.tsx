@@ -111,11 +111,17 @@ export function OTPForm(props: Props) {
 
         router.push("/contracts")
       })
-      .catch(() => {
+      .catch(({ message: { error } }) => {
         methods.setError("otp", {
           type: "manual",
           message: "رمز وارد شده اشتباه است!",
         })
+        const errorMessage = error.message
+        if (errorMessage) {
+          toastError(errorMessage)
+        } else {
+          toastError("خطا در ورود")
+        }
         refetch()
       })
   }

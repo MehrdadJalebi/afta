@@ -12,9 +12,9 @@ export function ToastProvider(): ReactNode {
       theme="colored"
       position="bottom-center"
       bodyClassName={clsx(Vazirmatn.className, Vazirmatn.variable)}
-      style={{ width: "min(400px, 100%)" }}
+      style={{ width: "min(400px, 100%)", whiteSpace: "pre-line" }}
       hideProgressBar
-      autoClose={4000}
+      autoClose={20000}
       rtl
     />
   )
