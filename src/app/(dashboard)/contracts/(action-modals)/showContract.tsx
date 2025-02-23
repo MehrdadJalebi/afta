@@ -3,6 +3,7 @@ import { ConfirmModal } from "@/components/Modals"
 import { YTypography } from "@/components/UI"
 import { useQuery } from "@tanstack/react-query"
 import { useEffect, useState } from "react"
+import { Spinner } from "react-bootstrap"
 
 export interface ShowContractModalProps {
   isSubmitting: boolean
@@ -25,7 +26,7 @@ export function ShowContractModal({
     setShouldFetch(isShowing)
   }, [isShowing])
 
-  const { data: parties, isFetched } = useQuery(
+  const { data: parties, isFetching } = useQuery(
     queryService(
       "emzano",
       "/api/emzano/v1/Contracts/{id}/parties",
@@ -67,15 +68,26 @@ export function ShowContractModal({
           <YTypography variant="label-bold" className="mb-2">
             طرفین قرارداد:
           </YTypography>
-          {isFetched
-            ? contractParties.map((part: string) => {
-                return (
-                  <YTypography variant="label-regular" className="mb-1">
-                    {part}
-                  </YTypography>
-                )
-              })
-            : "-"}
+          {isFetching ? (
+            <Spinner variant={"primary"} className="mb-2" size="sm" />
+          ) : //@ts-ignore
+          parties?.data?.length ? (
+            contractParties.map((part: string) => {
+              return (
+                <YTypography
+                  key={part.trim()}
+                  variant="label-regular"
+                  className="mb-1"
+                >
+                  {part}
+                </YTypography>
+              )
+            })
+          ) : (
+            <YTypography variant="label-regular" className="mb-1">
+              -
+            </YTypography>
+          )}
         </>
       }
       showModal={isShowing}
