@@ -10,7 +10,7 @@ import type {
 } from "openapi-typescript-helpers"
 
 import type { EmzanoPaths } from "./schemas"
-import { serverUrls, DEV_BEARER_TOKEN } from "@/constants"
+import { serverUrls } from "@/constants"
 import { useAccountStore } from "@/store"
 const EMZANO_BASE_URL = serverUrls.emzano
 
