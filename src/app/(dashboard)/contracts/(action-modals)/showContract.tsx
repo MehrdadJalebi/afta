@@ -53,7 +53,7 @@ export function ShowContractModal({
       body={
         <>
           <YTypography variant="label-bold" className="mb-1">
-            نام قرارداد:
+            عنوان قرارداد:
           </YTypography>
           <YTypography variant="label-regular" className="mb-3">
             {selectedRow?.title}

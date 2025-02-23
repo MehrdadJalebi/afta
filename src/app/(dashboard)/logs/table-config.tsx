@@ -10,6 +10,10 @@ export const columns = [
     id: "id",
     header: "ID",
   }),
+  columnHelper.accessor("userName", {
+    id: "userName",
+    header: "Username",
+  }),
   columnHelper.accessor("level", {
     id: "level",
     header: "Level",

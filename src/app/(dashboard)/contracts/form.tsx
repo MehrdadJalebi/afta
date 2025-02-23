@@ -66,7 +66,7 @@ export function ContractForm({
       <Row>
         <Col xs={12} md={6}>
           <YInput
-            title={"نام قرارداد"}
+            title={"عنوان قرارداد"}
             feedbackProps={{
               text: errors.title?.message,
             }}

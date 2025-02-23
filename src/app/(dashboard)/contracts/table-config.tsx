@@ -5,7 +5,6 @@ import { ContractStatus, contractStatusTranslation } from "@/enums"
 import { SelectCallback } from "@restart/ui/types"
 import { TableDateTime } from "@/components/Utils"
 import { ActionMenuToggle } from "@/components/UI/YDropdown/custom-toggles"
-import { truncatedElement } from "@/utils"
 
 export interface TableMeta {
   onSignClick: (row: any) => void
@@ -43,12 +42,7 @@ export const columns = [
   }),
   columnHelper.accessor("title", {
     id: "title",
-    header: "نام قرارداد",
-  }),
-  columnHelper.accessor("description", {
-    id: "description",
-    header: "متن قرارداد",
-    cell: ({ row }) => truncatedElement(row.original.description),
+    header: "عنوان قرارداد",
   }),
   columnHelper.accessor("sign", {
     id: "userSignStatus",
@@ -138,6 +132,6 @@ export const columns = [
 ]
 
 export const filtersConfig = getTableStateConfig({
-  searchParams: { placeholder: "نام قرارداد، متن قرارداد" },
+  searchParams: { placeholder: "عنوان قرارداد، متن قرارداد" },
   paginationParams: { defaultPageNumber: 1, defaultPageSize: 10 },
 })
