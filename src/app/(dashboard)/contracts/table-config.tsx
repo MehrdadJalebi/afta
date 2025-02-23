@@ -5,9 +5,7 @@ import { ContractStatus, contractStatusTranslation } from "@/enums"
 import { SelectCallback } from "@restart/ui/types"
 import { TableDateTime } from "@/components/Utils"
 import { ActionMenuToggle } from "@/components/UI/YDropdown/custom-toggles"
-import { OverlayTrigger, Tooltip } from "react-bootstrap"
-import { getFixedNumber, numberwithCommas, truncatedElement } from "@/utils"
-import { queryService } from "@/api"
+import { truncatedElement } from "@/utils"
 
 export interface TableMeta {
   onSignClick: (row: any) => void

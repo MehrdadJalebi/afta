@@ -12,6 +12,7 @@ import type {
 import type { EmzanoPaths } from "./schemas"
 import { serverUrls } from "@/constants"
 import { useAccountStore } from "@/store"
+import { getIsPublicRoute } from "@/utils"
 const EMZANO_BASE_URL = serverUrls.emzano
 
 type PathGen<BasePath extends string, Paths> = {
@@ -105,13 +106,15 @@ export async function getAuthenticationCredentials() {
 export function getIsPublicApi(url: string) {
   const publicUrls = [
     "/api/emzano/v1/Accounts/register",
-    "/api/emzano/v1/Accounts/login",
+    "/api/emzano/v1/Accounts/token-otp",
+    "/api/emzano/v1/Accounts/token-password",
+    "/api/emzano/v1/Accounts/captcha",
   ]
   return publicUrls.includes(url)
 }
 
 export function redirectToLogin() {
-  if (window.location.pathname !== "/login") {
+  if (!getIsPublicRoute(window.location.pathname)) {
     window.location.replace("/login")
   }
 }

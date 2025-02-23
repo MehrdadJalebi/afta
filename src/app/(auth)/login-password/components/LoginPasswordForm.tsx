@@ -36,7 +36,6 @@ export function LoginPasswordForm() {
 
   const router = useRouter()
 
-  const [isRedirecting, setIsRedirecting] = useState(false)
   const methods = useForm<z.infer<typeof validationSchema>>({
     resolver: zodResolver(validationSchema),
     defaultValues: {
@@ -68,7 +67,6 @@ export function LoginPasswordForm() {
       .then((data: any) => {
         Cookies.set("accessToken", data.access_token)
         setBearerToken(data.access_token)
-        setIsRedirecting(true)
         router.push("/contracts")
       })
       .catch(({ message: { error } }) => {

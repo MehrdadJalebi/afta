@@ -1,10 +1,7 @@
 "use client"
 
 import { css } from "@emotion/react"
-import { useState } from "react"
-
-import { OTPForm } from "src/app/(auth)/components/OTPForm"
-import { themeColors, themeVariables } from "src/styles/bootstrap/variables"
+import { themeColors } from "src/styles/bootstrap/variables"
 
 import { LoginPasswordForm } from "./LoginPasswordForm"
 
