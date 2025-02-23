@@ -49,7 +49,7 @@ export default function ContractActivityPage() {
     refetch,
     isFetching,
   } = useQuery(
-    queryService("afta", "/api/afta/v1/Activity/contracts/{id}", {
+    queryService("emzano", "/api/emzano/v1/Activity/contracts/{id}", {
       params: {
         path: { id: parseInt(contractID!) },
         query: getTableQueryParams(tableStateManager),

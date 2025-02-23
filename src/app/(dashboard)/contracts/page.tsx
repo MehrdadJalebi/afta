@@ -31,7 +31,7 @@ export default function ContractsPage() {
     refetch,
     isFetching,
   } = useQuery(
-    queryService("afta", "/api/afta/v1/Contracts/user/{id}", {
+    queryService("emzano", "/api/emzano/v1/Contracts/user/{id}", {
       params: {
         // @ts-ignore
         path: { id: userProfileData?.data?.id },
@@ -44,11 +44,11 @@ export default function ContractsPage() {
   const [selectedRow, setSelectedRow] = useState<any>()
   const [activeModal, setActiveModal] = useState<"delete" | "sign" | "show">()
   const signContractMutation = useMutation(
-    mutateService("afta", "patch", "/api/afta/v1/Contracts/sign/{id}"),
+    mutateService("emzano", "patch", "/api/emzano/v1/Contracts/sign/{id}"),
   )
 
   const deleteContractMutation = useMutation(
-    mutateService("afta", "delete", "/api/afta/v1/Contracts/{id}"),
+    mutateService("emzano", "delete", "/api/emzano/v1/Contracts/{id}"),
   )
 
   const signActionHandler = (row: any) => {

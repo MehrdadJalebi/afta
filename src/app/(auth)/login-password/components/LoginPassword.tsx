@@ -18,7 +18,7 @@ export function LoginPassword() {
   )
 }
 
-const aftaLogo = css`
+const emzanoLogo = css`
   display: flex;
   align-items: center;
 

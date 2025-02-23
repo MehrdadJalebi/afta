@@ -49,14 +49,14 @@ export const DropdownToggleBtn = forwardRef<
 
 export function YProfileInfo() {
   const { mutateAsync } = useMutation(
-    mutateService("afta", "post", "/api/afta/v1/Accounts/sign-out"),
+    mutateService("emzano", "post", "/api/emzano/v1/Accounts/sign-out"),
   )
   const editUserMutation = useMutation(
-    mutateService("afta", "put", "/api/afta/v1/Accounts"),
+    mutateService("emzano", "put", "/api/emzano/v1/Accounts"),
   )
 
   const editPasswordMutation = useMutation(
-    mutateService("afta", "patch", "/api/afta/v1/Accounts/password"),
+    mutateService("emzano", "patch", "/api/emzano/v1/Accounts/password"),
   )
 
   const { setBearerToken, setIsAdmin } = useAccountStore.getState()

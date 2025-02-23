@@ -27,8 +27,8 @@ export function ShowContractModal({
 
   const { data: parties, isFetched } = useQuery(
     queryService(
-      "afta",
-      "/api/afta/v1/Contracts/{id}/parties",
+      "emzano",
+      "/api/emzano/v1/Contracts/{id}/parties",
       {
         params: {
           path: { id: parseInt(selectedRow?.id) },

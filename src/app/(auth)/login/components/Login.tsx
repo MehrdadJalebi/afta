@@ -35,7 +35,7 @@ export function Login() {
   )
 }
 
-const aftaLogo = css`
+const emzanoLogo = css`
   display: flex;
   align-items: center;
 

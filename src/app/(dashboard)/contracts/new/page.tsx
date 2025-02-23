@@ -9,7 +9,7 @@ import { toastSuccess, toastError } from "src/utils"
 
 export default function CreateContractPage() {
   const { isPending, mutateAsync } = useMutation(
-    mutateService("afta", "post", "/api/afta/v1/Contracts"),
+    mutateService("emzano", "post", "/api/emzano/v1/Contracts"),
   )
   const router = useRouter()
 

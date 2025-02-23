@@ -26,13 +26,13 @@ const validationSchema = z.object({
 
 export function LoginPasswordForm() {
   const { mutateAsync, isPending } = useMutation(
-    mutateService("afta", "post", "/api/afta/v1/Accounts/token-password"),
+    mutateService("emzano", "post", "/api/emzano/v1/Accounts/token-password"),
   )
   const {
     data: captcha,
     isFetched: isCaptchaFetched,
     refetch,
-  } = useQuery(queryService("afta", "/api/afta/v1/Accounts/captcha"))
+  } = useQuery(queryService("emzano", "/api/emzano/v1/Accounts/captcha"))
 
   const router = useRouter()
 

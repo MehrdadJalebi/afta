@@ -21,7 +21,7 @@ export default function CampaignPage() {
     refetch,
     isFetching,
   } = useQuery(
-    queryService("afta", "/api/afta/v1/Accounts", {
+    queryService("emzano", "/api/emzano/v1/Accounts", {
       params: {
         query: getTableQueryParams(tableStateManager),
       },
@@ -30,19 +30,23 @@ export default function CampaignPage() {
   const router = useRouter()
 
   const { isPending: isActiving, mutateAsync: activeMutate } = useMutation(
-    mutateService("afta", "patch", "/api/afta/v1/Accounts/active/{id}"),
+    mutateService("emzano", "patch", "/api/emzano/v1/Accounts/active/{id}"),
   )
   const { isPending: isInActiving, mutateAsync: inactiveMutate } = useMutation(
-    mutateService("afta", "patch", "/api/afta/v1/Accounts/inactive/{id}"),
+    mutateService("emzano", "patch", "/api/emzano/v1/Accounts/inactive/{id}"),
   )
 
   const { isPending: isSettingAdmin, mutateAsync: setAdminMutate } =
     useMutation(
-      mutateService("afta", "post", "/api/afta/v1/Accounts/set-admin/{id}"),
+      mutateService("emzano", "post", "/api/emzano/v1/Accounts/set-admin/{id}"),
     )
   const { isPending: isRemovingAdmin, mutateAsync: removeAdminMutate } =
     useMutation(
-      mutateService("afta", "post", "/api/afta/v1/Accounts/remove-admin/{id}"),
+      mutateService(
+        "emzano",
+        "post",
+        "/api/emzano/v1/Accounts/remove-admin/{id}",
+      ),
     )
 
   const activationHandler = (row: any) => {

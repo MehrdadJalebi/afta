@@ -1,1 +1,1 @@
-export { paths as AftaPaths } from "./afta-schema.d.ts"
+export { paths as EmzanoPaths } from "./emzano-schema.d.ts"

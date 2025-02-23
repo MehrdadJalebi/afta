@@ -1,11 +1,11 @@
 const serverUrls = {
   development: {
     base_url: "http://localhost:3000",
-    afta: "http://176.65.243.37:8080",
+    emzano: "http://176.65.243.37:8080",
   },
   production: {
-    base_url: "https://afta-panel.com",
-    afta: "http://176.65.243.37:8080",
+    base_url: "https://emzano-panel.com",
+    emzano: "http://176.65.243.37:8080",
   },
 } as const
 

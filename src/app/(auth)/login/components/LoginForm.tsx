@@ -22,7 +22,7 @@ const validationSchema = z.object({
 
 export function LoginForm({ onSubmitForm }: Props) {
   const { mutateAsync, isPending } = useMutation(
-    mutateService("afta", "post", "/api/afta/v1/Accounts/send-otp"),
+    mutateService("emzano", "post", "/api/emzano/v1/Accounts/send-otp"),
   )
 
   const methods = useForm<z.infer<typeof validationSchema>>({

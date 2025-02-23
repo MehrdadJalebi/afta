@@ -20,7 +20,7 @@ export default function LogPage() {
     refetch,
     isFetching,
   } = useQuery(
-    queryService("afta", "/api/afta/v1/SystemLogs", {
+    queryService("emzano", "/api/emzano/v1/SystemLogs", {
       params: { query: getTableQueryParams(tableStateManager) },
     }),
   )

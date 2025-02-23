@@ -4,7 +4,7 @@ import { queryService } from "@/api"
 
 export function useFunctionQuery() {
   const query = useQuery(
-    queryService("afta", "/api/afta/v1/Activity/functions"),
+    queryService("emzano", "/api/emzano/v1/Activity/functions"),
   )
   return query
 }

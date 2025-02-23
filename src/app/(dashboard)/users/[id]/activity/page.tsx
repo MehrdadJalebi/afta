@@ -49,7 +49,7 @@ export default function UsersActivityPage() {
     refetch,
     isFetching,
   } = useQuery(
-    queryService("afta", "/api/afta/v1/Activity/users/{id}", {
+    queryService("emzano", "/api/emzano/v1/Activity/users/{id}", {
       params: {
         path: { id: parseInt(userID!) },
         query: getTableQueryParams(tableStateManager),

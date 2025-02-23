@@ -1,6 +1,6 @@
-import type { components as AftaComponents } from "@/api/schemas/afta-schema"
+import type { components as EmzanoComponents } from "@/api/schemas/emzano-schema"
 
 declare global {
-  export type AftaSchema<T extends keyof AftaComponents["schemas"]> =
-  AftaComponents["schemas"][T]
+  export type EmzanoSchema<T extends keyof EmzanoComponents["schemas"]> =
+    EmzanoComponents["schemas"][T]
 }

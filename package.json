@@ -1,5 +1,5 @@
 {
-  "name": "afta-panel",
+  "name": "emzano-panel",
   "version": "0.1.0",
   "private": true,
   "author": "mehrdad jalebi",
@@ -10,7 +10,7 @@
     "start": "next start",
     "lint": "next lint",
     "postinstall": "husky install",
-    "generate-openapi": "openapi-typescript src/api/schemas/afta-schema.yml -o src/api/schemas/afta-schema.d.ts"
+    "generate-openapi": "openapi-typescript src/api/schemas/emzano-schema.yml -o src/api/schemas/emzano-schema.d.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",

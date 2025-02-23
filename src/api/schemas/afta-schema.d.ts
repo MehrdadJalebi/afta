@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-  "/api/afta/v1/Accounts/register": {
+  "/apemzanozano/v1/Accounts/register": {
     parameters: {
       query?: never
       header?: never
@@ -43,7 +43,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/api/afta/v1/Accounts/send-otp": {
+  "/apemzanozano/v1/Accounts/send-otp": {
     parameters: {
       query?: never
       header?: never
@@ -82,7 +82,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/api/afta/v1/Accounts/password": {
+  "/apemzanozano/v1/Accounts/password": {
     parameters: {
       query?: never
       header?: never
@@ -121,7 +121,7 @@ export interface paths {
     }
     trace?: never
   }
-  "/api/afta/v1/Accounts/info": {
+  "/apemzanozano/v1/Accounts/info": {
     parameters: {
       query?: never
       header?: never
@@ -154,7 +154,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/api/afta/v1/Accounts": {
+  "/apemzanozano/v1/Accounts": {
     parameters: {
       query?: never
       header?: never
@@ -214,7 +214,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/api/afta/v1/Accounts/set-admin/{id}": {
+  "/apemzanozano/v1/Accounts/set-admin/{id}": {
     parameters: {
       query?: never
       header?: never
@@ -249,7 +249,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/api/afta/v1/Accounts/remove-admin/{id}": {
+  "/apemzanozano/v1/Accounts/remove-admin/{id}": {
     parameters: {
       query?: never
       header?: never
@@ -284,7 +284,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/api/afta/v1/Accounts/token-otp": {
+  "/apemzanozano/v1/Accounts/token-otp": {
     parameters: {
       query?: never
       header?: never
@@ -323,7 +323,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/api/afta/v1/Accounts/token-password": {
+  "/apemzanozano/v1/Accounts/token-password": {
     parameters: {
       query?: never
       header?: never
@@ -362,7 +362,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/api/afta/v1/Accounts/active/{id}": {
+  "/apemzanozano/v1/Accounts/active/{id}": {
     parameters: {
       query?: never
       header?: never
@@ -397,7 +397,7 @@ export interface paths {
     }
     trace?: never
   }
-  "/api/afta/v1/Accounts/inactive/{id}": {
+  "/apemzanozano/v1/Accounts/inactive/{id}": {
     parameters: {
       query?: never
       header?: never
@@ -432,7 +432,7 @@ export interface paths {
     }
     trace?: never
   }
-  "/api/afta/v1/Accounts/sign-out": {
+  "/apemzanozano/v1/Accounts/sign-out": {
     parameters: {
       query?: never
       header?: never
@@ -465,7 +465,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/api/afta/v1/Accounts/captcha": {
+  "/apemzanozano/v1/Accounts/captcha": {
     parameters: {
       query?: never
       header?: never
@@ -502,7 +502,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/api/afta/v1/Activity/functions": {
+  "/apemzanozano/v1/Activity/functions": {
     parameters: {
       query?: never
       header?: never
@@ -535,7 +535,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/api/afta/v1/Activity/contracts/{id}": {
+  "/apemzanozano/v1/Activity/contracts/{id}": {
     parameters: {
       query?: never
       header?: never
@@ -574,7 +574,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/api/afta/v1/Activity/users/{id}": {
+  "/apemzanozano/v1/Activity/users/{id}": {
     parameters: {
       query?: never
       header?: never
@@ -613,7 +613,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/api/afta/v1/Contracts": {
+  "/apemzanozano/v1/Contracts": {
     parameters: {
       query?: never
       header?: never
@@ -652,7 +652,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/api/afta/v1/Contracts/{id}/parties": {
+  "/apemzanozano/v1/Contracts/{id}/parties": {
     parameters: {
       query?: never
       header?: never
@@ -687,7 +687,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/api/afta/v1/Contracts/user/{id}": {
+  "/apemzanozano/v1/Contracts/user/{id}": {
     parameters: {
       query?: never
       header?: never
@@ -726,7 +726,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/api/afta/v1/Contracts/{id}": {
+  "/apemzanozano/v1/Contracts/{id}": {
     parameters: {
       query?: never
       header?: never
@@ -761,7 +761,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  "/api/afta/v1/Contracts/sign/{id}": {
+  "/apemzanozano/v1/Contracts/sign/{id}": {
     parameters: {
       query?: never
       header?: never
@@ -796,7 +796,7 @@ export interface paths {
     }
     trace?: never
   }
-  "/api/afta/v1/SystemLogs": {
+  "/apemzanozano/v1/SystemLogs": {
     parameters: {
       query?: never
       header?: never

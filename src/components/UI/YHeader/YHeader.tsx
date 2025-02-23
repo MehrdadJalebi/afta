@@ -28,7 +28,7 @@ export function YHeader({ onToggleSidebar }: Props) {
           <Menu />
         </YBtn>
 
-        <Image src={"/afta.png"} alt={"afta logo"} width={50} height={50} />
+        <Image src={"/emzano.png"} alt={"emzano logo"} width={50} height={50} />
       </div>
       <div className="d-flex align-items-center">
         <YProfileInfo />

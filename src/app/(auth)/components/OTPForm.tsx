@@ -29,18 +29,18 @@ export function OTPForm(props: Props) {
   const { setBearerToken } = useAccountStore.getState()
 
   const { mutateAsync, isPending } = useMutation(
-    mutateService("afta", "post", "/api/afta/v1/Accounts/send-otp"),
+    mutateService("emzano", "post", "/api/emzano/v1/Accounts/send-otp"),
   )
   const { mutateAsync: fetchAccess, isPending: isFetchAccessPending } =
     useMutation(
-      mutateService("afta", "post", "/api/afta/v1/Accounts/token-otp"),
+      mutateService("emzano", "post", "/api/emzano/v1/Accounts/token-otp"),
     )
 
   const {
     data: captcha,
     isFetched: isCaptchaFetched,
     refetch,
-  } = useQuery(queryService("afta", "/api/afta/v1/Accounts/captcha"))
+  } = useQuery(queryService("emzano", "/api/emzano/v1/Accounts/captcha"))
 
   function handleSendOTP() {
     mutateAsync({

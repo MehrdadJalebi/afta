@@ -9,18 +9,18 @@ import type {
   PathsWithMethod as PathsWith,
 } from "openapi-typescript-helpers"
 
-import type { AftaPaths } from "./schemas"
+import type { EmzanoPaths } from "./schemas"
 import { serverUrls, DEV_BEARER_TOKEN } from "@/constants"
 import { useAccountStore } from "@/store"
-const AFTA_BASE_URL = serverUrls.afta
+const EMZANO_BASE_URL = serverUrls.emzano
 
 type PathGen<BasePath extends string, Paths> = {
   [k in keyof Paths & string as `${BasePath}${k}`]: Paths[k]
 }
-type Paths = PathGen<"", AftaPaths>
+type Paths = PathGen<"", EmzanoPaths>
 
 const clients = {
-  afta: createClient<Paths>({ baseUrl: AFTA_BASE_URL }),
+  emzano: createClient<Paths>({ baseUrl: EMZANO_BASE_URL }),
 } as const
 export type ServiceType = keyof typeof clients
 
@@ -104,8 +104,8 @@ export async function getAuthenticationCredentials() {
 
 export function getIsPublicApi(url: string) {
   const publicUrls = [
-    "/api/afta/v1/Accounts/register",
-    "/api/afta/v1/Accounts/login",
+    "/api/emzano/v1/Accounts/register",
+    "/api/emzano/v1/Accounts/login",
   ]
   return publicUrls.includes(url)
 }
