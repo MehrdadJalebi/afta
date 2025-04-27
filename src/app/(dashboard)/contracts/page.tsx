@@ -85,14 +85,25 @@ export default function ContractsPage() {
   }
   const handleSign = async () => {
     try {
-      await signContractMutation.mutateAsync({
-        params: { path: { id: selectedRow!.id.toString() } },
-      })
-      toastSuccess("قرارداد انتخابی با موفقیت امضا گردید.")
-      refetch()
-      hideModal()
+      await signContractMutation
+        .mutateAsync({
+          params: { path: { id: selectedRow!.id.toString() } },
+        })
+        .then(() => {
+          toastSuccess("قرارداد انتخابی با موفقیت امضا گردید.")
+          refetch()
+          hideModal()
+        })
+        .catch(({ message: { error } }) => {
+          const errorMessage = error.message
+          if (errorMessage) {
+            toastError(errorMessage)
+          } else {
+            toastError("خطا در امضای قرارداد.")
+          }
+        })
     } catch (e) {
-      toastError("خطا در امضا قرارداد.")
+      toastError("خطا در امضای قرارداد.")
       console.error(e)
     }
   }

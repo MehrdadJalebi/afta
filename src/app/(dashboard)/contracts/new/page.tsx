@@ -24,8 +24,18 @@ export default function CreateContractPage() {
       }
       // @ts-ignore
       await mutateAsync({ body: payload })
-      toastSuccess("قرارداد مورد نظر با موفقیت ایجاد شد.")
-      router.push("/contracts")
+        .then(() => {
+          toastSuccess("قرارداد مورد نظر با موفقیت ایجاد شد.")
+          router.push("/contracts")
+        })
+        .catch(({ message: { error } }) => {
+          const errorMessage = error.message
+          if (errorMessage) {
+            toastError(errorMessage)
+          } else {
+            toastError("خطا در ایجاد قرارداد.")
+          }
+        })
     } catch (e) {
       toastError("خطا در ایجاد قرارداد.")
       console.log(e)
