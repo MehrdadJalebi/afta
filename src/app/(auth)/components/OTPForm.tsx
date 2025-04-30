@@ -154,7 +154,7 @@ export function OTPForm(props: Props) {
             )}
           </div>
           <Row className="mb-3 mt-2">
-            <Col xs={10}>
+            <Col xs={9}>
               <YInput
                 title="کد مقابل را وارد کنید"
                 maxLength={10}
@@ -162,7 +162,7 @@ export function OTPForm(props: Props) {
               />
             </Col>
             <Col
-              xs={2}
+              xs={3}
               className="d-flex justify-content-center align-items-end ps-5"
             >
               {isCaptchaFetched ? (
@@ -170,8 +170,8 @@ export function OTPForm(props: Props) {
                   // @ts-ignore
                   src={captcha?.data?.captchaImgUrl!}
                   alt={"captcha"}
-                  width={90}
-                  height={40}
+                  width={85}
+                  height={41}
                   unoptimized={true}
                 />
               ) : (
